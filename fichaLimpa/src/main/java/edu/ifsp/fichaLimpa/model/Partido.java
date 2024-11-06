@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -15,22 +16,18 @@ import lombok.Data;
 
 public class Partido {
 
-@Id
-long id;
+	@Id
+	private long id;
 
-@NotBlank(message = "Obrigatório informar sigla do partido.")
-String sigla;
+	@NotBlank(message = "Obrigatório informar sigla do partido.")
+	private String sigla;
 
-@NotBlank(message = "Obrigatório informar nome do partido.")
-String nome;
+	@NotBlank(message = "Obrigatório informar nome do partido.")
+	private String nome;
 
-@NotBlank(message = "Obrigatório informar número do partido.")
-String numero;
+	@NotBlank(message = "Obrigatório informar número do partido.")
+	private String numero;
 
-
-@ManyToOne
-@JoinColumn(name = "id_partido")
-List politicos = new ArrayList();
-//ettetetete
-
+	@OneToMany(mappedBy = "partido")
+	private List<Politico> politico = new ArrayList<>();
 }

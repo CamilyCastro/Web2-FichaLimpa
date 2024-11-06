@@ -1,9 +1,10 @@
 package edu.ifsp.fichaLimpa.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -13,32 +14,33 @@ import lombok.Data;
 @Entity
 @Table(name = "politico")
 public class Politico {
-	
+
 	@Id
 	private long id;
-	
-	@NotBlank
+
+	@NotBlank(message = "Obrigatório informar o nome.")
 	private String nome;
-	
-	@NotBlank
+
+	@NotBlank(message = "Obrigatório informar o cargo.")
 	private String cargo;
-	
-	@NotBlank
+
+	@NotBlank(message = "Obrigatório informar o nome eleitoral.")
 	private String nomeEleitoral;
-	
-	@NotBlank
+
+	@NotBlank(message = "Obrigatório informar o numero eleitoral.")
 	private int numeroEleitoral;
-	@NotBlank
-	
+
+	@NotBlank(message = "Obrigatório informar o registro.")
 	private int registroCandidatura;
-	@NotBlank
-	
+
+	@NotBlank(message = "Obrigatório informar a data de nascimento.")
 	private String dataNasc;
-	@NotBlank
 	
+	@NotBlank(message = "Obrigatório informar o contato.")
 	private int contato;
-	
-	@OneToMany
-	private Partido id_partido;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_partido")
+	private Partido partido;
+
 }
