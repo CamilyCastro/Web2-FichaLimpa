@@ -8,6 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +37,7 @@ public class Politico {
 	private int registroCandidatura;
 
 	@NotBlank(message = "Obrigatório informar a data de nascimento.")
+	@Pattern(regexp = "\\d{2}/(0[1-9]|1[0-2])/\\d{4}", message = "Data de nascimento deve estar no formato DD/MM/AAAA")
 	private String dataNasc;
 	
 	@NotBlank(message = "Obrigatório informar o contato.")
