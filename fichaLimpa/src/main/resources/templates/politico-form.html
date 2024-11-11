@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro Politico</title>
+</head>
+<body>
+    <h1>Cadastro de Politicos</h1>
+    <form method="post" th:action="@{/politico}" th:object="${politico}">
+
+        <label for="nome">Nome</label><br>
+        <input type="text" th:field="*{nome}">
+        <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+        <br><br>
+
+        <label for="cargo">Cargo</label><br>
+        <input type="text" th:field="*{cargo}">
+        <span class="erro" th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}"></span>
+        <br><br>
+
+        <label for="nomeEleitoral">Nome Eleitoral</label><br>
+        <input type="text" th:field="*{nomeEleitoral}">
+        <span class="erro" th:if="${#fields.hasErrors('nomeEleitoral')}" th:errors="*{nomeEleitoral}"></span>
+        <br><br>
+
+        <label for="numeroEleitoral">Numero Eleitoral</label><br>
+        <input type="text" th:field="*{numeroEleitoral}">
+        <span class="erro" th:if="${#fields.hasErrors('numeroEleitoral')}" th:errors="*{numeroEleitoral}"></span>
+        <br><br>
+
+        <label for="registroCandidatura">Registro Candidatura</label><br>
+        <input type="text" th:field="*{registroCandidatura}">
+        <span class="erro" th:if="${#fields.hasErrors('registroCandidatura')}" th:errors="*{registroCandidatura}"></span>
+        <br><br>
+
+        <label for="registroCandidatura">Registro Candidatura</label><br>
+        <input type="text" th:field="*{registroCandidatura}">
+        <span class="erro" th:if="${#fields.hasErrors('registroCandidatura')}" th:errors="*{registroCandidatura}"></span>
+        <br><br>
+
+        <label for="dataNasc">Data de Nascimento</label><br>
+        <input type="text" th:field="*{dataNasc}">
+        <span class="erro" th:if="${#fields.hasErrors('dataNasc')}" th:errors="*{dataNasc}"></span>
+        <br><br>
+
+        <label for="contato">Contato</label><br>
+        <input type="text" th:field="*{contato}">
+        <span class="erro" th:if="${#fields.hasErrors('contato')}" th:errors="*{contato}"></span>
+        <br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</body>
+</html>
