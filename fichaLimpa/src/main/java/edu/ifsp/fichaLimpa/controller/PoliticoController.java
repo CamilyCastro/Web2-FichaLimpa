@@ -1,14 +1,12 @@
 package edu.ifsp.fichaLimpa.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -25,9 +23,20 @@ public class PoliticoController {
 		return new Politico();
 	}
 	
-	@GetMapping("/cadastroPolitico")
-	public String politicoForm() {
+	@GetMapping
+	public String viewPolitico() {
 		return "politico-form";
 	}
-	
+
+	@PostMapping
+	public String executarCadastroPolitico(@Valid Politico politico, Errors errors){
+		if (errors.hasErrors()){
+			return "politico-form";
+		}
+
+		politicoRepo.save(politico);
+
+		return "redirect/(nome do end point de partidoController)";
+	}
+
 }

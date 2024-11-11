@@ -9,10 +9,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "politico")
+@RequiredArgsConstructor
 public class Politico {
 
 	@Id
