@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import edu.ifsp.fichaLimpa.model.Partido;
 
-public interface PartidoRespositorio extends CrudRepository<Partido, Long>{
+public interface PartidoRepositorio extends CrudRepository<Partido, Long>{
 
 }

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.ifsp.fichaLimpa.model.Partido;
-import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
+import edu.ifsp.fichaLimpa.repositorios.PartidoRepositorio;
 
 @Controller
 @RequestMapping("/partido")
 public class PartidoController {
 	
 	@Autowired
-	private PartidoRespositorio partidoRepo;
+	private PartidoRepositorio partidoRepo;
 	
 	@ModelAttribute(name = "partido")
 	public Partido partido() {
