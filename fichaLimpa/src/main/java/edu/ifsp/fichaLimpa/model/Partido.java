@@ -30,5 +30,9 @@ public class Partido {
 	private String numero;
 
 	@OneToMany(mappedBy = "partido")
-	private List<Politico> politico = new ArrayList<>();
+	private List<Politico> politicos = new ArrayList<>();
+
+	public void adicionarPolitico(Politico politico){
+		politicos.add(politico);
+	}
 }
