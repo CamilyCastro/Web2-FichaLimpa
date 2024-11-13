@@ -35,16 +35,17 @@ public class PoliticoController {
 	}
 
 	@PostMapping
-	public String executarCadastroPolitico(@Valid Politico politico, @RequestParam("idPartido") Long idPartido ,
+	public String executarCadastroPolitico(@Valid Politico politico, @RequestParam("nomePartido") String nomePartido ,
 			Errors errors){
 		
 		if (errors.hasErrors()){
 			return "politico-form";
 		}
-		
-		Partido partido = partidoRepo.findById(idPartido).orElse(null);
-		
-		if(partido == null) {
+
+		Partido partido = partidoRepo.findByNome(nomePartido);
+
+		if(partido == null){
+			errors.rejectValue("nomePartido", "error.politico", "Partido nao encontrado");
 			return "politico-form";
 		}
 

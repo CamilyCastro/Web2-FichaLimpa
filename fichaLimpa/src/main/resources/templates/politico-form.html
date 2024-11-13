@@ -49,6 +49,16 @@
         <span class="erro" th:if="${#fields.hasErrors('contato')}" th:errors="*{contato}"></span>
         <br><br>
 
+        <label for="nomePartido">Nome do Partido</label><br>
+        <input type="text" id="nomePartido" name="nomePartido">
+        <span class="erro" th:if="${#fields.hasErrors('nomePartido')}" th:errors="nomePartido"></span>
+        <br><br>
+
+<!--        <label for="nomePartido">Nome do Partido</label><br>-->
+<!--        <input type="text" th:field="*{nomePartido}">-->
+<!--        <span class="erro" th:if="${#fields.hasErrors('nomePartido')}" th:errors="*{nomePartido}"></span>-->
+<!--        <br><br>-->
+
         <button type="submit">Cadastrar</button>
     </form>
 </body>
