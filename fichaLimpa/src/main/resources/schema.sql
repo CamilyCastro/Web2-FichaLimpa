@@ -9,13 +9,13 @@ create table partido(
 drop table if exists politico;
 create table politico(
 	id identity primary key,
-    documento varchar(15) not null,
+    --documento varchar(15) not null,
     nome varchar(60) not null,
     cargo varchar(20) not null,
     nome_eleitoral varchar(50) not null,
     id_partido bigint not null,
-    numero_eleitoral int not null,
-    registro_candidatura int not null,
+    numero_eleitoral varchar(50) not null,
+    registro_candidatura varchar(50) not null,
     data_nascimento timestamp not null,
     contato varchar(50) not null
 );
