@@ -34,14 +34,9 @@
         <span class="erro" th:if="${#fields.hasErrors('registroCandidatura')}" th:errors="*{registroCandidatura}"></span>
         <br><br>
 
-        <label for="registroCandidatura">Registro Candidatura</label><br>
-        <input type="text" th:field="*{registroCandidatura}">
-        <span class="erro" th:if="${#fields.hasErrors('registroCandidatura')}" th:errors="*{registroCandidatura}"></span>
-        <br><br>
-
-        <label for="dataNasc">Data de Nascimento</label><br>
-        <input type="text" th:field="*{dataNasc}">
-        <span class="erro" th:if="${#fields.hasErrors('dataNasc')}" th:errors="*{dataNasc}"></span>
+        <label for="dataNascimento">Data de Nascimento</label><br>
+        <input type="date" th:field="*{dataNascimento}">
+        <span class="erro" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
         <br><br>
 
         <label for="contato">Contato</label><br>
@@ -50,9 +45,10 @@
         <br><br>
 
         <label for="nomePartido">Nome do Partido</label><br>
-        <input type="text" id="nomePartido" name="nomePartido" th:field="*{partido.nome}">
-        <span class="erro" th:if="${#fields.hasErrors('partido.nome')}" th:errors="*{partido.nome}"></span>
-        <br><br>
+        <select id="partido" th:field="*{partido}">
+	    <option value="">Selecione o partido</option>
+	    <option th:each="partido : ${partidos}" th:value="${partido.id}" th:text="${partido.nome}" selected="selected"></option>
+	    </select>
 
 <!--        <label for="nomePartido">Nome do Partido</label><br>-->
 <!--        <input type="text" th:field="*{nomePartido}">-->
