@@ -50,8 +50,8 @@
         <br><br>
 
         <label for="nomePartido">Nome do Partido</label><br>
-        <input type="text" id="nomePartido" name="nomePartido">
-        <span class="erro" th:if="${#fields.hasErrors('nomePartido')}" th:errors="nomePartido"></span>
+        <input type="text" id="nomePartido" name="nomePartido" th:field="*{partido.nome}">
+        <span class="erro" th:if="${#fields.hasErrors('partido.nome')}" th:errors="*{partido.nome}"></span>
         <br><br>
 
 <!--        <label for="nomePartido">Nome do Partido</label><br>-->
