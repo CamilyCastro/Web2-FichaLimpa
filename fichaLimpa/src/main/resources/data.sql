@@ -19,11 +19,11 @@ insert into partido (sigla, nome, numero) values ('PRTB', 'PARTIDO RENOVADOR TRA
 insert into partido (sigla, nome, numero) values ('DC', 'DEMOCRACIA CRISTÃ', '27');
 insert into partido (sigla, nome, numero) values ('PCO', 'PARTIDO DA CAUSA OPERÁRIA', '29');
 insert into partido (sigla, nome, numero) values ('PODE', 'PODEMOS', '20');
-insert into partido (sigla, nome, numero) values ('REPUBLICANOS', 'REPUBLICANOS', '10');
+insert into partido (sigla, nome, numero) values ('REP', 'REPUBLICANOS', '10');
 insert into partido (sigla, nome, numero) values ('PSOL', 'PARTIDO SOCIALISMO E LIBERDADE', '50');
 insert into partido (sigla, nome, numero) values ('PL', 'PARTIDO LIBERAL', '22');
 insert into partido (sigla, nome, numero) values ('PSD', 'PARTIDO SOCIAL DEMOCRÁTICO', '55');
-insert into partido (sigla, nome, numero) values ('SOLIDARIEDADE', 'SOLIDARIEDADE', '77');
+insert into partido (sigla, nome, numero) values ('SOLI', 'SOLIDARIEDADE', '77');
 insert into partido (sigla, nome, numero) values ('NOVO', 'PARTIDO NOVO', '30');
 insert into partido (sigla, nome, numero) values ('REDE', 'REDE SUSTENTABILIDADE', '18');
 insert into partido (sigla, nome, numero) values ('PMB', 'PARTIDO DA MULHER BRASILEIRA', '35');

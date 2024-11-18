@@ -55,7 +55,7 @@ public class PropostaController {
 	}
 
 	@PostMapping
-	public String salavarProposta(@Valid Proposta proposta, @ModelAttribute Politico politico, Errors errors) {
+	public String salvarProposta(@Valid Proposta proposta, @ModelAttribute Politico politico, Errors errors) {
 		
 		if(errors.hasErrors()) {
 			return "proposta-form";
