@@ -29,7 +29,7 @@ public class Categoria {
 	@OneToMany(mappedBy = "categoria")
 	private List<Proposta> listaPropostas = new ArrayList<>();
 	
-	private void adicionarProposta(Proposta proposta) {
+	public void adicionarProposta(Proposta proposta) {
 		listaPropostas.add(proposta);
 	}
 }
