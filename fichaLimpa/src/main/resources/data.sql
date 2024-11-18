@@ -30,3 +30,8 @@ insert into partido (sigla, nome, numero) values ('PMB', 'PARTIDO DA MULHER BRAS
 insert into partido (sigla, nome, numero) values ('UP', 'UNIDADE POPULAR', '80');
 insert into partido (sigla, nome, numero) values ('UNIÃO', 'UNIÃO BRASIL', '44');
 insert into partido (sigla, nome, numero) values ('PRD', 'PARTIDO RENOVAÇÃO DEMOCRÁTICA', '25');
+
+delete from categoria;
+insert into categoria (descricao) values ('seguranca');
+insert into categoria (descricao) values ('saude');
+insert into categoria (descricao) values ('macarrao');
