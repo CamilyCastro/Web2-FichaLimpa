@@ -3,7 +3,7 @@ create table partido(
 	id identity primary key ,
 	numero varchar(5) not null,	
 	nome varchar(50) not null,
-    sigla varchar(5) not null
+    sigla varchar(10) not null
 );
 
 drop table if exists politico;

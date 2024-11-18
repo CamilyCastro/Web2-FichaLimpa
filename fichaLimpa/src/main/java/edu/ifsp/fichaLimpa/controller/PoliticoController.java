@@ -59,9 +59,10 @@ public class PoliticoController {
 		if(politico.getPartido() != null){
 			partido.adicionarPolitico(politico);
 			politicoRepo.save(politico);
-		}
-
-		return "/home";
+			
+			return "perfil-politico";
+		}else
+			return "/home";
 	}
 
 }
