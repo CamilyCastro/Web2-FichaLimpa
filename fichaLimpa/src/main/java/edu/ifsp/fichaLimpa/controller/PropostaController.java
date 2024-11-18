@@ -49,7 +49,7 @@ public class PropostaController {
 		List<Categoria> categorias = new ArrayList<>();
 		categoriaRepositorio.findAll().forEach(categorias::add);
 		
-		model.addAttribute("categoria", categorias);
+		model.addAttribute("categorias", categorias);
 		
 		return "proposta-form";
 	}
