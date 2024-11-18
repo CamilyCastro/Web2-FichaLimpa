@@ -15,12 +15,19 @@ body {
 /* Cabeçalho */
 header {
     width: 100%;
-    background: linear-gradient(310deg, #008080, #008080); /* Degradê com o mesmo tom #008080 */    padding: 20px;
+    background: linear-gradient(310deg, #008080, #008080); 
+	padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 10;  /* Garantir que o cabeçalho fique por cima de outros elementos */
+    z-index: 10;  
+}
+.linkMenu{
+	position: absolute;
+	left: 30px;
+	color: #ffffff;
+	text-decoration: none;
 }
 
 /* Logo no cabeçalho */
@@ -70,7 +77,9 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="date"],
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;

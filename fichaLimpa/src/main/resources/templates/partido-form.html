@@ -2,31 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Cadastro de Partido</title>
+	<meta charset="UTF-8">
+	<title>Cadastro de Partido</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-	<h1>Cadastro de Partido</h1>
+	<header>
+		<a class="linkMenu" th:href="@{/}">Home</a>
+		<h1>Cadastro de Partido</h1>
+	</header>
+	<div class="container">
+		<form method="post" th:action="@{/partido}" th:object="${partido}">
 	
-	<form method="post" th:action="@{/partido}" th:object="${partido}">
+		<label for="sigla">Sigla:</label>
+	    <input type="text" th:field="*{sigla}">
+	    <span class="erro" th:if="${#fields.hasErrors('sigla')}" th:errors="*{sigla}"></span>
+	    <br><br>
+		
+		<label for="nome">Nome:</label>
+	    <input type="text" th:field="*{nome}">
+	    <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+	    <br><br>
+	    
+	    <label for="numero">Numero:</label>
+	    <input type="text" th:field="*{numero}">
+	    <span class="erro" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></span>
+	    <br><br>
+	    
+	    <button type="submit">Cadastrar</button>
+	    
+		</form>
+	</div>
 	
-	<label for="sigla">Sigla:</label><br>
-    <input type="text" th:field="*{sigla}">
-    <span class="erro" th:if="${#fields.hasErrors('sigla')}" th:errors="*{sigla}"></span>
-    <br><br>
-	
-	<label for="nome">Nome:</label><br>
-    <input type="text" th:field="*{nome}">
-    <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-    <br><br>
-    
-    <label for="numero">Numero:</label><br>
-    <input type="text" th:field="*{numero}">
-    <span class="erro" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></span>
-    <br><br>
-    
-    <button type="submit">Cadastrar</button>
-    
-	</form>
 </body>
 </html>
