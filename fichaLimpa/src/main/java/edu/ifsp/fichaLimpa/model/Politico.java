@@ -1,6 +1,8 @@
 package edu.ifsp.fichaLimpa.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -51,5 +54,12 @@ public class Politico {
 	@ManyToOne
 	@JoinColumn(name = "id_partido")
 	private Partido partido;
+	
+	@OneToMany(mappedBy = "politico")
+	private List<Proposta> listaPropostas = new ArrayList<>();
+	
+	private void adicionarProposta(Proposta proposta) {
+		listaPropostas.add(proposta);
+	}
 
 }
