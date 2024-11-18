@@ -1,15 +1,24 @@
 package edu.ifsp.fichaLimpa.controller;
 
-import jakarta.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -25,32 +34,32 @@ public class PoliticoController {
 
 	@ModelAttribute(name = "politico")
 	public Politico politico() {
-		//criar objeto de politico para usar na sessao web
 		return new Politico();
 	}
 	
 	@GetMapping
-	public String viewPolitico() {
+	public String viewPolitico(Model model)  {
+		List<Partido> partidos = new ArrayList<>();
+	    partidoRepo.findAll().forEach(partidos::add);
+	    
+	    model.addAttribute("partidos", partidos);
+		
 		return "politico-form";
 	}
 
 	@PostMapping
-	public String executarCadastroPolitico(@Valid Politico politico, @RequestParam("nomePartido") String nomePartido ,
-			Errors errors){
+	public String executarCadastroPolitico(@Valid Politico politico, Errors errors){
 		
 		if (errors.hasErrors()){
 			return "politico-form";
 		}
 
-		Partido partido = partidoRepo.findByNome(nomePartido);
+		Partido partido = new Partido();
 
-		if(partido == null){
-			errors.rejectValue("nomePartido", "error.politico", "Partido nao encontrado");
-			return "politico-form";
+		if(politico.getPartido() != null){
+			partido.adicionarPolitico(politico);
+			politicoRepo.save(politico);
 		}
-
-		politico.setPartido(partido);
-		politicoRepo.save(politico);
 
 		return "/home";
 	}

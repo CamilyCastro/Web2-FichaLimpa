@@ -2,6 +2,8 @@ package edu.ifsp.fichaLimpa.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,15 +37,13 @@ public class Politico {
 	private String nomeEleitoral;
 
 	@NotBlank(message = "Obrigatório informar o numero eleitoral.")
-	private int numeroEleitoral;
+	private String numeroEleitoral;
 
 	@NotBlank(message = "Obrigatório informar o registro.")
-	private int registroCandidatura;
+	private String registroCandidatura;
 
-	@NotBlank(message = "Obrigatório informar a data de nascimento.")
-	@Pattern(regexp = "\\d{2}/(0[1-9]|1[0-2])/\\d{4}", message = "Data de nascimento deve estar no formato DD/MM/AAAA")
-	@Column(name = "data_nascimento")
-	private Date dataNasc;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dataNascimento;
 	
 	@NotBlank(message = "Obrigatório informar o contato.")
 	private String contato;
