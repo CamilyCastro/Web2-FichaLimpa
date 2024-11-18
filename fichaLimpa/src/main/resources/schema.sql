@@ -21,16 +21,23 @@ create table politico(
 );
 alter table politico add foreign key (id_partido) references partido(id);
 
+drop table if exists categoria;
+create table categoria(
+	id identity primary key,
+	descricao varchar(50)
+);
+
 drop table if exists proposta;
 create table proposta(
 	id identity primary key,
     titulo varchar(20) not null,
     descricao text not null,
-    categoria varchar(50) not null,
+    id_categoria bigint not null,
     id_politico bigint,
     nota int not null
 );
 alter table proposta add foreign key (id_politico) references politico(id);
+alter table proposta add foreign key (id_categoria) references categoria(id);
 
 drop table if exists cidadao;
 create table cidadao(
