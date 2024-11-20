@@ -44,31 +44,40 @@
 	    <input type="password" th:field="*{senha}">
 	    <span class="erro" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
 	    <br><br>
-		
-		<label for="cep">CEP</label>
-	    <input type="text" th:field="*{endereco.cep}">
-	    <span class="erro" th:if="${#fields.hasErrors('endereco.cep')}" th:errors="*{endereco.cep}"></span>
-	    <br><br>
-		
-		<label for="estado">Estado</label>
-	    <input type="text" th:field="*{endereco.estado}">
-	    <span class="erro" th:if="${#fields.hasErrors('endereco.estado')}" th:errors="*{endereco.estado}"></span>
-	    <br><br>
-		
-		<label for="cidade">Cidade</label>
-	    <input type="text" th:field="*{endereco.cidade}">
-	    <span class="erro" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></span>
-	    <br><br>
-		
-		<label for="logradouro">Logradouro</label>
-	    <input type="text" th:field="*{endereco.logradouro}">
-	    <span class="erro" th:if="${#fields.hasErrors('endereco.logradouro')}" th:errors="*{endereco.logradouro}"></span>
-	    <br><br>
-		
-		<label for="numero">Numero</label>
-	    <input type="number" th:field="*{endereco.numero}">
-	    <span class="erro" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></span>
-	    <br><br>
+		<fieldset>
+			<legend>Endereço</legend>
+
+			<label for="cep">CEP</label>
+		    <input type="text" th:field="*{endereco.cep}">
+		    <span class="erro" th:if="${#fields.hasErrors('endereco.cep')}" th:errors="*{endereco.cep}"></span>
+		    <br><br>
+			
+			<label for="estado">Estado</label>
+		    <input type="text" th:field="*{endereco.estado}">
+		    <span class="erro" th:if="${#fields.hasErrors('endereco.estado')}" th:errors="*{endereco.estado}"></span>
+		    <br><br>
+			
+			<label for="cidade">Cidade</label>
+		    <input type="text" th:field="*{endereco.cidade}">
+		    <span class="erro" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></span>
+		    <br><br>
+			
+			<label for="logradouro">Logradouro</label>
+		    <input type="text" th:field="*{endereco.logradouro}">
+		    <span class="erro" th:if="${#fields.hasErrors('endereco.logradouro')}" th:errors="*{endereco.logradouro}"></span>
+		    <br><br>
+			
+			<label for="numero">Numero</label>
+		    <input type="number" th:field="*{endereco.numero}">
+		    <span class="erro" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></span>
+		    <br><br>
+			
+			<label for="complemento">Complemento</label>
+		    <input type="text" th:field="*{endereco.complemento}">
+		    <span class="erro" th:if="${#fields.hasErrors('endereco.complemento')}" th:errors="*{endereco.complemento}"></span>
+		    <br><br>
+
+		</fieldset>
 	    
 	    <button type="submit">Cadastrar</button>
 	    

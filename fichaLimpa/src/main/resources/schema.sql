@@ -3,7 +3,7 @@ create table partido(
 	id identity primary key ,
 	numero varchar(5) not null,	
 	nome varchar(50) not null,
-    sigla varchar(10) not null
+    sigla varchar(15) not null
 );
 
 drop table if exists politico;
@@ -44,7 +44,7 @@ create table cidadao(
 	id identity primary key,
     cpf varchar(14) not null unique,
     telefone varchar(15) not null,
-    email varchar(20) not null unique,
+    email varchar(50) not null unique,
     nome varchar(50),
     data_nascimento timestamp not null,
     senha varchar(30) not null
