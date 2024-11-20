@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<h1>PROPOSTA</h1>
+	<form method="post" th:action="@{/proposta}" th:object="${proposta}">
+
+		<label for="categoria">Categoria</label>
+		<br> 
+		<select id="categoria" th:field="*{categoria}">
+			<option value="">Selecione uma categoria</option>
+			<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+				th:text="${categoria.descricao}" selected="selected">
+			</option>
+		</select>
+
+		<button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
