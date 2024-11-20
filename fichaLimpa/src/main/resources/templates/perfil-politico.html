@@ -11,21 +11,41 @@
 		<a class="linkMenu" th:href="@{/}">Home</a>
     	<h1>PERFIL POLÍTICO</h1>
 	</header>
-    <h3>Nome: <span th:text="${politico.nome}"></span></h3>
-	
-	<h3>Cargo: <span th:text="${politico.cargo}"></h3>
-	
-	<h3>Nome Eleitoral: <span th:text="${politico.nomeEleitoral}"></h3>
-	
-	<h3>Número Eleitoral: <span th:text="${politico.numeroEleitoral}"></h3>
-	
-	<h3>Registro Candidatura: <span th:text="${politico.registroCandidatura}"></h3>
-	
-<!--	<h3>Data de nascimento: <span th:text="${#dates.format(politico.dataNascimento, 'dd/MM/yyyy')}"> </h3>
--->	
-	<h3>Contato: <span th:text="${politico.contato}"></h3>
-	
-	<h3>Partido: <span th:text="${politico.partido.sigla}"></h3>
-	
+	<div>
+		<div class="inline">
+			<h3>Nome: </h3> 
+			<span th:text="${politico.nome}"></span>
+		</div>
+		<div class="inline">
+			<h3>Cargo: </h3>
+			<span th:text="${politico.cargo}">
+		</div>
+		<div class="inline">
+			<h3>Nome eleitoral: </h3>
+			<span th:text="${politico.nomeEleitoral}">
+		</div>
+		<div class="inline">
+			<h3>Número eleitoral: </h3>
+			<span th:text="${politico.numeroEleitoral}">
+		</div>
+		<div class="inline">
+			<h3>Registro candidatura: </h3>
+			<span th:text="${politico.registroCandidatura}">
+		</div>
+		<div class="inline">
+			<h3>Data de nascimento: </h3>
+			<span th:text="${#dates.format(politico.dataNascimento, 'dd/MM/yyyy')}">
+		</div>
+		<div class="inline">
+			<h3>Contato: </h3>
+			<span th:text="${politico.contato}">
+		</div>
+		<div class="inline">
+			<h3>Partido: </h3>
+			<span th:text="${politico.partido.sigla}">
+		</div>
+		
+	</div>
+    
 </body>
 </html>

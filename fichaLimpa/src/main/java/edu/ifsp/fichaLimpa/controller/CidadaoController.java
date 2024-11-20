@@ -55,6 +55,6 @@ public class CidadaoController {
 //		cidadao.setEndereco(endereco);
 		cidadaoRepositorio.save(cidadao);
 		
-		return "redirect:/";
+		return "perfil-cidadao";
 	}
 }
