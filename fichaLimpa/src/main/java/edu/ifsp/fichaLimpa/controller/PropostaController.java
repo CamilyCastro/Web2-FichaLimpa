@@ -3,6 +3,7 @@ package edu.ifsp.fichaLimpa.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,44 +28,65 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/proposta")
 public class PropostaController {
 
-	@Autowired
-	private PropostaRepositorio propostaRepositorio;
-	
-	@Autowired
-	private CategoriaRepositorio categoriaRepositorio;
+    @Autowired
+    private PropostaRepositorio propostaRepositorio;
 
-	@ModelAttribute("proposta")
-	private Proposta prosposta() {
-		return new Proposta();
-	}
-	
-	@ModelAttribute("politico")
-	private Politico politico() {
-		return new Politico();
-	}
+    @Autowired
+    private CategoriaRepositorio categoriaRepositorio;
 
-	@GetMapping
-	public String viewProposta(Model model) {
+    @Autowired
+    private PoliticoRepositorio politicoRepositorio;
 
-		List<Categoria> categorias = new ArrayList<>();
-		categoriaRepositorio.findAll().forEach(categorias::add);
-		
-		model.addAttribute("categorias", categorias);
-		
-		return "proposta-form";
-	}
+    @ModelAttribute("proposta")
+    private Proposta prosposta() {
+        return new Proposta();
+    }
 
-	@PostMapping
-	public String salvarProposta(@Valid Proposta proposta, @ModelAttribute Politico politico, Errors errors) {
-		
-		if(errors.hasErrors()) {
-			return "proposta-form";
-		}
-		
-		proposta.setPolitico(politico);
-		propostaRepositorio.save(proposta);
-		
-		return "/home";
-	}
+    @ModelAttribute("politico")
+    private Politico politico() {
+        return new Politico();
+    }
+
+    @GetMapping
+    public String viewProposta(Model model) {
+
+        List<Categoria> categorias = new ArrayList<>();
+        categoriaRepositorio.findAll().forEach(categorias::add);
+
+        model.addAttribute("categorias", categorias);
+
+        // salvar politico usando lista
+        // para usar campo de texto é só deletar o codigo
+        List<Politico> politicos = new ArrayList<>();
+        politicoRepositorio.findAll().forEach(politicos::add);
+
+        model.addAttribute("politicos", politicos);
+
+        return "proposta-form";
+    }
+
+    @PostMapping
+    public String salvarProposta(@Valid Proposta proposta, @ModelAttribute Politico politico, Errors errors) {
+
+        if (errors.hasErrors()) {
+            return "proposta-form";
+        }
+
+        propostaRepositorio.save(proposta);
+
+        return "/home";
+
+        // ************ CODIGO PARA SALVAR O POLITICO USANDO CAMPO DE TEXTO DIGITANDO O NOME ***********************
+
+        /*if (proposta.getPolitico() != null) {
+            String nomePolitico = proposta.getPolitico().getNome();
+            politico = politicoRepositorio.findByNome(nomePolitico);
+
+            proposta.setPolitico(politico);
+            propostaRepositorio.save(proposta);
+        } else {
+            return "/home";
+        }*/
+    }
 
 }

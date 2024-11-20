@@ -3,22 +3,68 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>PROPOSTA</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-	<h1>PROPOSTA</h1>
-	<form method="post" th:action="@{/proposta}" th:object="${proposta}">
+	<header>
+		<a class="linkMenu" th:href="@{/}">Home</a>
+		<h1>PROPOSTA</h1>
+	</header>
 
-		<label for="categoria">Categoria</label>
-		<br> 
-		<select id="categoria" th:field="*{categoria}">
-			<option value="">Selecione uma categoria</option>
-			<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
-				th:text="${categoria.descricao}" selected="selected">
-			</option>
-		</select>
+	<div class="container">
+		<form method="post" th:action="@{/proposta}" th:object="${proposta}">
 
-		<button type="submit">Salvar</button>
-    </form>
+			<!--CODIGO PARA SALVAR POLITICO USANDO CAMPO DE TEXTO DIGITANDO NOME-->
+			<!--<label for="politico">Politico</label>
+			<br>
+			<input id="politico" type="text" th:field="*{politico.nome}">-->
+
+			<label for="politico">Selecione um politico</label>
+			<select id="politico" th:field="*{politico}">
+				<option value="">Selecione um politico</option>
+				<option th:each="politico : ${politicos}" th:value="${politico.id}" th:text="${politico.nome}" selected="selected"></option>
+			</select>
+
+			<br><br>
+
+			<label for="categoria">Categoria</label>
+			<br>
+			<select id="categoria" th:field="*{categoria}">
+				<option value="">Selecione uma categoria</option>
+				<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+					th:text="${categoria.descricao}" selected="selected">
+				</option>
+			</select>
+
+			<br><br>
+
+			<label for="titulo">TITULO </label>
+			<br>
+			<input type="text" th:field="*{titulo}">
+
+			<br><br>
+
+			<label for="texto">AREA DE TEXTO</label>
+			<br>
+			<textarea id="texto" th:field="*{descricao}" ></textarea>
+
+			<br><br>
+
+			<label for="nota">NOTA</label>
+			<br>
+				<div class="nota-group">
+					<label><input id="nota" type="radio" name="nota" th:field="${proposta.nota}" value="1"/> 1</label>
+					<label><input type="radio" name="nota" th:field="${proposta.nota}" value="2"/> 2</label>
+					<label><input type="radio" name="nota" th:field="${proposta.nota}" value="3"/> 3</label>
+					<label><input type="radio" name="nota" th:field="${proposta.nota}" value="4"/> 4</label>
+					<label><input type="radio" name="nota" th:field="${proposta.nota}" value="5"/> 5</label>
+				</div>
+
+			<br><br>
+
+			<button type="submit">Salvar</button>
+		</form>
+	</div>
 </body>
 </html>
