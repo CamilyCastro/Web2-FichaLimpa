@@ -19,6 +19,7 @@ import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.support.SessionStatus;
 
 
 @Controller
@@ -48,7 +49,7 @@ public class PoliticoController {
 	}
 
 	@PostMapping
-	public String executarCadastroPolitico(@Valid Politico politico, Errors errors){
+	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){
 		
 		if (errors.hasErrors()){
 			return "politico-form";
@@ -59,7 +60,11 @@ public class PoliticoController {
 		if(politico.getPartido() != null){
 			partido.adicionarPolitico(politico);
 			politicoRepo.save(politico);
-			
+
+			//precisa finalizar a sessao para nao dar erro na linha: <select id="partido" th:field="*{partido}">
+			//esse erro impedia de criar novos politicos
+			sessionStatus.setComplete();
+
 			return "perfil-politico";
 		}else
 			return "/home";

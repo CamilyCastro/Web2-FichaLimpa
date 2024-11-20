@@ -114,6 +114,31 @@ button.gerar-relatorio:hover {
     background-color: #0056b3;
 }
 
+/* area de texto */
+textarea{
+    width: 95%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    resize: none;
+}
+
+/* notas */
+.nota-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* label e elementos de dentro */
+.nota-group label {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
 /* Botão de sair */
 .exit-button {
     background-color: #FF0000;

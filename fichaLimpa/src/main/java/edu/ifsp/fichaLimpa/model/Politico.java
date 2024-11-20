@@ -4,17 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.*;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
@@ -51,11 +44,12 @@ public class Politico {
 	@NotBlank(message = "Obrigatório informar o contato.")
 	private String contato;
 
+	/*@ManyToOne(cascade = CascadeType.PERSIST)*/
 	@ManyToOne
 	@JoinColumn(name = "id_partido")
 	private Partido partido;
 	
-	@OneToMany(mappedBy = "politico")
+	@OneToMany(mappedBy = "politico", cascade = CascadeType.ALL)
 	private List<Proposta> listaPropostas = new ArrayList<>();
 	
 	public void adicionarProposta(Proposta proposta) {

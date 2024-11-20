@@ -6,60 +6,60 @@
     <title>Cadastro Politico</title>
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
-</header>
+<body>
 	<header>
 		<a class="linkMenu" th:href="@{/}">Home</a>
     	<h1>Cadastro de Politicos</h1>
 	</header>
 	<div class="container">
 	    <form method="post" th:action="@{/politico}" th:object="${politico}">
-	
+
 	        <label for="nome">Nome</label>
 	        <input type="text" th:field="*{nome}">
 	        <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 	        <br><br>
-	
+
 	        <label for="cargo">Cargo</label>
 	        <input type="text" th:field="*{cargo}">
 	        <span class="erro" th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}"></span>
 	        <br><br>
-	
+
 	        <label for="nomeEleitoral">Nome Eleitoral</label>
 	        <input type="text" th:field="*{nomeEleitoral}">
 	        <span class="erro" th:if="${#fields.hasErrors('nomeEleitoral')}" th:errors="*{nomeEleitoral}"></span>
 	        <br><br>
-	
+
 	        <label for="numeroEleitoral">Numero Eleitoral</label>
 	        <input type="text" th:field="*{numeroEleitoral}">
 	        <span class="erro" th:if="${#fields.hasErrors('numeroEleitoral')}" th:errors="*{numeroEleitoral}"></span>
 	        <br><br>
-	
+
 	        <label for="registroCandidatura">Registro Candidatura</label>
 	        <input type="text" th:field="*{registroCandidatura}">
 	        <span class="erro" th:if="${#fields.hasErrors('registroCandidatura')}" th:errors="*{registroCandidatura}"></span>
 	        <br><br>
-	
+
 	        <label for="dataNascimento">Data de Nascimento</label>
 	        <input type="date" th:field="*{dataNascimento}">
 	        <span class="erro" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 	        <br><br>
-	
+
 	        <label for="contato">Contato</label>
 	        <input type="text" th:field="*{contato}">
 	        <span class="erro" th:if="${#fields.hasErrors('contato')}" th:errors="*{contato}"></span>
 	        <br><br>
-	
+
 	        <label for="nomePartido">Nome do Partido</label>
 	        <select id="partido" th:field="*{partido}">
 		    <option value="">Selecione o partido</option>
 		    <option th:each="partido : ${partidos}" th:value="${partido.id}" th:text="${partido.nome}" selected="selected"></option>
 		    </select>
-	
+
 	<!--        <label for="nomePartido">Nome do Partido</label><br>-->
 	<!--        <input type="text" th:field="*{nomePartido}">-->
 	<!--        <span class="erro" th:if="${#fields.hasErrors('nomePartido')}" th:errors="*{nomePartido}"></span>-->
 	<!--        <br><br>-->
-	
+
 	        <button type="submit">Cadastrar</button>
 	    </form>
 	</div>
