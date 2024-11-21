@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @SessionAttributes("cidadao")
-@RequestMapping("/cidadao")
+@RequestMapping(MappingController.Cidadao.MAIN)
 public class CidadaoController {
 
 	@Autowired

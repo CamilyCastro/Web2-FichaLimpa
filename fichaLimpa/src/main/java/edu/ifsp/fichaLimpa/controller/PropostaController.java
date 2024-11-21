@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @SessionAttributes("politico")
-@RequestMapping("/proposta")
+@RequestMapping(MappingController.Proposta.MAIN)
 public class PropostaController {
 
     @Autowired
