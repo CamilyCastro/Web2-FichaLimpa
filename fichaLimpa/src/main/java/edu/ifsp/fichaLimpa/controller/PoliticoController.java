@@ -24,7 +24,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("politico")
-@RequestMapping("/politico")
+@RequestMapping(MappingController.Politico.MAIN)
 public class PoliticoController {
 	
 	@Autowired

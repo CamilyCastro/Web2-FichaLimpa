@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import edu.ifsp.fichaLimpa.model.Partido;
@@ -15,7 +14,7 @@ import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/partido")
+@RequestMapping(MappingController.Partido.MAIN)
 public class PartidoController {
 	
 	@Autowired
