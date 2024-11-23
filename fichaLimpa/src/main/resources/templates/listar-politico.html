@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Politicos</title>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+	<header>
+		<a class="linkMenu" th:href="@{/}">Home</a>
+    	<h1>Politicos</h1>
+	</header>
+	<div class="container">
+	  <!-- <form action="/politicos/editar" method="post" th:object="${politico}"> -->
+	    <ul th:object="${politico}">
+	        <li th:each="politico : ${politicos}" th:text="${politico.nome}">
+	            
+	        </li>
+	    </ul>
+	    <button type="submit">Salvar</button>
+	<!-- </form> -->
+	</div>
+</body>
+</html>
