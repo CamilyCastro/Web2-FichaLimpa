@@ -36,10 +36,6 @@ header {
     left: 20px;
 }
 
-.logo-header img {
-    width: 62px;
-    margin-left: 10px;
-}
 
 /* Título */
 h1 {
@@ -200,6 +196,50 @@ textarea{
         padding: 15px;
     }
 }
+.home-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Botões */
+.home-button {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #008080;
+    background-color: #f4f4f4;
+    padding: 15px 30px;
+    border: 2px solid #008080;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+}
+
+.home-button:hover {
+    background-color: #008080;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .home-button {
+        font-size: 1rem;
+        padding: 10px 20px;
+        width: 90%;
+    }
+}
+
+
 /* Mensagens de erro */
 .erro {
     color: rgb(217, 0, 0); 
@@ -252,4 +292,17 @@ button.dark-mode {
 }
 .inline h3{
 	display: inline;
+}
+.logo-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(310deg, #008080, #008080); /* Mantém o fundo gradiente */
+    margin: 0;
+}
+
+.logo-header img {
+    max-width: 100%;
+    height: auto;
+    width: 140px; /* Ajuste o tamanho conforme necessário */
 }

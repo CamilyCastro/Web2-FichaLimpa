@@ -4,25 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <title>HOME</title>
-	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-	<header>
-    	<h1>HOME</h1>
-	</header>
-    <a th:href="@{/politico}">POLITICO</a>
-
-    <br><br>
-
-    <a th:href="@{/partido}">PARTIDO</a>
-	
-	<br><br>
-	
-	<a th:href="@{/cidadao}">CIDADÃO</a>
-	
-	<br><br>
-	
-	<a th:href="@{/proposta}">PROPOSTA</a>
-
+    <header >
+      <div class="logo-header">
+  			<a th:href="@{/}">
+  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  			</a>
+        </div>	
+        <h1>Bem-vindo à Página Inicial</h1>
+    </header>
+    <main class="home-container">
+        <nav class="home-menu">
+            <form th:action="@{/politico}" method="get">
+                <button type="submit" class="home-button">Cadastro Político</button>
+            </form>
+            <form th:action="@{/partido}" method="get">
+                <button type="submit" class="home-button">Cadastro Partido</button>
+            </form>
+            <form th:action="@{/cidadao}" method="get">
+                <button type="submit" class="home-button">Cadastro Cidadão</button>
+            </form>
+            <form th:action="@{/proposta}" method="get">
+                <button type="submit" class="home-button">Cadastro Proposta</button>
+            </form>
+        </nav>
+    </main>
 </body>
 </html>
