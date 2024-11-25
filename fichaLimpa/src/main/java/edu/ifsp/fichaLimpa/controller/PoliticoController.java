@@ -23,10 +23,12 @@ import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @SessionAttributes("politico")
-@RequestMapping(MappingController.Politico.MAIN)
+@RequestMapping()
+@Slf4j
 public class PoliticoController {
 	
 	@Autowired
@@ -53,12 +55,17 @@ public class PoliticoController {
 		return "politico-form";
 	}
 	
+
 	@GetMapping(MappingController.Politico.listar)
 	public String listarPoliticos(Model model) {
 		List<Politico> politicos = new ArrayList<>();
 		politicoRepo.findAll().forEach(politicos::add);
 		
 		model.addAttribute("politicos", politicos);
+
+		return "listar-politico";
+	}
+
 		//log.info("Politicos: {}", politicos);
 		return "listar-politico";
 	}
@@ -84,9 +91,17 @@ public class PoliticoController {
 		}
 		
 		return "home";
-	}
 
-	@PostMapping
+	@GetMapping("/profile")
+    public String findProposta(Politico politico){
+    	//log.info(propostaRepo.findByIdPolitico(politico.getId()));
+    	List<Proposta> propostas =  propostaRepo.findByPoliticoId(politico.getId());
+    	
+    	
+    	return "perfil-politico";
+    }
+
+	@PostMapping("/politico")
 	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){
 		
 		if (errors.hasErrors()){
@@ -107,5 +122,4 @@ public class PoliticoController {
 		}else
 			return "politico/form";
 	}
-
 }

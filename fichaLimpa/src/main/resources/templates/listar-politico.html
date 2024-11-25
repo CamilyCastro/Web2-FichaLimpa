@@ -3,7 +3,9 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Politicos</title> 
+
+    <title>Politicos</title>
+
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
@@ -14,10 +16,12 @@
 	<div class="container">
 	  <!-- <form action="/politicos/editar" method="post" th:object="${politico}"> -->
 	    <ul th:object="${politico}">
+
 	        <li >
 	            <a th:href="@{/politico/perfil/{id}(id=${politico.id})}" th:each="politico : ${politicos}" th:text="${politico.nome}"> </a>
 	        </li>
 	    </ul>
+
 	<!-- </form> -->
 	</div>
 </body>
