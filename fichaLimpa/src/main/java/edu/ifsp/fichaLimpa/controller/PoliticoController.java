@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @SessionAttributes("politico")
-@RequestMapping()
+@RequestMapping(MappingController.Politico.MAIN)
 @Slf4j
 public class PoliticoController {
 	
@@ -64,11 +64,7 @@ public class PoliticoController {
 		model.addAttribute("politicos", politicos);
 
 		return "listar-politico";
-	}
-
-		//log.info("Politicos: {}", politicos);
-		return "listar-politico";
-	}
+	}	
 
 	/*@GetMapping("/profile")
     public String findProposta(Politico politico){
@@ -91,15 +87,7 @@ public class PoliticoController {
 		}
 		
 		return "home";
-
-	@GetMapping("/profile")
-    public String findProposta(Politico politico){
-    	//log.info(propostaRepo.findByIdPolitico(politico.getId()));
-    	List<Proposta> propostas =  propostaRepo.findByPoliticoId(politico.getId());
-    	
-    	
-    	return "perfil-politico";
-    }
+	}
 
 	@PostMapping("/politico")
 	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){
