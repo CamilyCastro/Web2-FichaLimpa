@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Politicos</title> 
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+	<header>
+		<a class="linkMenu" th:href="@{/}">Home</a>
+    	<h1>Cidadãos</h1>
+	</header>
+	<div class="container">
+	  
+	    <ul th:object="${cidadao}">
+	        <li >
+	            <a th:href="@{/cidadao/perfil/{id}(id=${cidadao.id})}" th:each="cidadao : ${cidadaos}" th:text="${cidadao.nome}"> </a>
+	        </li>
+	    </ul>
+	</div>
+</body>
+</html>

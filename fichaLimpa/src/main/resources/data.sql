@@ -35,3 +35,7 @@ delete from categoria;
 insert into categoria (descricao) values ('seguranca');
 insert into categoria (descricao) values ('saude');
 insert into categoria (descricao) values ('macarrao');
+
+delete from politico;
+insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
+	values ('POLITICO TESTE 1', 'PRESIDENTE', 'POLITICO 1', 1, '123', '111111', '1999-10-10', 'politico1@email.com');
