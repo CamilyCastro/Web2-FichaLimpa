@@ -4,12 +4,20 @@ public interface MappingController {
 	
 	interface Cidadao {
 		String MAIN = "/cidadao";
-		String cadastro = "/cidadao/cadastro";
-		String delete = "/cidadao/delete";
+		String cadastro = "/cadastro";
+		String delete = "/delete";
+		String edit  = "/edit";
+		String perfil  = "/perfil";
+		String listar = "/listar";
 	}
 	
 	interface Politico{
 		String MAIN = "/politico";
+		String cadastro = "/cadastro";
+		String delete = "/delete";
+		String edit  = "/edit";
+		String perfil  = "/perfil";
+		String listar = "/listar";
 	}
 	
 	interface Partido{

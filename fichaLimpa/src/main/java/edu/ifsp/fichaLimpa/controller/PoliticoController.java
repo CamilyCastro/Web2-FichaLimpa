@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,7 +24,6 @@ import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-
 
 @Controller
 @SessionAttributes("politico")
@@ -45,8 +45,8 @@ public class PoliticoController {
 		return new Politico();
 	}
 	
-	@GetMapping("/politico")
-	public String viewPolitico(Model model)  {
+	@GetMapping(MappingController.Politico.cadastro)
+	public String cadastrarPolitico(Model model)  {
 		List<Partido> partidos = new ArrayList<>();
 	    partidoRepo.findAll().forEach(partidos::add);
 	    
@@ -55,15 +55,42 @@ public class PoliticoController {
 		return "politico-form";
 	}
 	
-	@GetMapping("/politico/listar")
+
+	@GetMapping(MappingController.Politico.listar)
 	public String listarPoliticos(Model model) {
 		List<Politico> politicos = new ArrayList<>();
 		politicoRepo.findAll().forEach(politicos::add);
 		
 		model.addAttribute("politicos", politicos);
-		log.info("Politicos: {}", politicos);
+
 		return "listar-politico";
 	}
+
+		//log.info("Politicos: {}", politicos);
+		return "listar-politico";
+	}
+
+	/*@GetMapping("/profile")
+    public String findProposta(Politico politico){
+    	//log.info(propostaRepo.findByIdPolitico(politico.getId()));
+    	List<Proposta> propostas =  propostaRepo.findByPoliticoId(politico.getId());
+    	
+    	return "perfil-politico";
+    }*/
+	
+	@GetMapping(MappingController.Politico.perfil + "/{id}")
+	public String perfilPolitico(@PathVariable("id") Long id, Model model){
+		Optional<Politico> opt = politicoRepo.findById(id);		
+		
+		if (opt.isPresent()) {
+			
+			Politico politico = opt.get();
+			model.addAttribute("politico", politico);
+			
+			return "perfil-politico";
+		}
+		
+		return "home";
 
 	@GetMapping("/profile")
     public String findProposta(Politico politico){
@@ -91,8 +118,8 @@ public class PoliticoController {
 			//esse erro impedia de criar novos politicos
 			sessionStatus.setComplete();
 
-			return "perfil-politico";
-		}else
 			return "/home";
+		}else
+			return "politico/form";
 	}
 }
