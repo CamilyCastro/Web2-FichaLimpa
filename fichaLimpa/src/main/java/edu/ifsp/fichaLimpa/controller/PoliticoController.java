@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -21,6 +22,7 @@ import edu.ifsp.fichaLimpa.model.Proposta;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -70,9 +72,23 @@ public class PoliticoController {
     	//log.info(propostaRepo.findByIdPolitico(politico.getId()));
     	List<Proposta> propostas =  propostaRepo.findByPoliticoId(politico.getId());
     	
-    	
     	return "perfil-politico";
     }
+	
+	@GetMapping("/politico/{id}")
+	public String findPolitico(@PathVariable("id") Long id, Model model){
+		Optional<Politico> opt = politicoRepo.findById(id);		
+		
+		if (opt.isPresent()) {
+			
+			Politico politico = opt.get();
+			model.addAttribute("politico", politico);
+			
+			return "perfil-politico";
+		}
+		
+		return "home";
+	}
 
 	@PostMapping("/politico")
 	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){

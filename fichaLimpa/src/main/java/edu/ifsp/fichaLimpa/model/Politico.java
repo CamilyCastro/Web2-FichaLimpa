@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @Table(name = "politico")
 @RequiredArgsConstructor
+@ToString(exclude = "partido")
 public class Politico {
 
 	@Id
