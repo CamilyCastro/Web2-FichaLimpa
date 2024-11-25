@@ -37,9 +37,19 @@ public class CidadaoController {
 		return new Endereco();
 	}
 	
-	@GetMapping
-	public String viewCidadao() {
+	@GetMapping(MappingController.Cidadao.cadastro)
+	public String saveCidadao() {
 		return "cidadao-form";
+	}
+	
+	@GetMapping(MappingController.Cidadao.perfil)
+	public String viewCidadao() {
+		return "perfil-cidado";
+	}
+	
+	@GetMapping(MappingController.Cidadao.edit)
+	public String editCidadao() {
+		return "";
 	}
 	
 	@PostMapping
