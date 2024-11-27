@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Endereco;
@@ -79,7 +80,7 @@ public class CidadaoController {
 	}
 	
 	@PostMapping
-	public String salvarCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors) {
+	public String salvarCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors, SessionStatus sessionStatus) {
 		if(errors.hasErrors()) {
 			return "cidadao-form";
 		}
@@ -90,6 +91,8 @@ public class CidadaoController {
 //		enderecoRepositorio.save(endereco);
 //		cidadao.setEndereco(endereco);
 		cidadaoRepositorio.save(cidadao);
+		
+		sessionStatus.setComplete();
 		
 		return "home";
 	}

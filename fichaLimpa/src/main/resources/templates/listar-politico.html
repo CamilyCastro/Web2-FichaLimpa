@@ -3,26 +3,21 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
     <title>Politicos</title>
-
-	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-	<header>
-		<a class="linkMenu" th:href="@{/}">Home</a>
-    	<h1>Politicos</h1>
-	</header>
-	<div class="container">
-	  <!-- <form action="/politicos/editar" method="post" th:object="${politico}"> -->
-	    <ul th:object="${politico}">
+    <header>
+        <a class="linkMenu" th:href="@{/}">Home</a>
+        <h1>Politicos</h1>
+    </header>
 
-	        <li >
-	            <a th:href="@{/politico/perfil/{id}(id=${politico.id})}" th:each="politico : ${politicos}" th:text="${politico.nome}"> </a>
-	        </li>
-	    </ul>
-
-	<!-- </form> -->
-	</div>
+    <div class="container">
+        <ul>
+            <li th:each="politico : ${politicos}">
+                <a th:href="@{/politico/perfil/{id}(id=${politico.id})}" th:text="${politico.nome}"></a>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

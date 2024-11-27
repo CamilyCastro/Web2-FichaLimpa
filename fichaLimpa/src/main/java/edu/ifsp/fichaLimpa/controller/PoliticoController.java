@@ -89,7 +89,7 @@ public class PoliticoController {
 		return "home";
 	}
 
-	@PostMapping("/politico")
+	@PostMapping()
 	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){
 		
 		if (errors.hasErrors()){

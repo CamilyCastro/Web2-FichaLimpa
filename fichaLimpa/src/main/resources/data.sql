@@ -39,3 +39,19 @@ insert into categoria (descricao) values ('macarrao');
 delete from politico;
 insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
 	values ('POLITICO TESTE 1', 'PRESIDENTE', 'POLITICO 1', 1, '123', '111111', '1999-10-10', 'politico1@email.com');
+	
+delete from cidadao;
+insert into cidadao (cpf, telefone, email, nome, data_nascimento, senha)
+values('292.834.321-00', '(98)92783-9145', 'henrique-moura73@embraer.com.br', 'CIDADAO TESTE 1', '2024-11-04 00:00:00','123456789');
+
+delete from endereco;
+insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
+values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksja', 1);
+
+/*delete from cidadao;
+insert into cidadao (cpf, telefone, email, nome, data_nascimento, senha)
+values('292.654.321-00', '(98)94443-9145', 'henrique-moura73@.com.br', 'CIDADAO TESTE 2', '2024-11-04 00:00:00','123456789');
+
+delete from endereco;
+insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
+values ('14804-372', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksja', 2);*/
