@@ -3,19 +3,19 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Politicos</title> 
+    <title>Proposta</title> 
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 	<header>
 		<a class="linkMenu" th:href="@{/}">Home</a>
-    	<h1>Cidadãos</h1>
+    	<h1>Propostas</h1>
 	</header>
 	<div class="container">
 	  
-	    <ul>
-	        <li th:each="cidadao : ${cidadaos}">
-	            <a th:href="@{/cidadao/perfil/{id}(id=${cidadao.id})}"  th:text="${cidadao.nome}"> </a>
+	    <ul th:object="${proposta}">
+	        <li >
+	            <a th:href="@{/proposta/perfil/{id}(id=${proposta.id})}" th:each="proposta : ${propostas}" th:text="${proposta.titulo}"> </a>
 	        </li>
 	    </ul>
 	</div>
