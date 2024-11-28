@@ -22,6 +22,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("politico")
@@ -47,7 +48,7 @@ public class PropostaController {
         return new Politico();
     }
 
-    @GetMapping
+    @GetMapping(MappingController.Proposta.cadastro)
     public String viewProposta(Model model) {
 
         List<Categoria> categorias = new ArrayList<>();
@@ -65,14 +66,27 @@ public class PropostaController {
         return "proposta-form";
     }
 
+    @GetMapping(MappingController.Proposta.listar)
+    public String listarPropostas(Model model) {
+
+        List<Proposta> propostas = new ArrayList<>();
+        propostaRepositorio.findAll().forEach(propostas::add);
+
+        model.addAttribute("propostas", propostas);
+
+        return "listar-proposta";
+    }
+
     @PostMapping
-    public String salvarProposta(@Valid Proposta proposta, @ModelAttribute Politico politico, Errors errors) {
+    public String salvarProposta(@Valid Proposta proposta, @ModelAttribute Politico politico, Errors errors, SessionStatus sessionStatus) {
 
         if (errors.hasErrors()) {
             return "proposta-form";
         }
 
         propostaRepositorio.save(proposta);
+
+        sessionStatus.setComplete();
 
         return "/home";
 

@@ -48,10 +48,6 @@ delete from endereco;
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
 values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksja', 1);
 
-/*delete from cidadao;
-insert into cidadao (cpf, telefone, email, nome, data_nascimento, senha)
-values('292.654.321-00', '(98)94443-9145', 'henrique-moura73@.com.br', 'CIDADAO TESTE 2', '2024-11-04 00:00:00','123456789');
-
-delete from endereco;
-insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
-values ('14804-372', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksja', 2);*/
+delete proposta;
+insert into proposta (titulo, descricao, id_categoria, id_politico, nota)
+values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 1, 1, 8);

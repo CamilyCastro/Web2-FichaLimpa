@@ -34,7 +34,7 @@ create table proposta(
     descricao text not null,
     id_categoria bigint not null,
     id_politico bigint,
-    nota int not null
+    nota int
 );
 alter table proposta add foreign key (id_politico) references politico(id);
 alter table proposta add foreign key (id_categoria) references categoria(id);
