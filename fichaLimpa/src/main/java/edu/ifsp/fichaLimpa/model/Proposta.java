@@ -22,7 +22,6 @@ public class Proposta {
 	@NotBlank
 	private String descricao;
 	
-	@NotNull
 	private int nota;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)

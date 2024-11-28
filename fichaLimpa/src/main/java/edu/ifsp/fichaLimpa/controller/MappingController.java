@@ -25,5 +25,10 @@ public interface MappingController {
 	}
 	interface Proposta{
 		String MAIN = "/proposta";
+		String cadastro = "/cadastro";
+		String delete = "/delete";
+		String edit  = "/edit";
+		String perfil  = "/perfil";
+		String listar = "/listar";
 	}
 }
