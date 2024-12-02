@@ -45,8 +45,7 @@ public class Politico {
 	@NotBlank(message = "Obrigatório informar o contato.")
 	private String contato;
 
-	/*@ManyToOne(cascade = CascadeType.PERSIST)*/
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_partido")
 	private Partido partido;
 	

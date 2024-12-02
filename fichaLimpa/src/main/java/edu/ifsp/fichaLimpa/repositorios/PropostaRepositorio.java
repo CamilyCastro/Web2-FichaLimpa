@@ -7,5 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import edu.ifsp.fichaLimpa.model.Proposta;
 
 public interface PropostaRepositorio extends CrudRepository<Proposta, Long>{
-	List<Proposta> findByPoliticoId(Long idPolitico);
+
+	List<Proposta> findByPoliticoId(Long idPolitico);	
+
 }

@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
+<head>	
     <meta charset="UTF-8">
     <title>Perfil</title>
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 	<header>
-		<a class="linkMenu" th:href="@{/}">Home</a>
+     <div class="logo-header">
+  			<a th:href="@{/}">
+  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  			</a>
+        </div>	
     	<h1>PERFIL POLÍTICO</h1>
 	</header>
 	<div>

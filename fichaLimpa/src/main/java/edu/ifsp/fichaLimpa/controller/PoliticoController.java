@@ -26,10 +26,9 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Controller
 @SessionAttributes("politico")
-@RequestMapping()
+@RequestMapping(MappingController.Politico.MAIN)
 @Slf4j
 public class PoliticoController {
 	
@@ -47,8 +46,8 @@ public class PoliticoController {
 		return new Politico();
 	}
 	
-	@GetMapping("/politico")
-	public String viewPolitico(Model model)  {
+	@GetMapping(MappingController.Politico.cadastro)
+	public String cadastrarPolitico(Model model)  {
 		List<Partido> partidos = new ArrayList<>();
 	    partidoRepo.findAll().forEach(partidos::add);
 	    
@@ -57,26 +56,19 @@ public class PoliticoController {
 		return "politico-form";
 	}
 	
-	@GetMapping("/politico/listar")
+
+	@GetMapping(MappingController.Politico.listar)
 	public String listarPoliticos(Model model) {
 		List<Politico> politicos = new ArrayList<>();
 		politicoRepo.findAll().forEach(politicos::add);
 		
 		model.addAttribute("politicos", politicos);
-		log.info("Politicos: {}", politicos);
-		return "listar-politico";
-	}
 
-	@GetMapping("/profile")
-    public String findProposta(Politico politico){
-    	//log.info(propostaRepo.findByIdPolitico(politico.getId()));
-    	List<Proposta> propostas =  propostaRepo.findByPoliticoId(politico.getId());
-    	
-    	return "perfil-politico";
-    }
+		return "listar-politico";
+	}	
 	
-	@GetMapping("/politico/{id}")
-	public String findPolitico(@PathVariable("id") Long id, Model model){
+	@GetMapping(MappingController.Politico.perfil + "/{id}")
+	public String perfilPolitico(@PathVariable("id") Long id, Model model){
 		Optional<Politico> opt = politicoRepo.findById(id);		
 		
 		if (opt.isPresent()) {
@@ -90,7 +82,7 @@ public class PoliticoController {
 		return "home";
 	}
 
-	@PostMapping("/politico")
+	@PostMapping()
 	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){
 		
 		if (errors.hasErrors()){
@@ -107,8 +99,8 @@ public class PoliticoController {
 			//esse erro impedia de criar novos politicos
 			sessionStatus.setComplete();
 
-			return "perfil-politico";
-		}else
 			return "/home";
+		}else
+			return "politico/form";
 	}
 }
