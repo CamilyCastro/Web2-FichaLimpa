@@ -5,11 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "proposta")
 @RequiredArgsConstructor
+@ToString
 public class Proposta {
 
 	@Id

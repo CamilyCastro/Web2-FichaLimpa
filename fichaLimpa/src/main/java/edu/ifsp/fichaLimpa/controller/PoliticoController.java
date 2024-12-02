@@ -2,7 +2,9 @@ package edu.ifsp.fichaLimpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,6 @@ import edu.ifsp.fichaLimpa.model.Proposta;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,7 +75,14 @@ public class PoliticoController {
 		if (opt.isPresent()) {
 			
 			Politico politico = opt.get();
+			
+			List<Proposta> propostas = propostaRepo.findByPoliticoId(politico.getId());
+			
+			 Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
+			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
+			
 			model.addAttribute("politico", politico);
+			model.addAttribute("propostasPorCategoria", propostasPorCategoria);
 			
 			return "perfil-politico";
 		}

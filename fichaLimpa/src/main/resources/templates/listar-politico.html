@@ -15,14 +15,13 @@
     </div>
     <h1>Politicos</h1>
 </header>
-
-    <div class="container">
-        <ul>
-            <li th:each="politico : ${politicos}">
-                <a th:href="@{/politico/perfil/{id}(id=${politico.id})}" th:text="${politico.nome}"></a>
-            </li>
-        </ul>
-    </div>
->>>>>>> 9f9b0d965c8ee0c9fd546b278ade5e6f03a81f3d
+	<div class="container">
+	        <ul class="lista-politico">
+	            <li th:each="politico : ${politicos}">
+	                <a th:href="@{/politico/perfil/{id}(id=${politico.id})}" th:text="${politico.nome}"></a>
+	                <hr>
+	            </li>
+	        </ul>
+	    </div>
 </body>
 </html>

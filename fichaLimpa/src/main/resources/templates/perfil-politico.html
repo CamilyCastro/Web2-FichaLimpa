@@ -48,7 +48,21 @@
 			<h3>Partido: </h3>
 			<span th:text="${politico.partido.sigla}">
 		</div>
-		
+		<hr>
+		<div class="inline propostas">
+			<h2>Propostas</h2>
+			<ul>
+				<li th:each="entry : ${propostasPorCategoria}">
+		            <h3 class="categoria-nome" th:text="${entry.key}">Categoria</h3>
+		            <ul>
+		                <li th:each="proposta : ${entry.value}">
+		                    <span class="proposta-titulo" th:text="${proposta.titulo}">Título da Proposta</span>:
+		                    <span class="proposta-descricao" th:text="${proposta.descricao}">Descrição da Proposta</span>
+		                </li>
+		            </ul>
+		        </li>
+			</ul>
+		</div>
 	</div>
     
 </body>
