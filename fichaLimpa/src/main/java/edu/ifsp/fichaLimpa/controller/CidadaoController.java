@@ -46,7 +46,9 @@ public class CidadaoController {
 	}
 	
 	@GetMapping(MappingController.Cidadao.cadastro)
-	public String saveCidadao() {
+	public String saveCidadao(Model model) {
+		Cidadao cidadao = new Cidadao();
+		model.addAttribute("cidadao", cidadao);
 		return "cidadao-form";
 	}
 	
@@ -79,7 +81,7 @@ public class CidadaoController {
 		return "";
 	}
 	
-	@PostMapping
+	@PostMapping(MappingController.Cidadao.MAIN)
 	public String salvarCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors, SessionStatus sessionStatus) {
 		if(errors.hasErrors()) {
 			return "cidadao-form";
