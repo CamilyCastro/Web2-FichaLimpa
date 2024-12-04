@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Perfil</title>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
@@ -13,58 +16,64 @@
   		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
   			</a>
         </div>	
-            	<h1>PERFIL CIDADÃO</h1>
+        <h1>PERFIL CIDADÃO</h1>
 	</header>
+	
 	<div>
+		<div class="cabecalho-perfil">
+			<button class="btn btn-editar" onclick="abrirModalCidadao()">Editar Perfil</button>
+		</div>
+		
 		<div class="inline">
-			<h3>Nome: </h3> 
+			<h5>Nome: </h5> 
 			<span th:text="${cidadao.nome}"></span>
 		</div>
 		<div class="inline">
-			<h3>Email: </h3>
+			<h5>Email: </h5>
 			<span th:text="${cidadao.email}">
 		</div>
 		<div class="inline">
-			<h3>CPF: </h3>
+			<h5>CPF: </h5>
 			<span th:text="${cidadao.cpf}">
 		</div>
 		<div class="inline">
-			<h3>Telefone: </h3>
+			<h5>Telefone: </h5>
 			<span th:text="${cidadao.telefone}">
 		</div>
 		<div class="inline">
-			<h3>Data de nascimento: </h3>
+			<h5>Data de nascimento: </h5>
 			<span th:text="${#dates.format(cidadao.dataNascimento, 'dd/MM/yyyy')}">
 		</div>
 		
 		<hr>
 		
 		<div class="inline">
-			<h3>CEP: </h3>
+			<h5>CEP: </h5>
 			<span th:text="${cidadao.endereco.cep}">
 		</div>
 		<div class="inline">
-			<h3>Estado: </h3>
+			<h5>Estado: </h5>
 			<span th:text="${cidadao.endereco.estado}">
 		</div>
 		<div class="inline">
-			<h3>Cidade: </h3>
+			<h5>Cidade: </h5>
 			<span th:text="${cidadao.endereco.cidade}">
 		</div>
 		<div class="inline">
-			<h3>Logradouro: </h3>
+			<h5>Logradouro: </h5>
 			<span th:text="${cidadao.endereco.logradouro}">
 		</div>
 		<div class="inline">
-			<h3>Número: </h3>
+			<h5>Número: </h5>
 			<span th:text="${cidadao.endereco.numero}">
 		</div>
 		<div class="inline">
-			<h3>Complemento: </h3>
+			<h5>Complemento: </h5>
 			<span th:text="${cidadao.endereco.complemento}">
 		</div>
 		
 	</div>
-    
+	<div th:replace="editar-cidadao :: editarCidadaoModal"></div>
+	<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

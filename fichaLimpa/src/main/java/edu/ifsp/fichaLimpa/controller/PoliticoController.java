@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Proposta;
@@ -52,6 +53,9 @@ public class PoliticoController {
 		List<Partido> partidos = new ArrayList<>();
 	    partidoRepo.findAll().forEach(partidos::add);
 	    
+	    Politico politico = new Politico();
+	    
+		model.addAttribute("politico", politico);
 	    model.addAttribute("partidos", partidos);
 		
 		return "politico-form";
