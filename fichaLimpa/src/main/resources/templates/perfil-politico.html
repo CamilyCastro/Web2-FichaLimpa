@@ -16,6 +16,16 @@
     	<h1>PERFIL POLÍTICO</h1>
 	</header>
 	<div>
+		<div class="cabecalho-perfil">
+			<button class="btn btn-editar" onclick="abrirModalCidadao()">Editar Perfil</button>
+			
+			 <form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+			    <input type="hidden" name="_method" value="DELETE" />
+			    <button type="submit" class="btn btn-editar">Excluir</button>
+			</form>
+			
+		</div>
+		
 		<div class="inline">
 			<h3>Nome: </h3> 
 			<span th:text="${politico.nome}"></span>
