@@ -56,4 +56,7 @@ public class Politico {
 		listaPropostas.add(proposta);
 	}
 
+	@OneToMany(mappedBy = "politico", cascade = CascadeType.ALL)
+	private List<Publicacao> listarpublicacao = new ArrayList<>();
+
 }
