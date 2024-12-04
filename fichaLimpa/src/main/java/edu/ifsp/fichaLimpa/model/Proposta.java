@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "proposta")
@@ -33,5 +36,8 @@ public class Proposta {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_politico")
 	private Politico politico;
+
+	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
+	private List<Publicacao> listarpublicacao = new ArrayList<>();
 	 
 }

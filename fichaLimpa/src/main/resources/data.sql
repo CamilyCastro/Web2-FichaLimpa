@@ -51,3 +51,8 @@ values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksj
 delete proposta;
 insert into proposta (titulo, descricao, id_categoria, id_politico, nota)
 values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 1, 1, 8);
+
+delete from publicacao;
+insert into publicacao (data_publicacao, titulo, descricao, resposta, id_cidadao, id_proposta, id_politico)
+values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1, 1, 1);
+

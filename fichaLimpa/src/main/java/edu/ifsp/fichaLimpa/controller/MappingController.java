@@ -31,4 +31,13 @@ public interface MappingController {
 		String perfil  = "/perfil";
 		String listar = "/listar";
 	}
+
+	interface Publicacao{
+		String MAIN = "/publicacao";
+		String cadastro = "/cadastro";
+		String delete = "/delete";
+		String edit  = "/edit";
+		String perfil  = "/perfil";
+		String listar = "/listar";
+	}
 }
