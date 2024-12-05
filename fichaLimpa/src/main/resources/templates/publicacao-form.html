@@ -52,10 +52,11 @@
     <span class="erro" th:if="${#fields.hasErrors('politico')}" th:errors="*{politico}"></span>
     <br><br>
 
-    <label for="dataPubli">Data publicacao</label>
+    <!--DEFINIR DATA E HORA MANUALMENTE-->
+    <!--<label for="dataPubli">Data publicacao</label>
     <input type="date" th:field="*{data_publicacao}" id="dataPubli">
     <span class="erro" th:if="${#fields.hasErrors('data_publicacao')}" th:errors="*{data_publicacao}"></span>
-    <br><br>
+    <br><br>-->
 
     <label for="anexo">Anexo</label>
     <input type="file" th:field="*{anexo}" id="anexo">

@@ -17,6 +17,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +75,9 @@ public class PublicacaoController {
         if(errors.hasErrors()){
             return "publicacao-form";
         }
+
+        //DEFINIR DATA E HORA AUTOMATICAMENTE
+        publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 
         publicacaoRepositorio.save(publicacao);
 
