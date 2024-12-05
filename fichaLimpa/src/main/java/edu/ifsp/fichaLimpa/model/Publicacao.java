@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -19,8 +20,12 @@ public class Publicacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date data_publicacao;
+    //AUTOMATICO
+    private LocalDateTime data_publicacao;
+
+    //MANUAL
+    /*@DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date data_publicacao;*/
 
     @NotBlank
     private String titulo;
