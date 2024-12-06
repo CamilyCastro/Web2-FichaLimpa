@@ -17,7 +17,7 @@
 	</header>
 	
 	<div class="container">
-		<form method="post" th:action="@{/cidadao}" th:object="${cidadao}">
+		<form method="post" th:action="@{/cidadao/cadastro}" th:object="${cidadao}">
 		
 		<label for="sigla">Nome</label>
 	    <input type="text" th:field="*{nome}">

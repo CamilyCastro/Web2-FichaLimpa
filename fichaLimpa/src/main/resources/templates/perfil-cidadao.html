@@ -15,13 +15,18 @@
   			<a th:href="@{/}">
   		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
   			</a>
+			
         </div>	
         <h1>PERFIL CIDADÃO</h1>
 	</header>
 	
 	<div>
 		<div class="cabecalho-perfil">
-			<button class="btn btn-editar" onclick="abrirModalCidadao()">Editar Perfil</button>
+			<a class="btn" th:href="@{/cidadao/edit/{id}(id=${cidadao.id})}">Editar perfil</a>
+			 <form th:action="@{/cidadao/delete/{id}(id=${cidadao.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+			    <input type="hidden" name="_method" value="DELETE" />
+			    <button type="submit" class="btn btn-editar">Excluir</button>
+			</form>
 		</div>
 		
 		<div class="inline">
@@ -73,7 +78,6 @@
 		</div>
 		
 	</div>
-	<div th:replace="editar-cidadao :: editarCidadaoModal"></div>
-	<script th:src="@{/js/script.js}"></script>
+	
 </body>
 </html>
