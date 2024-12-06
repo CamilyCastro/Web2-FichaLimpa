@@ -37,7 +37,9 @@ public class Proposta {
 	@JoinColumn(name = "id_politico")
 	private Politico politico;
 
-	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
-	private List<Publicacao> listarpublicacao = new ArrayList<>();
+	/*
+	 * @OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL) private
+	 * List<Publicacao> listarpublicacao = new ArrayList<>();
+	 */
 	 
 }
