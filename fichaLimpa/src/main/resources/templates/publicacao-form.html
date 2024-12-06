@@ -4,49 +4,52 @@
 <head>
   <meta charset="UTF-8">
   <title>Realizar Publicacao</title>
+  <link rel="icon" type="image/png" href="/images/certa.png ">
   <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <header>
   <div class="logo-header">
     <a th:href="@{/}">
-      <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+      <img th:src="@{/images/certa.png}" alt="Logo" />
     </a>
   </div>
-  <h1>Realizar Publicacao</h1>
+  <h1>Publicação</h1>
 </header>
 <div class="container">
   <form method="post" th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" th:object="${publicacao}">
 
-    <label for="titulo">Titulo</label>
+    <label for="titulo"><strong>Título</strong></label>
     <input type="text" th:field="*{titulo}" id="titulo">
     <span class="erro" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
     <br><br>
 
-    <label for="descricao">Descricao</label>
+    <label for="descricao"><strong>Descrição</strong></label>
     <textarea th:field="*{descricao}" id="descricao"></textarea>
-    <br><br>
+    <br><br><br>
 
     <!-- TODO GAMBIARRA - HTML - remover o select e pegar o cidadao pela sessao-->
-    <label for="cidadao">Cidadão (GAMBIARRA, PEGAR O CIDADAO LOGADO PELA SESSAO)</label>
+    <label for="cidadao"><strong>Cidadão (GAMBIARRA, PEGAR O CIDADAO LOGADO PELA SESSAO)</strong></label>
     <select th:field="*{cidadao}" id="cidadao">
-      <option value="">Selecione o cidadao</option>
+      <option value="">Selecione o Cidadão</option>
       <option th:each="cidadao : ${cidadaos}" th:value="${cidadao.id}" th:text="${cidadao.nome}" selected="selected"></option>
     </select>
     <span class="erro" th:if="${#fields.hasErrors('cidadao')}" th:errors="*{cidadao}"></span>
     <br><br>
 
-   <!--  <label for="proposta">Proposta</label>
+
+    <!-- <label for="proposta"><strong>Proposta</strong></label>
     <select th:field="*{proposta}" id="proposta">
-      <option value="">Selecione a proposta</option>
+      <option value="">Selecione a Proposta</option>
       <option th:each="proposta : ${propostas}" th:value="${proposta.id}" th:text="${proposta.titulo}" selected="selected"></option>
     </select>
     <span class="erro" th:if="${#fields.hasErrors('proposta')}" th:errors="*{proposta}"></span>
     <br><br> -->
 
-    <!-- <label for="politico">Politico</label>
+     <!-- <label for="politico"><strong>Político</strong></label>
+
     <select th:field="*{politico}" id="politico">
-      <option value="">Selecione o politico</option>
+      <option value="">Selecione o Político</option>
       <option th:each="politico : ${politicos}" th:value="${politico.id}" th:text="${politico.nome}" selected="selected"></option>
     </select>
     <span class="erro" th:if="${#fields.hasErrors('politico')}" th:errors="*{politico}"></span>
@@ -58,11 +61,11 @@
     <span class="erro" th:if="${#fields.hasErrors('data_publicacao')}" th:errors="*{data_publicacao}"></span>
     <br><br>-->
 
-    <label for="anexo">Anexo</label>
+    <label for="anexo"><strong>Anexo</strong></label>
     <input type="file" th:field="*{anexo}" id="anexo">
     <br><br>
 
-    <!-- <label for="resposta">Resposta</label>
+    <!-- <label for="resposta"><strong>Resposta</strong></label>
     <input type="text" th:field="*{resposta}" id="resposta">
     <span class="erro" th:if="${#fields.hasErrors('resposta')}" th:errors="*{resposta}"></span>
     <br><br> -->

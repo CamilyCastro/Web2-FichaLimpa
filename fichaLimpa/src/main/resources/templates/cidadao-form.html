@@ -4,13 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Cadastro de Cidadão</title>
+<link rel="icon" type="image/png" href="/images/certa.png">
 <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 	<header>
 		<div class="logo-header">
   			<a th:href="@{/}">
-  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  		        <img th:src="@{/images/certa.png}" alt="Logo" />
   			</a>
         </div>			
 		<h1>Cadastro de Cidadão</h1>
@@ -19,37 +20,37 @@
 	<div class="container">
 		<form method="post" th:action="@{/cidadao/cadastro}" th:object="${cidadao}">
 		
-		<label for="sigla">Nome</label>
+		<label for="sigla"><strong>Nome</strong></label>
 	    <input type="text" th:field="*{nome}">
 	    <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 	    <br><br>
 		
-		<label for="nome">CPF</label>
+		<label for="nome"><strong>CPF</strong></label>
 	    <input type="text" th:field="*{cpf}">
 	    <span class="erro" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
 	    <br><br>
 	    
-	    <label for="telefone">Telefone</label>
+	    <label for="telefone"><strong>Telefone</strong></label>
 	    <input type="text" th:field="*{telefone}">
 	    <span class="erro" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
 	    <br><br>
 		
-		<label for="dataNascimento">Data de nascimento</label>
+		<label for="dataNascimento"><strong>Data de Nascimento</strong></label>
 	    <input type="date" th:field="*{dataNascimento}">
 	    <span class="erro" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 	    <br><br>
 		
-		<label for="email">Email</label>
+		<label for="email"><strong>E-mail</strong></label>
 	    <input type="text" th:field="*{email}">
 	    <span class="erro" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 	    <br><br>
 		
-		<label for="senha">Senha</label>
+		<label for="senha"><strong>Senha</strong></label>
 	    <input type="password" th:field="*{senha}">
 	    <span class="erro" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
 	    <br><br>
 		<fieldset>
-			<legend>Endereço</legend>
+			<legend><strong>Endereço</strong></legend>
 
 			<label for="cep">CEP</label>
 		    <input type="text" th:field="*{endereco.cep}">
@@ -82,7 +83,8 @@
 		    <br><br>
 
 		</fieldset>
-	    
+	    <br><br>
+	    <br><br>
 	    <button type="submit" class="btn-principal">Cadastrar</button>
 	    
 		</form>

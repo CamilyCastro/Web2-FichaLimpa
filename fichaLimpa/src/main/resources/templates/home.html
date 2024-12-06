@@ -3,7 +3,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>HOME</title>
+    <title>Páginal Inicial</title>
+	<link rel="icon" type="image/png" href="certa.png">
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
@@ -11,10 +12,9 @@
     <header >
       <div class="logo-header">
   			<a th:href="@{/}">
-  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  		        <img th:src="@{/images/certa.png}" alt="Logo" />
   			</a>
         </div>	
-        <h1>Bem-vindo à Página Inicial</h1>
     </header>
     <main class="home-container">
         <nav class="home-menu">
@@ -31,10 +31,10 @@
                 <button type="submit" class="home-button">Cadastro Proposta</button>
             </form>
            <form th:action="@{/politico/listar}"  method="get">
-             <button type="submit" class="home-button">Listar Politico</button>
+             <button type="submit" class="home-button">Listar Político</button>
           </form>
           <form th:action="@{/cidadao/listar}" method="get">
-            <button type="submit" class="home-button">Listar Cidadaos</button>
+            <button type="submit" class="home-button">Listar Cidadãos</button>
           </form>
              
         </nav>
