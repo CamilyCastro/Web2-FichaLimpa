@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(MappingController.Publicacao.MAIN)
-@SessionAttributes("publicacao")
+@SessionAttributes("politico")
 public class PublicacaoController {
 
     @Autowired
@@ -43,20 +43,29 @@ public class PublicacaoController {
     public Publicacao publicacao(){
         return new Publicacao();
     }
+    
+    @ModelAttribute("politico")
+    public Politico politico(){
+        return new Politico();
+    }
 
-    @GetMapping(MappingController.Publicacao.cadastro)
-    public String viewPublicacao(Model model){
+    @GetMapping(MappingController.Publicacao.cadastro + "/{id}")
+    public String viewPublicacao(@PathVariable("id") Long id, Model model){
         List<Cidadao> cidadaos = new ArrayList<>();
+        
         cidadaoRepositorio.findAll().forEach(cidadaos::add);
+        
+        Politico politico = new Politico();
+       
         model.addAttribute("cidadaos",cidadaos);
 
-        List<Politico> politicos = new ArrayList<>();
+       /*List<Politico> politicos = new ArrayList<>();
         politicoRepositorio.findAll().forEach(politicos::add);
         model.addAttribute("politicos",politicos);
 
         List<Proposta> propostas = new ArrayList<>();
         propostaRepositorio.findAll().forEach(propostas::add);
-        model.addAttribute("propostas",propostas);
+        model.addAttribute("propostas",propostas);*/
 
         return "publicacao-form";
     }
@@ -70,15 +79,20 @@ public class PublicacaoController {
         return "listar-publicacao";
     }
 
-    @PostMapping
-    public String cadastrarPublicacao(@Valid Publicacao publicacao, Errors errors, SessionStatus sessionStatus){
+    @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
+    public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors,  SessionStatus sessionStatus){
         if(errors.hasErrors()){
             return "publicacao-form";
         }
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
         publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-
+        
+        Politico politico = new Politico();
+        politico.setId(id);
+        
+        publicacao.setPolitico(politico);
+        
         publicacaoRepositorio.save(publicacao);
 
         sessionStatus.setComplete();

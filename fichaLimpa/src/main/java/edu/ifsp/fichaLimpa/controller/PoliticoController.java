@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,9 @@ import edu.ifsp.fichaLimpa.model.Proposta;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -75,6 +76,7 @@ public class PoliticoController {
 	
 	@GetMapping(MappingController.Politico.perfil + "/{id}")
 	public String perfilPolitico(@PathVariable("id") Long id, Model model){
+		
 		Optional<Politico> opt = politicoRepo.findById(id);		
 		
 		if (opt.isPresent()) {
@@ -88,7 +90,7 @@ public class PoliticoController {
 			
 			model.addAttribute("politico", politico);
 			model.addAttribute("propostasPorCategoria", propostasPorCategoria);
-			
+					
 			return "perfil-politico";
 		}
 		
@@ -101,7 +103,7 @@ public class PoliticoController {
 			politicoRepo.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {}	
 		
-		return "listar-cidadao"; // Redireciona após a exclusão
+		return "listar-politico"; 
 	}
 
 	@PostMapping()

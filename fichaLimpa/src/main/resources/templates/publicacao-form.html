@@ -17,7 +17,7 @@
   <h1>Publicação</h1>
 </header>
 <div class="container">
-  <form method="post" th:action="@{/publicacao}" th:object="${publicacao}">
+  <form method="post" th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" th:object="${publicacao}">
 
     <label for="titulo"><strong>Título</strong></label>
     <input type="text" th:field="*{titulo}" id="titulo">
@@ -37,21 +37,23 @@
     <span class="erro" th:if="${#fields.hasErrors('cidadao')}" th:errors="*{cidadao}"></span>
     <br><br>
 
-    <label for="proposta"><strong>Proposta</strong></label>
+
+    <!-- <label for="proposta"><strong>Proposta</strong></label>
     <select th:field="*{proposta}" id="proposta">
       <option value="">Selecione a Proposta</option>
       <option th:each="proposta : ${propostas}" th:value="${proposta.id}" th:text="${proposta.titulo}" selected="selected"></option>
     </select>
     <span class="erro" th:if="${#fields.hasErrors('proposta')}" th:errors="*{proposta}"></span>
-    <br><br>
+    <br><br> -->
 
-    <label for="politico"><strong>Político</strong></label>
+     <!-- <label for="politico"><strong>Político</strong></label>
+
     <select th:field="*{politico}" id="politico">
       <option value="">Selecione o Político</option>
       <option th:each="politico : ${politicos}" th:value="${politico.id}" th:text="${politico.nome}" selected="selected"></option>
     </select>
     <span class="erro" th:if="${#fields.hasErrors('politico')}" th:errors="*{politico}"></span>
-    <br><br>
+    <br><br> -->
 
     <!--DEFINIR DATA E HORA MANUALMENTE-->
     <!--<label for="dataPubli">Data publicacao</label>
@@ -63,10 +65,10 @@
     <input type="file" th:field="*{anexo}" id="anexo">
     <br><br>
 
-    <label for="resposta"><strong>Resposta</strong></label>
+    <!-- <label for="resposta"><strong>Resposta</strong></label>
     <input type="text" th:field="*{resposta}" id="resposta">
     <span class="erro" th:if="${#fields.hasErrors('resposta')}" th:errors="*{resposta}"></span>
-    <br><br>
+    <br><br> -->
 
     <button type="submit" class="btn-principal">Cadastrar</button>
   </form>
