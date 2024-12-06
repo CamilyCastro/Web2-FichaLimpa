@@ -4,13 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>PROPOSTA</title>
+	<link rel="icon" type="image/png" href="/images/certa.png ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 	<header>
   		<div class="logo-header">
   			<a th:href="@{/}">
-  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  		        <img th:src="@{/images/certa.png}" alt="Logo" />
   			</a>
         </div>		
         <h1>Cadastro de Propostas</h1>
@@ -24,18 +25,17 @@
 			<br>
 			<input id="politico" type="text" th:field="*{politico.nome}">-->
 
-			<label for="politico">Selecione um politico</label>
+			<label for="politico"><strong>Político</strong></label>
 			<select id="politico" th:field="*{politico}">
-				<option value="">Selecione um politico</option>
+				<option value="">Selecione um Político</option>
 				<option th:each="politico : ${politicos}" th:value="${politico.id}" th:text="${politico.nome}" selected="selected"></option>
 			</select>
 
 			<br><br>
 
-			<label for="categoria">Categoria</label>
-			<br>
+			<label for="categoria"><strong>Categoria</strong></label>
 			<select id="categoria" th:field="*{categoria}">
-				<option value="">Selecione uma categoria</option>
+				<option value="">Selecione uma Categoria</option>
 				<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
 					th:text="${categoria.descricao}" selected="selected">
 				</option>
@@ -43,14 +43,12 @@
 
 			<br><br>
 
-			<label for="titulo">TITULO </label>
-			<br>
+			<label for="titulo"><strong>Título</strong></label>
 			<input type="text" th:field="*{titulo}">
 
 			<br><br>
 
-			<label for="texto">AREA DE TEXTO</label>
-			<br>
+			<label for="texto"><strong>Área de Texto</strong></label>
 			<textarea id="texto" th:field="*{descricao}" ></textarea>
 
 			<br><br>
@@ -68,6 +66,7 @@
 				</div>
 
 			<br><br> -->
+			<br><br>
 
 			<button type="submit" class="btn-principal">Salvar</button>
 		</form>

@@ -4,13 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cadastro de Partido</title>
+	<link rel="icon" type="image/png" href="/images/certa.png ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 	<header>
 	<div class="logo-header">
   			<a th:href="@{/}">
-  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  		        <img th:src="@{/images/certa.png}" alt="Logo" />
   			</a>
         </div>	
 		<h1>Cadastro de Partido</h1>
@@ -18,19 +19,20 @@
 	<div class="container">
 		<form method="post" th:action="@{/partido}" th:object="${partido}">
 	
-		<label for="sigla">Sigla:</label>
+		<label for="sigla"><strong>Sigla:</strong></label>
 	    <input type="text" th:field="*{sigla}">
 	    <span class="erro" th:if="${#fields.hasErrors('sigla')}" th:errors="*{sigla}"></span>
 	    <br><br>
 		
-		<label for="nome">Nome:</label>
+		<label for="nome"><strong>Nome:</strong></label>
 	    <input type="text" th:field="*{nome}">
 	    <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 	    <br><br>
 	    
-	    <label for="numero">Numero:</label>
+	    <label for="numero"><strong>Numero:</strong></label>
 	    <input type="text" th:field="*{numero}">
 	    <span class="erro" th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}"></span>
+	    <br><br>
 	    <br><br>
 	    
 	    <button type="submit" class="btn-principal">Cadastrar</button>

@@ -3,57 +3,58 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro Politico</title>
+    <title>Cadastro Político</title>
+    <link rel="icon" type="image/png" href="/images/certa.png ">
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 	<header>
 		<div class="logo-header">
   			<a th:href="@{/}">
-  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  		        <img th:src="@{/images/certa.png}" alt="Logo" />
   			</a>
         </div>	
-    	<h1>Cadastro de Politicos</h1>
+    	<h1>Cadastro de Políticos</h1>
 	</header>
 	<div class="container">
 	    <form method="post" th:action="@{/politico}" th:object="${politico}">
 
-	        <label for="nome">Nome</label>
+	        <label for="nome"><strong>Nome</strong></label>
 	        <input type="text" th:field="*{nome}">
 	        <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 	        <br><br>
 
-	        <label for="cargo">Cargo</label>
+	        <label for="cargo"><strong>Cargo</strong></label>
 	        <input type="text" th:field="*{cargo}">
 	        <span class="erro" th:if="${#fields.hasErrors('cargo')}" th:errors="*{cargo}"></span>
 	        <br><br>
 
-	        <label for="nomeEleitoral">Nome Eleitoral</label>
+			<label for="nomeEleitoral"><strong>Nome Eleitoral</strong></label>
 	        <input type="text" th:field="*{nomeEleitoral}">
 	        <span class="erro" th:if="${#fields.hasErrors('nomeEleitoral')}" th:errors="*{nomeEleitoral}"></span>
 	        <br><br>
 
-	        <label for="numeroEleitoral">Numero Eleitoral</label>
+	        <label for="numeroEleitoral"><strong>Número Eleitoral</strong></label>
 	        <input type="text" th:field="*{numeroEleitoral}">
 	        <span class="erro" th:if="${#fields.hasErrors('numeroEleitoral')}" th:errors="*{numeroEleitoral}"></span>
 	        <br><br>
 
-	        <label for="registroCandidatura">Registro Candidatura</label>
+	        <label for="registroCandidatura"><strong>Registro Candidatura</strong></label>
 	        <input type="text" th:field="*{registroCandidatura}">
 	        <span class="erro" th:if="${#fields.hasErrors('registroCandidatura')}" th:errors="*{registroCandidatura}"></span>
 	        <br><br>
 
-	        <label for="dataNascimento">Data de Nascimento</label>
+	        <label for="dataNascimento"><strong>Data de Nascimento</strong></label>
 	        <input type="date" th:field="*{dataNascimento}">
 	        <span class="erro" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 	        <br><br>
 
-	        <label for="contato">Contato</label>
+	        <label for="contato"><strong>Contato</strong></label>
 	        <input type="text" th:field="*{contato}">
 	        <span class="erro" th:if="${#fields.hasErrors('contato')}" th:errors="*{contato}"></span>
 	        <br><br>
 
-	        <label for="nomePartido">Nome do Partido</label>
+	        <label for="nomePartido"><strong>Nome do Partido</label>
 	        <select id="partido" th:field="*{partido}">
 		    <option value="">Selecione o partido</option>
 		    <option th:each="partido : ${partidos}" th:value="${partido.id}" th:text="${partido.nome}" selected="selected"></option>
@@ -64,6 +65,10 @@
 	<!--        <span class="erro" th:if="${#fields.hasErrors('nomePartido')}" th:errors="*{nomePartido}"></span>-->
 	<!--        <br><br>-->
 
+
+				<br><br>
+				<br><br>
+				
 	        <button type="submit" class="btn-principal">Cadastrar</button>
 	    </form>
 	</div>
