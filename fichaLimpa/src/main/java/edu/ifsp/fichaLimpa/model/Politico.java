@@ -9,14 +9,10 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "politico")
-@RequiredArgsConstructor
 @ToString(exclude = "partido")
 public class Politico {
 
@@ -45,18 +41,21 @@ public class Politico {
 	@NotBlank(message = "Obrigatório informar o contato.")
 	private String contato;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "id_partido")
 	private Partido partido;
 	
-	@OneToMany(mappedBy = "politico", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "politico")
 	private List<Proposta> listaPropostas = new ArrayList<>();
 	
 	public void adicionarProposta(Proposta proposta) {
 		listaPropostas.add(proposta);
 	}
+	
+	@OneToMany(mappedBy = "politico")
+	private List<Publicacao> publicacoes = new ArrayList<>();
 
-	@OneToMany(mappedBy = "politico", cascade = CascadeType.ALL)
-	private List<Publicacao> listarpublicacao = new ArrayList<>();
-
+	public void adicionarPublicacoes(Publicacao publicacao){
+		publicacoes.add(publicacao);
+	}
 }

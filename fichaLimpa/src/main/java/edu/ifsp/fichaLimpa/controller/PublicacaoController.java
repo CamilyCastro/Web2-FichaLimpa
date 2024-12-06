@@ -1,26 +1,30 @@
 package edu.ifsp.fichaLimpa.controller;
 
-import edu.ifsp.fichaLimpa.model.Cidadao;
-import edu.ifsp.fichaLimpa.model.Politico;
-import edu.ifsp.fichaLimpa.model.Proposta;
-import edu.ifsp.fichaLimpa.model.Publicacao;
-import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
-import jakarta.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
+import edu.ifsp.fichaLimpa.model.Cidadao;
+import edu.ifsp.fichaLimpa.model.Politico;
+import edu.ifsp.fichaLimpa.model.Publicacao;
+import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping(MappingController.Publicacao.MAIN)
@@ -33,39 +37,21 @@ public class PublicacaoController {
     @Autowired
     private CidadaoRepositorio cidadaoRepositorio;
 
-    @Autowired
-    private PoliticoRepositorio politicoRepositorio;
-
-    @Autowired
-    private PropostaRepositorio propostaRepositorio;
-
     @ModelAttribute("publicacao")
     public Publicacao publicacao(){
         return new Publicacao();
     }
     
-    @ModelAttribute("politico")
-    public Politico politico(){
-        return new Politico();
-    }
-
-    @GetMapping(MappingController.Publicacao.cadastro + "/{id}")
-    public String viewPublicacao(@PathVariable("id") Long id, Model model){
+    @Autowired
+    private EntityManager entityManager;
+    
+    @GetMapping(MappingController.Publicacao.cadastro)
+    public String viewPublicacao(Model model){
         List<Cidadao> cidadaos = new ArrayList<>();
         
         cidadaoRepositorio.findAll().forEach(cidadaos::add);
-        
-        Politico politico = new Politico();
        
         model.addAttribute("cidadaos",cidadaos);
-
-       /*List<Politico> politicos = new ArrayList<>();
-        politicoRepositorio.findAll().forEach(politicos::add);
-        model.addAttribute("politicos",politicos);
-
-        List<Proposta> propostas = new ArrayList<>();
-        propostaRepositorio.findAll().forEach(propostas::add);
-        model.addAttribute("propostas",propostas);*/
 
         return "publicacao-form";
     }
@@ -84,10 +70,12 @@ public class PublicacaoController {
         if(errors.hasErrors()){
             return "publicacao-form";
         }
+        
+        publicacao.setId(null);
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
         publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        
+
         Politico politico = new Politico();
         politico.setId(id);
         

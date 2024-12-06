@@ -17,7 +17,7 @@
     	<h1>Cadastro de Políticos</h1>
 	</header>
 	<div class="container">
-	    <form method="post" th:action="@{/politico}" th:object="${politico}">
+	    <form method="post" th:action="@{/politico/cadastro}" th:object="${politico}">
 
 	        <label for="nome"><strong>Nome</strong></label>
 	        <input type="text" th:field="*{nome}">

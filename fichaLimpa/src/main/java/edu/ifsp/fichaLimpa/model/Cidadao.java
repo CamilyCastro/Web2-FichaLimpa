@@ -1,6 +1,5 @@
 package edu.ifsp.fichaLimpa.model;
 
-import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

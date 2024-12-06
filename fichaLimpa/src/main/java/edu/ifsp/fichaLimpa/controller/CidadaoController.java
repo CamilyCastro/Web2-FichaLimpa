@@ -21,7 +21,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Endereco;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.EnderecoRepositorio;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,9 +32,6 @@ public class CidadaoController {
 
 	@Autowired
 	private CidadaoRepositorio cidadaoRepositorio;
-	
-	@Autowired
-	private EnderecoRepositorio enderecoRepositorio;
 	
 	@ModelAttribute(name = "cidadao")
 	public Cidadao cidadao() {

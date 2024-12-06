@@ -12,8 +12,6 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "proposta")
-@RequiredArgsConstructor
 @ToString
 public class Proposta {
 
@@ -29,11 +27,11 @@ public class Proposta {
 	
 	private int nota;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "id_categoria")
 	private Categoria categoria;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "id_politico")
 	private Politico politico;
 
