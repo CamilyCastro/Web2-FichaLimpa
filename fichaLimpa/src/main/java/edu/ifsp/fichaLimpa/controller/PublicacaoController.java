@@ -86,7 +86,7 @@ public class PublicacaoController {
         return "/home";
     }
 
-    @PostMapping(MappingController.Politico.delete + "/{id}")
+    @PostMapping(MappingController.Publicacao.delete + "/{id}")
     public String deletePublicacao(@PathVariable("id") Long id, Model model) {
         try {
             publicacaoRepositorio.deleteById(id);
