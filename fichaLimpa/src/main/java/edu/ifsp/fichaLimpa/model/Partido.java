@@ -10,7 +10,6 @@ import lombok.ToString;
 
 @Data
 @Entity
-@Table(name = "partido")
 @ToString(exclude = "politico")
 public class Partido {
 
@@ -27,7 +26,7 @@ public class Partido {
 	@NotBlank(message = "Obrigatório informar número do partido.")
 	private String numero;
 
-	@OneToMany(mappedBy = "partido", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "partido")
 	private List<Politico> politicos = new ArrayList<>();
 
 	public void adicionarPolitico(Politico politico){

@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "categoria")
 public class Categoria {
 
 	@Id
@@ -19,7 +18,7 @@ public class Categoria {
 	
 	private String descricao;
 	
-	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "categoria")
 	private List<Proposta> listaPropostas = new ArrayList<>();
 	
 	public void adicionarProposta(Proposta proposta) {

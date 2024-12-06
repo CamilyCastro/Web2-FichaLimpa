@@ -25,9 +25,7 @@ import edu.ifsp.fichaLimpa.model.Proposta;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jakarta.websocket.Session;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -106,8 +104,8 @@ public class PoliticoController {
 		return "listar-politico"; 
 	}
 
-	@PostMapping()
-	public String executarCadastroPolitico(@Valid Politico politico, SessionStatus sessionStatus, Errors errors){
+	@PostMapping(MappingController.Politico.cadastro)
+	public String executarCadastroPolitico(@Valid @ModelAttribute Politico politico, Errors errors, SessionStatus sessionStatus){
 		
 		if (errors.hasErrors()){
 			return "politico-form";
@@ -125,6 +123,6 @@ public class PoliticoController {
 
 			return "/home";
 		}else
-			return "politico/form";
+			return "politico-form";
 	}
 }
