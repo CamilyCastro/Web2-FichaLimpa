@@ -35,18 +35,23 @@ public class Publicacao {
     //Procrurar um tipo arquivos
     private String anexo;
 
-    @NotNull
-    private Integer resposta;//coloquei Integer pq ele permite valores nulos e nao coloca um 0 no campo de texto
-
+	/*
+	 * @NotNull private Integer resposta;//coloquei Integer pq ele permite valores
+	 * nulos e nao coloca um 0 no campo de texto
+	 */
+    
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_cidadao")
     private Cidadao cidadao;
 
-    @ToString.Exclude
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_proposta")
-    private Proposta proposta;
+	/*
+	 * @ToString.Exclude
+	 * 
+	 * @ManyToOne(cascade = CascadeType.PERSIST)
+	 * 
+	 * @JoinColumn(name = "id_proposta") private Proposta proposta;
+	 */
 
     @ToString.Exclude
     @ManyToOne(cascade = CascadeType.PERSIST)

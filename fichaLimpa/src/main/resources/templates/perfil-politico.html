@@ -24,6 +24,11 @@
 			    <button type="submit" class="btn btn-editar">Excluir</button>
 			</form>
 			
+			<form th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" method="get">
+				<!-- <input type="hidden" value="*{id}"/> -->
+			    <button type="submit" class="btn btn-editar">Deixe sua publicação</button>
+			</form>
+			
 		</div>
 		
 		<div class="inline">

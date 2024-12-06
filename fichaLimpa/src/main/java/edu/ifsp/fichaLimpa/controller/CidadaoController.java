@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -79,6 +80,15 @@ public class CidadaoController {
 	@GetMapping(MappingController.Cidadao.edit)
 	public String editCidadao() {
 		return "";
+	}
+	
+	@PostMapping(MappingController.Cidadao.delete + "/{id}")
+	public String deleteCidadao(@PathVariable("id") Long id, Model model) {
+		try {
+			cidadaoRepositorio.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {}	
+		
+		return "listar-cidadao";
 	}
 	
 	@PostMapping(MappingController.Cidadao.MAIN)
