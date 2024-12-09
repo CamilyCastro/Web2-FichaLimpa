@@ -125,18 +125,29 @@ public class PublicacaoController {
         return "/home";
     }
 
-    @PostMapping(MappingController.Publicacao.edit)
-    public String salvarEditaPublicacao(@Valid @ModelAttribute Publicacao publicacao, Errors errors ) {
+    @PostMapping(MappingController.Publicacao.edit + "/{id}")
+    public String salvarEditaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors) {
+    	
         if(errors.hasErrors()) {
             return "editar-publicacao";
         }
+        
+        Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
+        
+        if(!optPubli.isPresent()) {
+        	return "/home";
+        }
+        
+        Publicacao publiAtualizada = new Publicacao();
+        publiAtualizada = optPubli.get();
+        
+        publiAtualizada.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        publiAtualizada.setTitulo(publicacao.getTitulo());
+        publiAtualizada.setDescricao(publicacao.getDescricao());
+        
+        publicacaoRepositorio.save(publiAtualizada);
 
-        publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-
-        //TODO arrumar todos os erros na hora de salvar
-        publicacaoRepositorio.save(publicacao);
-
-        return "perfil-publicacao";
+        return "/home";
     }
 
     @PostMapping(MappingController.Publicacao.delete + "/{id}")
