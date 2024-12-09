@@ -17,17 +17,17 @@
 </header>
 
 <div class="container">
-  <form method="post" th:action="@{/publicacao/edit}" th:object="${publicacao}">
+  <form method="post" th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" th:object="${publicacao}">
 
     <label for="titulo">Titulo</label>
     <input type="text" th:field="*{titulo}">
-    <span class="erro" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
+    <span class="erro" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span> 	 	
     <br><br>
 
     <label for="descricao">Descrição</label>
     <textarea th:field="*{descricao}" id="descricao"></textarea>
-    <br><br><br>
-
+    <br><br>
+    
     <button type="submit" class="btn-principal">Salvar</button>
     <a class="btn btn-editar" th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}">Cancelar</button>
 
