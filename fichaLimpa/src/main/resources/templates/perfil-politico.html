@@ -79,6 +79,16 @@
 		        </li>
 			</ul>
 		</div>
+		<hr>
+		<div class="inline">
+			<h2>Publicações</h2>
+			<ul>
+				<li th:each="publicacao : ${publicacoes}">
+					<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}">Título da publicação</a>
+				</li>
+			</ul>
+		</div>
+
 	</div>
     
 </body>
