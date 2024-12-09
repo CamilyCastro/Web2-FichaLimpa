@@ -22,7 +22,11 @@
 	
 	<div>
 		<div class="cabecalho-perfil">
-			<a class="btn" th:href="@{/cidadao/edit/{id}(id=${cidadao.id})}">Editar perfil</a>
+		
+			<form th:action="@{/cidadao/edit/{id}(id=${cidadao.id})}" method="get">
+			    <button type="submit" class="btn btn-editar">Editar perfil</button>
+			</form>
+		
 			 <form th:action="@{/cidadao/delete/{id}(id=${cidadao.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
 			    <input type="hidden" name="_method" value="DELETE" />
 			    <button type="submit" class="btn btn-editar">Excluir</button>

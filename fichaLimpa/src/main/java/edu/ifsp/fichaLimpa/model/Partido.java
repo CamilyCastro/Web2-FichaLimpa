@@ -2,15 +2,12 @@ package edu.ifsp.fichaLimpa.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 @Entity
-@ToString(exclude = "politico")
 public class Partido {
 
 	@Id

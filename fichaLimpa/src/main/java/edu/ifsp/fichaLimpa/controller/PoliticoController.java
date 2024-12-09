@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Proposta;
@@ -70,7 +71,27 @@ public class PoliticoController {
 		model.addAttribute("politicos", politicos);
 
 		return "listar-politico";
-	}	
+	}
+	
+	@GetMapping(MappingController.Politico.edit + "/{id}")
+	public String formEditarCidadao(@PathVariable("id") Long id, Model model) {
+		Optional<Politico> opt = politicoRepo.findById(id);		
+		
+		if (opt.isPresent()) {
+			
+			Politico politico = opt.get();
+			
+			List<Partido> partidos = new ArrayList<>();
+		    partidoRepo.findAll().forEach(partidos::add);
+		    
+		    model.addAttribute("partidos", partidos);
+			model.addAttribute("politico", politico);
+			
+			return "editar-politico";
+		}
+		
+		return "home";
+	}
 	
 	@GetMapping(MappingController.Politico.perfil + "/{id}")
 	public String perfilPolitico(@PathVariable("id") Long id, Model model){
@@ -95,6 +116,24 @@ public class PoliticoController {
 		return "home";
 	}
 	
+	@PostMapping(MappingController.Politico.edit)
+	public String editCidadao(@Valid @ModelAttribute Politico politico, Errors errors ) {
+		if(errors.hasErrors()) {
+			return "editar-politico";
+		}
+		
+		Partido partido = new Partido();
+
+		if(politico.getPartido() != null){
+			partido.adicionarPolitico(politico);
+			politicoRepo.save(politico);
+
+			return "perfil-politico";
+		}else
+			return "politico-edit";
+	}
+	
+	
 	@PostMapping(MappingController.Politico.delete + "/{id}")
 	public String deletePolitico(@PathVariable("id") Long id, Model model) {
 		try {
@@ -105,24 +144,31 @@ public class PoliticoController {
 	}
 
 	@PostMapping(MappingController.Politico.cadastro)
-	public String executarCadastroPolitico(@Valid @ModelAttribute Politico politico, Errors errors, SessionStatus sessionStatus){
+	public String executarCadastroPolitico(@Valid @ModelAttribute Politico politico, Errors errors, Model model, SessionStatus sessionStatus){
 		
 		if (errors.hasErrors()){
-			return "politico-form";
+			 List<Partido> partidos = new ArrayList<>();
+			 
+		        partidoRepo.findAll().forEach(partidos::add);
+		        
+		        model.addAttribute("politico", politico);
+		        model.addAttribute("partidos", partidos); 
+		        
+		        return "politico-form";
 		}
-
-		Partido partido = new Partido();
-
-		if(politico.getPartido() != null){
+		
+		Optional<Partido> opt = partidoRepo.findById(politico.getPartido().getId());		
+		
+		if (opt.isPresent()) {
+			
+			Partido partido = opt.get();				
 			partido.adicionarPolitico(politico);
 			politicoRepo.save(politico);
-
-			//precisa finalizar a sessao para nao dar erro na linha: <select id="partido" th:field="*{partido}">
-			//esse erro impedia de criar novos politicos
+			
 			sessionStatus.setComplete();
-
 			return "/home";
-		}else
-			return "politico-form";
+		}
+
+		return "politico-form";
 	}
 }

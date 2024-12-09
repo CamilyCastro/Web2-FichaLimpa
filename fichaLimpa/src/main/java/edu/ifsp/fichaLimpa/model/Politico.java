@@ -43,6 +43,7 @@ public class Politico {
 
 	@ManyToOne
 	@JoinColumn(name = "id_partido")
+	@NotBlank(message = "Selecione um partido.")
 	private Partido partido;
 	
 	@OneToMany(mappedBy = "politico")
