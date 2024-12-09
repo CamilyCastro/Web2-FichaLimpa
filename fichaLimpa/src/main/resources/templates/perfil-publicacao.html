@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil</title>
+    <link rel="icon" type="image/png" href="/images/certa.png ">
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<header>
+    <div class="logo-header">
+        <a th:href="@{/}">
+            <img th:src="@{/images/certa.png}" alt="Logo"/>
+        </a>
+    </div>
+    <h1>PERFIL POLÍTICO</h1>
+</header>
+<div>
+    <div class="cabecalho-perfil">
+        <a class="btn btn-editar" th:href="@{/publicacao/edit/{id}(id=${publicacao.id})}">Editar Publicacao</a>
+        <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
+              onsubmit="return confirm('Tem certeza que deseja excluir?')">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <button type="submit" class="btn btn-editar">Excluir</button>
+        </form>
+    </div>
+
+    <div class="inline">
+        <h5>Titulo: </h5>
+        <span th:text="${publicacao.titulo}"></span>
+    </div>
+
+    <div class="inline">
+        <h5>Descrição: </h5>
+        <span th:text="${publicacao.descricao}">
+    </div>
+
+    <div class="inline">
+        <h5>Cidadão: </h5>
+        <span th:text="${publicacao.cidadao.nome}">
+    </div>
+
+    <div class="inline">
+        <h5>Data: </h5>
+        <span th:text="${publicacao.data_publicacao}">
+    </div>
+</div>
+
+</body>
+</html>

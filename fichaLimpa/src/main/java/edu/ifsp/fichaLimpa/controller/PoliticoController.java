@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import edu.ifsp.fichaLimpa.model.Publicacao;
+import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -42,6 +44,9 @@ public class PoliticoController {
 	
 	@Autowired
 	private PropostaRepositorio propostaRepo;
+
+	@Autowired
+	private PublicacaoRepositorio publicacaoRepo;
 
 	@ModelAttribute(name = "politico")
 	public Politico politico() {
@@ -85,7 +90,11 @@ public class PoliticoController {
 			
 			 Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
 			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
+
+			List<Publicacao> publicacoes = new ArrayList<>();
+			publicacaoRepo.findAll().forEach(publicacoes::add);
 			
+			model.addAttribute("publicacoes", publicacoes);
 			model.addAttribute("politico", politico);
 			model.addAttribute("propostasPorCategoria", propostasPorCategoria);
 					

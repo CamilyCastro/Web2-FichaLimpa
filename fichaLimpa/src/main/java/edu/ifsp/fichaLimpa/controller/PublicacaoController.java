@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -65,6 +66,42 @@ public class PublicacaoController {
         return "listar-publicacao";
     }
 
+    @GetMapping(MappingController.Publicacao.edit + "/{id}")
+    public String editarPublicacao(@PathVariable("id") Long id, Model model) {
+        Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
+
+        if (opt.isPresent()) {
+
+            Publicacao publicacao = opt.get();
+
+            List<Cidadao> cidadaos = new ArrayList<>();
+            cidadaoRepositorio.findAll().forEach(cidadaos::add);
+
+            model.addAttribute("cidadaos",cidadaos);
+            model.addAttribute("publicacao", publicacao);
+
+
+            return "editar-publicacao";
+        }
+
+        return "home";
+    }
+
+    @GetMapping(MappingController.Publicacao.perfil + "/{id}")
+    public String perfilPublicacao(@PathVariable("id") Long id, Model model){
+        Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
+
+        if (opt.isPresent()) {
+
+            Publicacao publicacao = opt.get();
+            model.addAttribute("publicacao", publicacao);
+
+            return "perfil-publicacao";
+        }
+
+        return "home";
+    }
+
     @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
     public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors,  SessionStatus sessionStatus){
         if(errors.hasErrors()){
@@ -86,6 +123,20 @@ public class PublicacaoController {
         sessionStatus.setComplete();
 
         return "/home";
+    }
+
+    @PostMapping(MappingController.Publicacao.edit)
+    public String salvarEditaPublicacao(@Valid @ModelAttribute Publicacao publicacao, Errors errors ) {
+        if(errors.hasErrors()) {
+            return "editar-publicacao";
+        }
+
+        publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+
+        //TODO arrumar todos os erros na hora de salvar
+        publicacaoRepositorio.save(publicacao);
+
+        return "perfil-publicacao";
     }
 
     @PostMapping(MappingController.Publicacao.delete + "/{id}")
