@@ -58,8 +58,8 @@
 	        <select id="partido" th:field="*{partido}">
 		    <option value="">Selecione o partido</option>
 		    <option th:each="partido : ${partidos}" th:value="${partido.id}" th:text="${partido.nome}" selected="selected"></option>
-		    <span th:if="${#fields.hasErrors('partido')}" th:errors="*{partido}"></span>
 		    </select>
+		    <span class="erro" th:if="${#fields.hasErrors('partido')}" th:errors="*{partido}"></span>
 
 	<!--        <label for="nomePartido">Nome do Partido</label><br>-->
 	<!--        <input type="text" th:field="*{nomePartido}">-->

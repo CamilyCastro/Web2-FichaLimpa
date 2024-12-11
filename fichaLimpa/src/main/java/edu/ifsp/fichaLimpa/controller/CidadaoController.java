@@ -1,6 +1,5 @@
 package edu.ifsp.fichaLimpa.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -93,11 +92,14 @@ public class CidadaoController {
 		if(errors.hasErrors()) {
 			return "editar-cidadao";
 		}
+		
 		if (cidadao.getEndereco() != null) {
 	        cidadao.getEndereco().setCidadao(cidadao);
+	        cidadaoRepositorio.save(cidadao);
+			return "perfil-cidadao";
 	    }
-		cidadaoRepositorio.save(cidadao);
-		return "perfil-cidadao";
+		
+		return "home";
 	}
 	
 	@PostMapping(MappingController.Cidadao.cadastro)

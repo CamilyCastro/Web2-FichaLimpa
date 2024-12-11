@@ -74,23 +74,24 @@ public class PoliticoController {
 	}
 	
 	@GetMapping(MappingController.Politico.edit + "/{id}")
-	public String formEditarCidadao(@PathVariable("id") Long id, Model model) {
+	public String formEditarPolitico(@PathVariable("id") Long id, Model model) {
 		Optional<Politico> opt = politicoRepo.findById(id);		
 		
 		if (opt.isPresent()) {
 			
 			Politico politico = opt.get();
-			
+	
 			List<Partido> partidos = new ArrayList<>();
-		    partidoRepo.findAll().forEach(partidos::add);
-		    
-		    model.addAttribute("partidos", partidos);
+			partidoRepo.findAll().forEach(partidos::add);
+			    
+			model.addAttribute("partidos", partidos);
 			model.addAttribute("politico", politico);
-			
+				
 			return "editar-politico";
-		}
+			   
+		}		
 		
-		return "home";
+		return MappingController.Politico.perfil + "/{id}";
 	}
 	
 	@GetMapping(MappingController.Politico.perfil + "/{id}")
@@ -117,18 +118,30 @@ public class PoliticoController {
 	}
 	
 	@PostMapping(MappingController.Politico.edit)
-	public String editCidadao(@Valid @ModelAttribute Politico politico, Errors errors ) {
-		if(errors.hasErrors()) {
+	public String editCidadao(@Valid @ModelAttribute Politico politico, Errors errors, Model model) {
+		if (errors.hasErrors()){
+			 List<Partido> partidos = new ArrayList<>();
+			 
+		        partidoRepo.findAll().forEach(partidos::add);
+		        
+		        model.addAttribute("politico", politico);
+		        model.addAttribute("partidos", partidos); 			
+			
 			return "editar-politico";
 		}
 		
-		Partido partido = new Partido();
-
-		if(politico.getPartido() != null){
+		Optional<Partido> opt = partidoRepo.findById(politico.getPartido().getId());		
+		
+		if (opt.isPresent()) {
+			
+			Partido partido = opt.get();		
 			partido.adicionarPolitico(politico);
 			politicoRepo.save(politico);
+			
+			//sessionStatus.setComplete();
+			return MappingController.Politico.perfil + "/{id}";
 
-			return "perfil-politico";
+
 		}else
 			return "politico-edit";
 	}
@@ -161,7 +174,7 @@ public class PoliticoController {
 		
 		if (opt.isPresent()) {
 			
-			Partido partido = opt.get();				
+			Partido partido = opt.get();		
 			partido.adicionarPolitico(politico);
 			politicoRepo.save(politico);
 			
