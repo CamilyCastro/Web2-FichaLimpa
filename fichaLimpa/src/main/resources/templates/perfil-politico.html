@@ -18,15 +18,17 @@
 	</header>
 	<div>
 		<div class="cabecalho-perfil">
-			<button class="btn btn-editar" onclick="abrirModalCidadao()">Editar Perfil</button>
+		
+			<form th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
+			    <button type="submit" class="btn btn-editar">Editar perfil</button>
+			</form>
 			
-			 <form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+			<form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
 			    <input type="hidden" name="_method" value="DELETE" />
 			    <button type="submit" class="btn btn-editar">Excluir</button>
 			</form>
 			
 			<form th:action="@{/publicacao/cadastro}" method="get">
-				<!-- <input type="hidden" value="*{id}"/> -->
 			    <button type="submit" class="btn btn-editar">Deixe sua publicação</button>
 			</form>
 			
