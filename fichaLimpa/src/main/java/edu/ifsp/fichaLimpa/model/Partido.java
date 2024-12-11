@@ -9,7 +9,7 @@ import lombok.ToString;
 
 @Data
 @Entity
-@ToString
+@ToString(exclude = "politicos")
 public class Partido {
 
 	@Id

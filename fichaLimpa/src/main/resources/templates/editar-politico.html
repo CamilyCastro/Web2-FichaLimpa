@@ -10,7 +10,7 @@
 	<header>
 		<div class="logo-header">
   			<a th:href="@{/}">
-  		        <img th:src="@{/images/logo.jpeg}" alt="Logo" />
+  		        <img th:src="@{/images/certa.png}" alt="Logo" />
   			</a>
         </div>			
 		<h1>Editar Dados</h1>
@@ -61,10 +61,12 @@
 		    </select>
 		    
 		    <br><br>
-			<br><br>
-	    
-		    <button type="submit" class="btn-principal">Salvar</button>
-		    <a class="btn" th:href="@{/politico/perfil/{id}(id=${politico.id})}">Cancelar</button>
+		    
+		    <button type="submit" class="btn-principal">Salvar</button><br>
+		    
+		    <form th:action="@{/politico/perfil/{id}(id=${politico.id})}" method="get">
+				<button type="submit" class="btn-principal">Cancelar</button>
+			</form>
 	    
 		</form>
 	</div>

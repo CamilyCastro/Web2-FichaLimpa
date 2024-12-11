@@ -139,7 +139,7 @@ public class PoliticoController {
 			politicoRepo.save(politico);
 			
 			//sessionStatus.setComplete();
-			return MappingController.Politico.perfil + "/{id}";
+			return "perfil-politico";
 
 
 		}else
