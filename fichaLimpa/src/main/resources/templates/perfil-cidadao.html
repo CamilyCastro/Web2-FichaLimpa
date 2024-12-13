@@ -10,15 +10,7 @@
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-	<header>
-		<div class="logo-header">
-  			<a th:href="@{/}">
-  		        <img th:src="@{/images/certa.png}" alt="Logo" />
-  			</a>
-			
-        </div>	
-        <h1>PERFIL CIDADÃO</h1>
-	</header>
+	<div th:replace="header :: header"></div>
 	
 	<div>
 		<div class="cabecalho-perfil">

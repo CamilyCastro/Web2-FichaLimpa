@@ -22,7 +22,7 @@ header {
     justify-content: center;
     position: relative;
     z-index: 10;  
-    min-height: 31px;
+    min-height: 70px;
 }
 .linkMenu{
 	position: absolute;
@@ -173,6 +173,26 @@ button.gerar-relatorio:hover {
 	border: 2px solid #008080 !important;
 	color: #008080 !important;
 }
+
+/* --------- Accordion ----------- */
+.accordion-item{
+	max-width: 25vw;
+	width: 25vw;
+}
+.accordion-button:not(.collapsed) {
+  background: #edf9f9;
+  border: 1px solid #008080;
+  color: #008080;
+}
+.accordion-button:focus{
+	outline: thin dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+    outline-offset: 0px;
+}
+.accordion-button{
+	margin-top: 0px;
+}
+
 
 /* area de texto */
 textarea{

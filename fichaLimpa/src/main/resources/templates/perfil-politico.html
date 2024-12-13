@@ -5,17 +5,12 @@
     <meta charset="UTF-8">
     <title>Perfil</title>
     <link rel="icon" type="image/png" href="/images/certa.png ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-	<header>
-     <div class="logo-header">
-  			<a th:href="@{/}">
-  		        <img th:src="@{/images/certa.png}" alt="Logo" />
-  			</a>
-        </div>	
-    	<h1>PERFIL POLÍTICO</h1>
-	</header>
+	<div th:replace="header :: header"></div>
 	<div>
 		<div class="cabecalho-perfil">
 		
@@ -35,51 +30,41 @@
 		</div>
 		
 		<div class="inline">
-			<h3>Nome: </h3> 
+			<h5>Nome: </h5> 
 			<span th:text="${politico.nome}"></span>
 		</div>
 		<div class="inline">
-			<h3>Cargo: </h3>
+			<h5>Cargo: </h5>
 			<span th:text="${politico.cargo}">
 		</div>
 		<div class="inline">
-			<h3>Nome eleitoral: </h3>
+			<h5>Nome eleitoral: </h5>
 			<span th:text="${politico.nomeEleitoral}">
 		</div>
 		<div class="inline">
-			<h3>Número eleitoral: </h3>
+			<h5>Número eleitoral: </h5>
 			<span th:text="${politico.numeroEleitoral}">
 		</div>
 		<div class="inline">
-			<h3>Registro candidatura: </h3>
+			<h5>Registro candidatura: </h5>
 			<span th:text="${politico.registroCandidatura}">
 		</div>
 		<div class="inline">
-			<h3>Data de nascimento: </h3>
+			<h5>Data de nascimento: </h5>
 			<span th:text="${#dates.format(politico.dataNascimento, 'dd/MM/yyyy')}">
 		</div>
 		<div class="inline">
-			<h3>Contato: </h3>
+			<h5>Contato: </h5>
 			<span th:text="${politico.contato}">
 		</div>
 		<div class="inline">
-			<h3>Partido: </h3>
+			<h5>Partido: </h5>
 			<span th:text="${politico.partido.sigla}">
 		</div>
 		<hr>
 		<div class="inline propostas">
 			<h2>Propostas</h2>
-			<ul>
-				<li th:each="entry : ${propostasPorCategoria}">
-		            <h3 class="categoria-nome" th:text="${entry.key}">Categoria</h3>
-		            <ul>
-		                <li th:each="proposta : ${entry.value}">
-		                    <span class="proposta-titulo" th:text="${proposta.titulo}">Título da Proposta</span>:
-		                    <span class="proposta-descricao" th:text="${proposta.descricao}">Descrição da Proposta</span>
-		                </li>
-		            </ul>
-		        </li>
-			</ul>
+			<div th:replace="proposta-politico :: propostas"></div>
 		</div>
 		<hr>
 		<div class="inline">

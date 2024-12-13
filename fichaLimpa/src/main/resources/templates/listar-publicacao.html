@@ -5,24 +5,19 @@
   <meta charset="UTF-8">
   <title>Publicacoes</title>
   <link rel="icon" type="image/png" href="/images/certa.png ">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-<header>
-  <div class="logo-header">
-    <a th:href="@{/}">
-      <img th:src="@{/images/certa.png}" alt="Logo" />
-    </a>
-  </div>
-  <h1>Publicacoes</h1>
-</header>
-<div class="container">
-
-  <ul>
-    <li th:each="publicacao : ${publicacoes}">
-      <a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}"> </a>
-    </li>
-  </ul>
-</div>
+	<div th:replace="header :: header"></div>
+	<div class="container">
+	
+	  <ul>
+	    <li th:each="publicacao : ${publicacoes}">
+	      <a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}"> </a>
+	    </li>
+	  </ul>
+	</div>
 </body>
 </html>
