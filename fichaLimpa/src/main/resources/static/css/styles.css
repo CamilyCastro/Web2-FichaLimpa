@@ -11,15 +11,22 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
 }
+.body-home{
+	background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), 
+    url('/images/bkg3.jpg');
+	background-repeat: no-repeat;
+  	background-size: cover;
+}
 
 /* Cabeçalho */
 header {
     width: 100%;
     background: linear-gradient(310deg, #008080, #008080); 
-	padding: 20px 0;
+	padding: 10px 100px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     position: relative;
     z-index: 10;  
     min-height: 70px;
@@ -30,10 +37,20 @@ header {
 	color: #ffffff;
 	text-decoration: none;
 }
+.menu-header{
+	display:flex;
+	list-style-type: none;
+	margin-bottom:0px;
+}
+.item-menu-header a{
+	text-decoration:none;
+	color: #fff;
+	margin: 0px 10px;
+	font-weight:bold;
+}
 
 /* Logo no cabeçalho */
 .logo-header {
-    position: absolute;
     left: 20px;
 }
 
