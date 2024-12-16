@@ -110,7 +110,7 @@ public class PoliticoController {
 			
 			List<Proposta> propostas = propostaRepo.findByPoliticoId(politico.getId());
 			
-			 Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
+			Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
 			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
 
 			List<Publicacao> publicacoes = new ArrayList<>();
@@ -150,9 +150,8 @@ public class PoliticoController {
 			//sessionStatus.setComplete();
 			return "perfil-politico";
 
-
 		}else
-			return "politico-edit";
+			return "/home";
 	}
 	
 	

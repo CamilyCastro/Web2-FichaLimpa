@@ -2,6 +2,7 @@ package edu.ifsp.fichaLimpa.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 
@@ -22,13 +23,17 @@ public class Publicacao {
     /*@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data_publicacao;*/
 
-    @NotBlank
+    @NotBlank(message = "Prenchimento obrigatório.")
     private String titulo;
 
+    @NotBlank(message = "Prenchimento obrigatório.")
     private String descricao;
 
     //Procrurar um tipo arquivos
     private String anexo;
+    
+    @NotNull(message = "Prenchimento obrigatório.")
+    private int avaliacao;
 
 	/*@NotNull 
 	private Integer resposta;//coloquei Integer pq ele permite valores nulos e nao coloca um 0 no campo de texto*/
