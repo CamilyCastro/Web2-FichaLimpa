@@ -110,11 +110,8 @@ public class PoliticoController {
 			Politico politico = opt.get();
 			
 			List<Proposta> propostas = propostaRepo.findByPoliticoId(politico.getId());
-			
-			 Map<CategoriaEnum, List<Proposta>> propostasPorCategoria = propostas.stream()
-			            .collect(Collectors.groupingBy(Proposta::getCategoria));
-      
-			Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
+
+			 Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
 			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
 
 			List<Publicacao> publicacoes = publicacaoRepo.findByPoliticoId(politico.getId());
