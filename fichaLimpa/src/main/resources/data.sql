@@ -51,7 +51,7 @@ values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.
 insert into publicacao (data_publicacao, titulo, descricao, resposta, id_cidadao, id_proposta, id_politico)
 values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1, 1, 1);*/
 
-delete from publicacao;
+/*delete from publicacao;
 insert into publicacao (data_publicacao, titulo, descricao, id_cidadao,id_politico)
-values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1);
+values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1);*/
 
