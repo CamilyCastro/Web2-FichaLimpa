@@ -391,3 +391,17 @@ button.dark-mode {
     height: auto;
     width: 140px; /* Ajuste o tamanho conforme necessário */
 }
+
+.stars {
+	display: flex;
+	cursor: pointer;
+}
+
+.star {
+	font-size: 30px;
+	color: gray;
+}
+
+.star.selected {
+	color: gold;
+}

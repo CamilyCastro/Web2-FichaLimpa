@@ -23,8 +23,8 @@ import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
-import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 
 @Controller
@@ -37,14 +37,14 @@ public class PublicacaoController {
 
     @Autowired
     private CidadaoRepositorio cidadaoRepositorio;
+    
+    @Autowired
+    private PoliticoRepositorio politicoRepo;
 
     @ModelAttribute("publicacao")
     public Publicacao publicacao(){
         return new Publicacao();
     }
-    
-    @Autowired
-    private EntityManager entityManager;
     
     @GetMapping(MappingController.Publicacao.cadastro)
     public String viewPublicacao(Model model){
@@ -112,17 +112,21 @@ public class PublicacaoController {
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
         publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-
-        Politico politico = new Politico();
-        politico.setId(id);
         
-        publicacao.setPolitico(politico);
-        
-        publicacaoRepositorio.save(publicacao);
+        Optional<Politico> opt = politicoRepo.findById(id);
 
-        sessionStatus.setComplete();
+        if (opt.isPresent()) {
+			
+			Politico politico = opt.get();	
+			
+			publicacao.setPolitico(politico);
+	        
+	        publicacaoRepositorio.save(publicacao);
 
-        return "/home";
+	        sessionStatus.setComplete();
+		}
+		
+		return "/home";
     }
 
     @PostMapping(MappingController.Publicacao.edit + "/{id}")
