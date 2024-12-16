@@ -10,6 +10,7 @@ import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import edu.ifsp.fichaLimpa.model.Cidadao;
+import edu.ifsp.fichaLimpa.model.CategoriaEnum;
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Proposta;
@@ -110,11 +111,13 @@ public class PoliticoController {
 			
 			List<Proposta> propostas = propostaRepo.findByPoliticoId(politico.getId());
 			
+			 Map<CategoriaEnum, List<Proposta>> propostasPorCategoria = propostas.stream()
+			            .collect(Collectors.groupingBy(Proposta::getCategoria));
+      
 			Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
 			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
 
-			List<Publicacao> publicacoes = new ArrayList<>();
-			publicacaoRepo.findAll().forEach(publicacoes::add);
+			List<Publicacao> publicacoes = publicacaoRepo.findByPoliticoId(politico.getId());
 			
 			model.addAttribute("publicacoes", publicacoes);
 			model.addAttribute("politico", politico);
@@ -124,6 +127,28 @@ public class PoliticoController {
 		}
 		
 		return "home";
+	}
+	
+	// TODO - POLITICO CONTROLLER - terminar a busca
+	@PostMapping(MappingController.Politico.listar)
+	public String buscarPolitico(@Valid @ModelAttribute Politico politico, @Param("nome") String nome, Errors errors, Model model) {
+		
+		if(errors.hasErrors() || nome == null) {
+			List<Partido> partidos = new ArrayList<>();
+			 
+	        partidoRepo.findAll().forEach(partidos::add);
+	        
+	        model.addAttribute("politico", politico);
+	        model.addAttribute("partidos", partidos); 			
+		
+	        return "editar-politico";
+		}
+		
+		
+		List<Politico> politicos = politicoRepo.findPoliticoByNome(nome);
+		model.addAttribute("politicos", politicos);
+		
+		return "listar-politico";
 	}
 	
 	@PostMapping(MappingController.Politico.edit)

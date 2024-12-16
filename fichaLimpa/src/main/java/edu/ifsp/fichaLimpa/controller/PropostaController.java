@@ -1,6 +1,7 @@
 package edu.ifsp.fichaLimpa.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
@@ -13,10 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import edu.ifsp.fichaLimpa.model.Categoria;
+import edu.ifsp.fichaLimpa.model.CategoriaEnum;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Proposta;
-import edu.ifsp.fichaLimpa.repositorios.CategoriaRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
 import jakarta.validation.Valid;
 
@@ -32,9 +32,7 @@ public class PropostaController {
     @Autowired
     private PropostaRepositorio propostaRepositorio;
 
-    @Autowired
-    private CategoriaRepositorio categoriaRepositorio;
-
+	
     @Autowired
     private PoliticoRepositorio politicoRepositorio;
 
@@ -51,9 +49,7 @@ public class PropostaController {
     @GetMapping(MappingController.Proposta.cadastro)
     public String viewProposta(Model model) {
 
-        List<Categoria> categorias = new ArrayList<>();
-        categoriaRepositorio.findAll().forEach(categorias::add);
-
+        List<CategoriaEnum> categorias = Arrays.asList(CategoriaEnum.values());
         model.addAttribute("categorias", categorias);
 
         // salvar politico usando lista
