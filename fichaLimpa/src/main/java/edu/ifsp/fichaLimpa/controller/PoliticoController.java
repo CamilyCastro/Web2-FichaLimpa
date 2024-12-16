@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import edu.ifsp.fichaLimpa.model.CategoriaEnum;
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
@@ -110,8 +111,8 @@ public class PoliticoController {
 			
 			List<Proposta> propostas = propostaRepo.findByPoliticoId(politico.getId());
 			
-			 Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
-			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
+			 Map<CategoriaEnum, List<Proposta>> propostasPorCategoria = propostas.stream()
+			            .collect(Collectors.groupingBy(Proposta::getCategoria));
 
 			List<Publicacao> publicacoes = new ArrayList<>();
 			publicacaoRepo.findAll().forEach(publicacoes::add);

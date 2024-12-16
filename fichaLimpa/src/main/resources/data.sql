@@ -31,11 +31,6 @@ insert into partido (sigla, nome, numero) values ('UP', 'UNIDADE POPULAR', '80')
 insert into partido (sigla, nome, numero) values ('UNIÃO', 'UNIÃO BRASIL', '44');
 insert into partido (sigla, nome, numero) values ('PRD', 'PARTIDO RENOVAÇÃO DEMOCRÁTICA', '25');
 
-delete from categoria;
-insert into categoria (descricao) values ('seguranca');
-insert into categoria (descricao) values ('saude');
-insert into categoria (descricao) values ('macarrao');
-
 delete from politico;
 insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
 	values ('POLITICO TESTE 1', 'PRESIDENTE', 'POLITICO 1', 1, '123', '111111', '1999-10-10', 'politico1@email.com');
@@ -49,8 +44,8 @@ insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cida
 values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksja', 1);
 
 delete proposta;
-insert into proposta (titulo, descricao, id_categoria, id_politico, nota)
-values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 1, 1, 8);
+insert into proposta (titulo, descricao, categoria, id_politico, nota)
+values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 'SAUDE', 1, 8);
 
 /*delete from publicacao;
 insert into publicacao (data_publicacao, titulo, descricao, resposta, id_cidadao, id_proposta, id_politico)
