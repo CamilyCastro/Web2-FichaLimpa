@@ -33,7 +33,7 @@
 			<select id="categoria" th:field="*{categoria}">
 				<option value="">Selecione uma Categoria</option>
 				<option th:each="categoria : ${categorias}" th:value="${categoria}"
-					th:text="${categoria.name()}" selected="selected">
+					th:text="${categoria.descricao}" selected="selected">
 				</option>
 			</select>
 
