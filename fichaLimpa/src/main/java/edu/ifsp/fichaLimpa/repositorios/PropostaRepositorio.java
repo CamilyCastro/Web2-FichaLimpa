@@ -15,5 +15,5 @@ public interface PropostaRepositorio extends CrudRepository<Proposta, Long>{
 	@Query("SELECT p FROM Proposta p WHERE p.politico.id = :politicoId ORDER BY p.categoria, p.titulo")
 	List<Proposta> findAllByPoliticoIdOrderByCategoriaAndTitulo(@Param("politicoId") Long politicoId);
 
-
+	
 }
