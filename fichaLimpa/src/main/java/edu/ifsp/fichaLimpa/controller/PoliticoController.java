@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -70,9 +71,16 @@ public class PoliticoController {
 	
 
 	@GetMapping(MappingController.Politico.listar)
-	public String listarPoliticos(Model model) {
+	public String listarPoliticos(Model model, @RequestParam(name = "query",required = false) String query) {
 		List<Politico> politicos = new ArrayList<>();
-		politicoRepo.findAll().forEach(politicos::add);
+	
+		//buca politico 
+		if(query != null && !query.isEmpty()) {
+			politicos = politicoRepo.findPoliticoByNome(query);		
+		}else {
+			//busca todos se nao achar o politico 
+			politicoRepo.findAll().forEach(politicos::add);
+		}
 		
 		model.addAttribute("politicos", politicos);
 
@@ -126,27 +134,6 @@ public class PoliticoController {
 		return "home";
 	}
 	
-	// TODO - POLITICO CONTROLLER - terminar a busca
-	@PostMapping(MappingController.Politico.listar)
-	public String buscarPolitico(@Valid @ModelAttribute Politico politico, @Param("nome") String nome, Errors errors, Model model) {
-		
-		if(errors.hasErrors() || nome == null) {
-			List<Partido> partidos = new ArrayList<>();
-			 
-	        partidoRepo.findAll().forEach(partidos::add);
-	        
-	        model.addAttribute("politico", politico);
-	        model.addAttribute("partidos", partidos); 			
-		
-	        return "editar-politico";
-		}
-		
-		
-		List<Politico> politicos = politicoRepo.findPoliticoByNome(nome);
-		model.addAttribute("politicos", politicos);
-		
-		return "listar-politico";
-	}
 	
 	@PostMapping(MappingController.Politico.edit)
 	public String editCidadao(@Valid @ModelAttribute Politico politico, Errors errors, Model model) {
