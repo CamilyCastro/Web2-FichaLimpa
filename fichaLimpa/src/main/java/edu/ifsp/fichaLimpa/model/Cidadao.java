@@ -47,5 +47,9 @@ public class Cidadao {
 	private Endereco endereco;
 
 	@OneToMany(mappedBy = "cidadao", cascade = CascadeType.ALL)
-	private List<Publicacao> listarpublicacao = new ArrayList<>();
+	private List<Publicacao> publicacoes = new ArrayList<>();
+	
+	public void adicionarPubli(Publicacao publicacao) {
+		publicacoes.add(publicacao);
+	}
 }

@@ -29,6 +29,8 @@ public class Politico {
 
 	@NotBlank(message = "Obrigatório informar o nome.")
 	private String nome;
+	
+	private Double nota;
 
 	@NotBlank(message = "Obrigatório informar o cargo.")
 	private String cargo;

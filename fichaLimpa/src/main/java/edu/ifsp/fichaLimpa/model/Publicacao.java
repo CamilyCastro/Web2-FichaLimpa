@@ -1,23 +1,29 @@
 package edu.ifsp.fichaLimpa.model;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Data
 @Entity
-@ToString
 public class Publicacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //AUTOMATICO
-    private LocalDateTime data_publicacao;
+    @Column(name = "data_publicacao")
+    private LocalDateTime dataPublicacao;
 
     //MANUAL
     /*@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -43,6 +49,7 @@ public class Publicacao {
     @JoinColumn(name = "id_cidadao")
     private Cidadao cidadao;
 
+    @ToString.Exclude
     @ManyToOne
 	@JoinColumn(name = "id_politico")
 	private Politico politico;

@@ -111,17 +111,19 @@ public class PublicacaoController {
         publicacao.setId(null);
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
-        publicacao.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        publicacao.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         
         Optional<Politico> opt = politicoRepo.findById(id);
 
         if (opt.isPresent()) {
 			
 			Politico politico = opt.get();	
-			
 			publicacao.setPolitico(politico);
-	        
-	        publicacaoRepositorio.save(publicacao);
+			publicacaoRepositorio.save(publicacao);
+	  
+			double notaPolitico = calcularNotaPolitico(politico);
+			politico.setNota(notaPolitico);
+			politicoRepo.save(politico);
 
 	        sessionStatus.setComplete();
 		}
@@ -129,37 +131,88 @@ public class PublicacaoController {
 		return "/home";
     }
 
-    @PostMapping(MappingController.Publicacao.edit + "/{id}")
-    public String salvarEditaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors) {
-    	
+	@PostMapping(MappingController.Publicacao.edit + "/{id}")
+    public String editaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors) {
+    
         if(errors.hasErrors()) {
             return "editar-publicacao";
         }
         
         Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
         
-        if(!optPubli.isPresent()) {
-        	return "/home";
-        }
-        
-        Publicacao publiAtualizada = new Publicacao();
-        publiAtualizada = optPubli.get();
-        
-        publiAtualizada.setData_publicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        publiAtualizada.setTitulo(publicacao.getTitulo());
-        publiAtualizada.setDescricao(publicacao.getDescricao());
-        
-        publicacaoRepositorio.save(publiAtualizada);
+        if(optPubli.isPresent()) {
+        	Publicacao publi = optPubli.get();
+        	publi.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        	publi.setAnexo(publicacao.getAnexo());
+        	publi.setAvaliacao(publicacao.getAvaliacao());
+        	publi.setDescricao(publicacao.getDescricao());
+        	publi.setTitulo(publicacao.getTitulo());
+        	
+        	Optional<Cidadao> optCidadao = cidadaoRepositorio.findById(publi.getCidadao().getId());
+            
+            if(optCidadao.isPresent()) {
+            	
+            	Cidadao cidadao = optCidadao.get();
+            	cidadao.adicionarPubli(publi);
+            	publicacaoRepositorio.save(publi);
+            }
+            
+            System.out.println(publi);
+            
+            Optional<Politico> opt = politicoRepo.findById(publi.getPolitico().getId());
 
+            if (opt.isPresent()) {
+        			
+           	 	 Politico politico = opt.get();	
+        		 double notaPolitico = calcularNotaPolitico(politico);
+        		 politico.setNota(notaPolitico);
+        		 politicoRepo.save(politico);
+        	}
+        }      
+        
         return "/home";
     }
 
     @PostMapping(MappingController.Publicacao.delete + "/{id}")
     public String deletePublicacao(@PathVariable("id") Long id, Model model) {
         try {
-            publicacaoRepositorio.deleteById(id);
+        	Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
+            
+            if (optPubli.isPresent()) {
+                Publicacao publi = optPubli.get();
+                Politico politico = publi.getPolitico();
+
+                // Deletar a publicação
+                publicacaoRepositorio.deleteById(id);
+
+                // Calcular e atualizar a nota do político
+                double notaPolitico = calcularNotaPolitico(politico);
+                politico.setNota(notaPolitico);
+                politicoRepo.save(politico);
+            }
+            
+            
         } catch (EmptyResultDataAccessException e) {}
 
-        return "listar-publicacao";
+        return "/home";
     }
+    
+    private double calcularNotaPolitico(Politico politico) {
+		
+		 List<Integer> notas = publicacaoRepositorio.findNotaByPolitico(politico.getId());
+       
+		 if (notas.isEmpty()) {
+		        return 0.0;
+		    }
+		 
+         int soma = 0;
+         
+         for(Integer notaP: notas) {
+        	 soma += notaP;
+         }
+         
+         double media = (double) soma / notas.size();
+		
+		return media;
+	}
 }

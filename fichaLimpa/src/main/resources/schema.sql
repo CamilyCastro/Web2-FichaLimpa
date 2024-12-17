@@ -17,7 +17,7 @@ create table politico(
     numero_eleitoral varchar(50) not null,
     registro_candidatura varchar(50) not null,
     data_nascimento timestamp not null,
-    nota int,
+    nota double,
     contato varchar(50) not null
 );
 alter table politico add foreign key (id_partido) references partido(id);

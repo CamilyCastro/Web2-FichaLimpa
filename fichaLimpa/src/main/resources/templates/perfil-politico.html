@@ -61,6 +61,10 @@
 			<h5>Partido: </h5>
 			<span th:text="${politico.partido.sigla}">
 		</div>
+		<div class="inline">
+			<h5>Avaliações: </h5>
+			<span th:text="${politico.nota}">
+		</div>
 		<hr>
 		<div class="inline propostas">
 			<h2>Propostas</h2>
@@ -68,7 +72,7 @@
 		</div>
 		<hr>
 		<div class="inline">
-			<h2>Publicações</h2>
+			<h2>Avaliações</h2>
 			<ul>
 				<li th:each="publicacao : ${publicacoes}">
 					<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}">Título da publicação</a>

@@ -15,7 +15,10 @@
 
 <div>
     <div class="cabecalho-perfil">
-        <a class="btn btn-editar" th:href="@{/publicacao/edit/{id}(id=${publicacao.id})}">Editar Publicacao</a>
+    
+    	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
+    		<button type="submit" class="btn btn-editar">Editar Publicacao</button>
+    	</form>
         <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
               onsubmit="return confirm('Tem certeza que deseja excluir?')">
             <input type="hidden" name="_method" value="DELETE"/>
@@ -40,7 +43,12 @@
 
     <div class="inline">
         <h5>Data: </h5>
-        <span th:text="${publicacao.data_publicacao}">
+        <span th:text="${publicacao.dataPublicacao}">
+    </div>
+    
+    <div class="inline">
+        <h5>Avaliação: </h5>
+        <span th:text="${publicacao.avaliacao}">
     </div>
 </div>
 
