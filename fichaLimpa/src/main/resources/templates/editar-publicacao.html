@@ -14,8 +14,18 @@
 	
 	<div class="container">
 	  <form method="post" th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" th:object="${publicacao}">
-	
-	    <label for="titulo">Titulo</label>
+
+		<label for="avaliacao"><strong>Avaliação</strong></label>
+		<div class="stars" id="avaliacao">
+			<span class="star" data-value="1">&#9733;</span> 
+			<span class="star" data-value="2">&#9733;</span> 
+			<span class="star" data-value="3">&#9733;</span>
+			<span class="star" data-value="4">&#9733;</span> 
+			<span class="star" data-value="5">&#9733;</span>
+		</div>
+		<input type="hidden" id="avaliacaoInput" name="avaliacao" th:value="${publicacao.avaliacao}"> <br> <br> 
+		
+		<label for="titulo">Titulo</label>
 	    <input type="text" th:field="*{titulo}">
 	    <span class="erro" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span> 	 	
 	    <br><br>
@@ -24,10 +34,14 @@
 	    <textarea th:field="*{descricao}" id="descricao"></textarea>
 	    <br><br>
 	    
-	    <button type="submit" class="btn-principal">Salvar</button>
-	    <a class="btn btn-editar" th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}">Cancelar</button>
+	    <button type="submit" class="btn-principal">Salvar</button><br>
+	    
+	     <form th:action="@{/publicacao/perfil/{id}(id=${publicacao.id})}" method="get">
+				<button type="submit" class="btn-principal">Cancelar</button>
+		</form>
 	
 	  </form>
 	</div>
+	<script src="/js/avaliacao.js"></script>
 </body>
 </html>

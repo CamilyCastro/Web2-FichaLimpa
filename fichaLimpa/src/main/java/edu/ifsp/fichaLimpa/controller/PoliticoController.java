@@ -127,7 +127,7 @@ public class PoliticoController {
 	}
 	
 	@PostMapping(MappingController.Politico.edit)
-	public String editCidadao(@Valid @ModelAttribute Politico politico, Errors errors, Model model) {
+	public String editPolitico(@Valid @ModelAttribute Politico politico, Errors errors, Model model) {
 		if (errors.hasErrors()){
 			 List<Partido> partidos = new ArrayList<>();
 			 
