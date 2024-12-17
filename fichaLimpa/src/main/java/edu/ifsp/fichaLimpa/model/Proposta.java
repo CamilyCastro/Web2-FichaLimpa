@@ -27,9 +27,14 @@ public class Proposta {
 	
 	private int nota;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_categoria")
-	private Categoria categoria;
+	@Enumerated(EnumType.STRING)
+	private CategoriaEnum categoria;
+	
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_categoria") private Categoria categoria;
+	 */
 
 	@ManyToOne
 	@JoinColumn(name = "id_politico")
