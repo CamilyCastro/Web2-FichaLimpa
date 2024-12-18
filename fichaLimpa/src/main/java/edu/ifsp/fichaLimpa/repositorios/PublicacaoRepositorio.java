@@ -12,4 +12,7 @@ public interface PublicacaoRepositorio extends CrudRepository<Publicacao, Long> 
 	List<Integer> findNotaByPolitico(@Param("id") Long id);
   
 	List<Publicacao> findByPoliticoId(Long idPolitico);
-}
+	
+	//@Query("SELECT * FROM Publicacao p WHERE p.aprovado = :false")
+	List<Publicacao> findByAprovado(/*@Param("false") */boolean aprovado);
+} 

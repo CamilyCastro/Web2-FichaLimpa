@@ -67,11 +67,10 @@ create table publicacao(
     anexo varchar(10),
     id_cidadao bigint not null,
     resposta varchar,
-    --aprovado boolean not null,
+    aprovado boolean not null,
     avaliacao int not null,
     id_politico bigint not null
 );
-
 
 alter table publicacao add foreign key (id_cidadao) references cidadao(id);
 alter table publicacao add foreign key (id_politico) references politico(id);
