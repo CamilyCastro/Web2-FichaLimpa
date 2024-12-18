@@ -112,6 +112,8 @@ public class CidadaoController {
 	        cidadao.getEndereco().setCidadao(cidadao);
 	    }
 		
+		System.out.println(cidadao);
+		
 		cidadaoRepositorio.save(cidadao);
 		
 		sessionStatus.setComplete();
