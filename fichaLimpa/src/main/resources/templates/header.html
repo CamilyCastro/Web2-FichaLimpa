@@ -8,5 +8,10 @@
      <ul class="menu-header">
 		<li class="item-menu-header"><a th:href="@{/politico/listar}"> Políticos </a></li>
 		<li class="item-menu-header"><a th:href="@{/cidadao/cadastro}">Cadastre-se</a></li>
+		<li class="item-menu-header">
+			<form th:action="@{/logout}" method="post">
+	            <input type="submit" value="Sair"/>
+	        </form>
+	    </li>
 	</ul>
 </header>

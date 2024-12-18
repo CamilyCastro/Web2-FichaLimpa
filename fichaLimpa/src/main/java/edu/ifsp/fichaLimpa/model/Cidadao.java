@@ -21,9 +21,6 @@ public class Cidadao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	private String email;
-	
 	@NotBlank(message = "Informe um nome")
 	private String nome;
 	
@@ -38,10 +35,6 @@ public class Cidadao {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 	
-	@NotBlank
-	@Size(min = 6, message = "Informe uma senha com no mínimo 6 dígitos")
-	private String senha;
-	
 	@OneToOne(mappedBy = "cidadao", cascade = CascadeType.ALL)
 	@Valid
 	private Endereco endereco;
@@ -52,4 +45,16 @@ public class Cidadao {
 	public void adicionarPubli(Publicacao publicacao) {
 		publicacoes.add(publicacao);
 	}
+	
+	@OneToOne(mappedBy = "cidadao", cascade = CascadeType.ALL)
+	@Valid
+	private User user; 
+	
+	
+	public void setUser(User user) {
+		user.setCidadao(this);	
+		user.setEnabled(true);
+		this.user = user;
+	}
+	
 }

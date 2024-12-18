@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import edu.ifsp.fichaLimpa.model.Authorities;
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Endereco;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
@@ -111,6 +112,15 @@ public class CidadaoController {
 		if (cidadao.getEndereco() != null) {
 	        cidadao.getEndereco().setCidadao(cidadao);
 	    }
+		if (cidadao.getUser() != null) {
+			cidadao.getUser().setCidadao(cidadao);
+			
+			Authorities auth = new Authorities();
+			
+			auth.setAuthority("ROLE_USER");
+			auth.setUser(cidadao.getUser());
+			cidadao.getUser().getAuthorities().add(auth);
+		}
 		
 		cidadaoRepositorio.save(cidadao);
 		
