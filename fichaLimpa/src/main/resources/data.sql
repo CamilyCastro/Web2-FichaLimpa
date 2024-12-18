@@ -34,6 +34,9 @@ insert into partido (sigla, nome, numero) values ('PRD', 'PARTIDO RENOVAÇÃO DE
 delete from politico;
 insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
 	values ('POLITICO TESTE 1', 'PRESIDENTE', 'POLITICO 1', 1, '123', '111111', '1999-10-10', 'politico1@email.com');
+
+insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
+    values ('Pietro', 'VEREADOR', 'Pietroggg', 3, '455', '145881', '2001-07-10', 'pietro@email.com');
 	
 delete from cidadao;
 insert into cidadao (cpf, telefone, email, nome, data_nascimento, senha)

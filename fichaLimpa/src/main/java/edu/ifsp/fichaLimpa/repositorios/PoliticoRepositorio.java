@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import edu.ifsp.fichaLimpa.model.Politico;
 
 public interface PoliticoRepositorio extends CrudRepository<Politico, Long>{
-	
-    @Query("select p from Politico p where p.nome like %?1%")
-	List<Politico> findPoliticoByNome(String nome);
+
+    @Query("select p from Politico p where lower(trim(p.nome)) like lower(concat('%', ?1, '%'))")
+    List<Politico> findByNome(String nome);
 }

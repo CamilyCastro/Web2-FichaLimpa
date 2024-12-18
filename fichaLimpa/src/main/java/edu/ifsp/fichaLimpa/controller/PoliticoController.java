@@ -10,7 +10,6 @@ import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import edu.ifsp.fichaLimpa.model.CategoriaEnum;
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Proposta;
@@ -74,9 +72,9 @@ public class PoliticoController {
 	public String listarPoliticos(Model model, @RequestParam(name = "query",required = false) String query) {
 		List<Politico> politicos = new ArrayList<>();
 	
-		//buca politico 
+		//busca politico
 		if(query != null && !query.isEmpty()) {
-			politicos = politicoRepo.findPoliticoByNome(query);		
+			politicos = politicoRepo.findByNome(query.trim());
 		}else {
 			//busca todos se nao achar o politico 
 			politicoRepo.findAll().forEach(politicos::add);
