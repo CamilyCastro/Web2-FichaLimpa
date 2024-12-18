@@ -11,5 +11,5 @@ public interface PublicacaoRepositorio extends CrudRepository<Publicacao, Long> 
 	@Query("SELECT p.avaliacao FROM Publicacao p WHERE p.politico.id = :id")
 	List<Integer> findNotaByPolitico(@Param("id") Long id);
   
-  List<Publicacao> findByPoliticoId(Long idPolitico);
+	List<Publicacao> findByPoliticoId(Long idPolitico);
 }

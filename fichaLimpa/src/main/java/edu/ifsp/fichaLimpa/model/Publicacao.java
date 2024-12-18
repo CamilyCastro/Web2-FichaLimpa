@@ -40,6 +40,8 @@ public class Publicacao {
     
     @NotNull(message = "Prenchimento obrigatório.")
     private int avaliacao;
+    
+    
 
 	/*@NotNull 
 	private Integer resposta;//coloquei Integer pq ele permite valores nulos e nao coloca um 0 no campo de texto*/

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import edu.ifsp.fichaLimpa.model.Cidadao;
+import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
@@ -103,11 +104,18 @@ public class PublicacaoController {
     }
 
     @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
-    public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors,  SessionStatus sessionStatus){
-        if(errors.hasErrors()){
-            return "publicacao-form";
-        }
-        
+    public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors,  Model model, SessionStatus sessionStatus){
+    	if (errors.hasErrors()){
+			 List<Cidadao> cidadaos = new ArrayList<>();
+			 
+		        cidadaoRepositorio.findAll().forEach(cidadaos::add);
+		        
+		        model.addAttribute("publicacao", publicacao);
+		        model.addAttribute("cidadaos", cidadaos);
+		    			
+			return "publicacao-form";
+    	}
+    	
         publicacao.setId(null);
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
@@ -132,11 +140,18 @@ public class PublicacaoController {
     }
 
 	@PostMapping(MappingController.Publicacao.edit + "/{id}")
-    public String editaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors) {
+    public String editaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors, Model model ) {
     
-        if(errors.hasErrors()) {
-            return "editar-publicacao";
-        }
+		if (errors.hasErrors()){
+			 List<Cidadao> cidadaos = new ArrayList<>();
+			 
+		        cidadaoRepositorio.findAll().forEach(cidadaos::add);
+		        
+		        model.addAttribute("publicacao", publicacao);
+		        model.addAttribute("cidadaos", cidadaos);
+		    			
+			return "publicacao-form";
+   	}
         
         Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
         
