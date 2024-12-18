@@ -117,12 +117,20 @@ public class PoliticoController {
 			
 			List<Proposta> propostas = propostaRepo.findByPoliticoId(politico.getId());
 
-			 Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
+			Map<String, List<Proposta>> propostasPorCategoria = propostas.stream()
 			            .collect(Collectors.groupingBy(p -> p.getCategoria().getDescricao()));
 
 			List<Publicacao> publicacoes = publicacaoRepo.findByPoliticoId(politico.getId());
 			
-			model.addAttribute("publicacoes", publicacoes);
+			List<Publicacao> aprovadas = new ArrayList<>();
+						
+			for(Publicacao publicacao : publicacoes) {
+				if(publicacao.isAprovado()) {
+					aprovadas.add(publicacao);
+				}
+			}
+			
+			model.addAttribute("publicacoes", aprovadas);
 			model.addAttribute("politico", politico);
 			model.addAttribute("propostasPorCategoria", propostasPorCategoria);
 					
