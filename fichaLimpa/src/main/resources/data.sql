@@ -39,8 +39,10 @@ insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral,
     values ('Pietro', 'VEREADOR', 'Pietroggg', 3, '455', '145881', '2001-07-10', 'pietro@email.com');
 	
 delete from cidadao;
-insert into cidadao (cpf, telefone, email, nome, data_nascimento, senha)
-values('292.834.321-00', '(98)92783-9145', 'henrique-moura73@embraer.com.br', 'CIDADAO TESTE 1', '2024-11-04 00:00:00','123456789');
+insert into cidadao (cpf, telefone, nome, data_nascimento)
+values('292.834.321-00', '(98)92783-9145', 'CIDADAO TESTE 1', '2024-11-04 00:00:00');
+insert into cidadao (cpf, telefone, nome, data_nascimento)
+values('232.123.321-00', '(98)93432-8765', 'CIDADAO TESTE 2', '2000-01-09 00:00:00');
 
 delete from endereco;
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
@@ -58,3 +60,10 @@ values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.'
 insert into publicacao (data_publicacao, titulo, descricao, id_cidadao,id_politico)
 values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1);*/
 
+
+insert into users (username, password, enabled, cidadao_id) values ('admin', '{noop}admin', true, 1);
+insert into users (username, password, enabled, cidadao_id) values ('cidadao', '{noop}cidadao', true, 2);
+
+insert into authorities (username, authority) values ('cidadao', 'ROLE_USER');
+insert into authorities (username, authority) values ('admin', 'ROLE_USER');
+insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');

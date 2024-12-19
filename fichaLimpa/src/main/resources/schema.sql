@@ -38,10 +38,8 @@ create table cidadao(
 	id identity primary key,
     cpf varchar(14) not null unique,
     telefone varchar(15) not null,
-    email varchar(50) not null unique,
     nome varchar(50),
-    data_nascimento timestamp not null,
-    senha varchar(30) not null
+    data_nascimento timestamp not null
 );
 
 drop table if exists endereco;
@@ -76,6 +74,21 @@ alter table publicacao add foreign key (id_cidadao) references cidadao(id);
 alter table publicacao add foreign key (id_politico) references politico(id);
 
 
+drop table if exists users;
+create table users (
+	username varchar(50) not null primary key,
+	password varchar(500) not null,
+	enabled boolean not null,
+	cidadao_id bigint not null
+);
+alter table users add foreign key (cidadao_id) references cidadao(id);
+
+drop table if exists authorities;
+create table authorities (
+	username varchar(50) not null,
+	authority varchar(50) not null
+);
+alter table authorities add foreign key (username) references users(username);
 
 
 
