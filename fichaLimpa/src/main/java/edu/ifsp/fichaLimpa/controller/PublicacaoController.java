@@ -134,19 +134,15 @@ public class PublicacaoController {
         publicacao.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         publicacao.setAprovado(false);
         
+        sessionStatus.setComplete();
+        
         Optional<Politico> opt = politicoRepo.findById(id);
 
         if (opt.isPresent()) {
 			
 			Politico politico = opt.get();	
 			publicacao.setPolitico(politico);
-			publicacaoRepositorio.save(publicacao);
-	  
-			double notaPolitico = calcularNotaPolitico(politico);
-			politico.setNota(notaPolitico);
-			politicoRepo.save(politico);
-
-	        sessionStatus.setComplete();
+			publicacaoRepositorio.save(publicacao);	        
 		}
 		
 		return "/home";
@@ -240,6 +236,16 @@ public class PublicacaoController {
             	publicacaoRepositorio.delete(publi);
             }
             
+            Optional<Politico> opt = politicoRepo.findById(id);
+
+            if (opt.isPresent()) {
+    			
+    			Politico politico = opt.get();	
+    	  
+    			double notaPolitico = calcularNotaPolitico(politico);
+    			politico.setNota(notaPolitico);
+    			politicoRepo.save(politico);	        
+    		}         
     	}
     	
     	return "/home";
