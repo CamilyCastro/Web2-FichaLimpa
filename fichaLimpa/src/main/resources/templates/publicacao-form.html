@@ -34,6 +34,7 @@
 
     <label for="descricao"><strong>Descrição</strong></label>
     <textarea th:field="*{descricao}" id="descricao"></textarea>
+    <span class="erro" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
     <br><br><br>
 
     <!-- TODO GAMBIARRA - HTML - remover o select e pegar o cidadao pela sessao-->
