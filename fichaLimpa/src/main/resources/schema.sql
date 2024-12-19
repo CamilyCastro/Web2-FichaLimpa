@@ -38,10 +38,8 @@ create table cidadao(
 	id identity primary key,
     cpf varchar(14) not null unique,
     telefone varchar(15) not null,
-    email varchar(50) not null unique,
     nome varchar(50),
-    data_nascimento timestamp not null,
-    senha varchar(30) not null
+    data_nascimento timestamp not null
 );
 
 drop table if exists endereco;

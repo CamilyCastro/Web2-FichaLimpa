@@ -114,6 +114,7 @@ public class CidadaoController {
 	    }
 		if (cidadao.getUser() != null) {
 			cidadao.getUser().setCidadao(cidadao);
+			cidadao.getUser().setPassword("{bcrypt}"+cidadao.getUser().getPassword());
 			
 			Authorities auth = new Authorities();
 			

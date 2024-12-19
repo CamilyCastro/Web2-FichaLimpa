@@ -36,14 +36,14 @@
 	    <span class="erro" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 	    <br><br>
 		
-		<label for="email"><strong>E-mail</strong></label>
-	    <input type="text" th:field="*{email}">
-	    <span class="erro" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+		<label for="username"><strong>E-mail</strong></label>
+	    <input type="text" th:field="*{user.username}">
+	    <span class="erro" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"></span>
 	    <br><br>
 		
-		<label for="senha"><strong>Senha</strong></label>
-	    <input type="password" th:field="*{senha}">
-	    <span class="erro" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
+		<label for="password"><strong>Senha</strong></label>
+	    <input type="password" th:field="*{user.password}">
+	    <span class="erro" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"></span>
 	    <br><br>
 		<fieldset>
 			<legend><strong>Endereço</strong></legend>
