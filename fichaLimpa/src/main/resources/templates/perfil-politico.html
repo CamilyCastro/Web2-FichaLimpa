@@ -63,7 +63,7 @@
 		</div>
 		<div class="inline">
 			<h5>Avaliações: </h5>
-			<span th:text="${politico.nota}">
+			<span th:text="${#numbers.formatDecimal(politico.nota, 1, 1)}"><!--colocando limite de casas decimais-->
 		</div>
 		<hr>
 		<div class="inline propostas">
