@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,6 +22,7 @@ import edu.ifsp.fichaLimpa.model.Authorities;
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Endereco;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.UserRepositorio;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,12 @@ public class CidadaoController {
 
 	@Autowired
 	private CidadaoRepositorio cidadaoRepositorio;
+	
+	@Autowired
+	private UserRepositorio userRepo;
+	
+	@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@ModelAttribute(name = "cidadao")
 	public Cidadao cidadao() {
@@ -112,18 +120,24 @@ public class CidadaoController {
 		if (cidadao.getEndereco() != null) {
 	        cidadao.getEndereco().setCidadao(cidadao);
 	    }
-		if (cidadao.getUser() != null) {
-			cidadao.getUser().setCidadao(cidadao);
-			cidadao.getUser().setPassword("{bcrypt}"+cidadao.getUser().getPassword());
-			
-			Authorities auth = new Authorities();
-			
-			auth.setAuthority("ROLE_USER");
-			auth.setUser(cidadao.getUser());
-			cidadao.getUser().getAuthorities().add(auth);
-		}
 		
 		cidadaoRepositorio.save(cidadao);
+
+		if (cidadao.getUser() != null) {
+			
+	        String encryptedPassword = bCryptPasswordEncoder.encode(cidadao.getUser().getPassword());
+			cidadao.getUser().setCidadao(cidadao);
+			cidadao.getUser().setPassword(encryptedPassword);
+			
+			Authorities auth = new Authorities();
+			auth.setAuthority("ROLE_USER");
+			auth.setUser(cidadao.getUser());
+			
+			cidadao.getUser().adicionarAuthority(auth);
+			
+			userRepo.save(cidadao.getUser());
+		}
+		
 		
 		sessionStatus.setComplete();
 		

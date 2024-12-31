@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div th:replace="header :: header"></div>	
+	<div class="container">
+	    	<ul>
+				<li th:each="publicacao : ${publicacoes}">
+					<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}">Título da publicação</a>
+					<form method="post" th:action="@{/publicacao/aprovar/{id}(id=${publicacao.id}, status=true)}">
+						<button type="submit" class="btn btn-editar">Aprovar</button>
+					</form>		
+					<form method="post" th:action="@{/publicacao/aprovar/{id}(id=${publicacao.id},status=false)}">
+						<button type="submit" class="btn btn-editar">Não Aprovar</button>
+					</form>				
+				</li>
+			</ul>
+	</div>
+</body>
+</html>
