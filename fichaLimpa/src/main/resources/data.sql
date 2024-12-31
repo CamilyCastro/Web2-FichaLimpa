@@ -60,8 +60,8 @@ values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.'
 insert into publicacao (data_publicacao, titulo, descricao, id_cidadao,id_politico)
 values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1);*/
 
-
-insert into users (username, password, enabled, cidadao_id) values ('admin', '{noop}admin', true, 1);
+/* admin123 */
+insert into users (username, password, enabled, cidadao_id) values ('admin', '$2a$10$REXaxyIzUNgsYc6BswnC9u35FKBAR64J1LhRe1oG0nVt7sg4OpfhW', true, 1);
 insert into users (username, password, enabled, cidadao_id) values ('cidadao', '{noop}cidadao', true, 2);
 
 insert into authorities (username, authority) values ('cidadao', 'ROLE_USER');

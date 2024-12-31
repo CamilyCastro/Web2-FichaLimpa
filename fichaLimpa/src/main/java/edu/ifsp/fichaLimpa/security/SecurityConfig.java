@@ -8,8 +8,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import jakarta.annotation.PostConstruct;
+
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +26,11 @@ public class SecurityConfig {
 	UserDetailsService userDetailsService() {
 		return new JdbcUserDetailsManager(dataSource);
 	}
+	
+	@Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 	
 	/* 
@@ -44,11 +53,13 @@ public class SecurityConfig {
 			/* -- end: H2 Console -- */
 			
 			.authorizeHttpRequests(authorizeRequests ->	authorizeRequests
-					.requestMatchers("/css/**", "/login", "/api/**").permitAll()
+					.requestMatchers("/", "/home", "/css/**", "/images/**", "/js/**", "/login", "/api**", "/cidadao/cadastro", "/fragments/**").permitAll()
 					.requestMatchers("/**").hasRole("USER")
 			)		
 			.formLogin(form -> form
 				.loginPage("/login").permitAll()
+				.defaultSuccessUrl("/", true)
+			    .failureUrl("/login?error") 
 			)
 			 .logout()
 		        .logoutSuccessUrl("/login?logout") // Redirecionamento após logout
