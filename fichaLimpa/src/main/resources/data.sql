@@ -43,6 +43,10 @@ insert into cidadao (cpf, telefone, nome, data_nascimento)
 values('292.834.321-00', '(98)92783-9145', 'CIDADAO TESTE 1', '2024-11-04 00:00:00');
 insert into cidadao (cpf, telefone, nome, data_nascimento)
 values('232.123.321-00', '(98)93432-8765', 'CIDADAO TESTE 2', '2000-01-09 00:00:00');
+insert into cidadao (cpf, telefone, nome, data_nascimento)
+values('287.111.222-00', '(98)93432-8521', 'CIDADAO TESTE 3', '2004-06-09 00:00:00');
+insert into cidadao (cpf, telefone, nome, data_nascimento)
+values('333.111.222-00', '(98)99731-8521', 'CIDADAO TESTE 4', '2003-06-05 00:00:00');
 
 delete from endereco;
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
@@ -62,8 +66,10 @@ values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.'
 
 /* admin123 */
 insert into users (username, password, enabled, cidadao_id) values ('admin', '$2a$10$REXaxyIzUNgsYc6BswnC9u35FKBAR64J1LhRe1oG0nVt7sg4OpfhW', true, 1);
-insert into users (username, password, enabled, cidadao_id) values ('cidadao', '{noop}cidadao', true, 2);
+insert into users (username, password, enabled, cidadao_id) values ('03', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 3);
+insert into users (username, password, enabled, cidadao_id) values ('04', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 4);
 
-insert into authorities (username, authority) values ('cidadao', 'ROLE_USER');
 insert into authorities (username, authority) values ('admin', 'ROLE_USER');
 insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');
+insert into authorities (username, authority) values ('03', 'ROLE_USER');
+insert into authorities (username, authority) values ('04', 'ROLE_USER');

@@ -7,16 +7,18 @@
 <div th:replace="header :: header"></div>
 
 <div>
-    <div class="cabecalho-perfil">
+    <div class="cabecalho-perfil" th:if="${permissao}"	>
     
     	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
     		<button type="submit" class="btn btn-editar">Editar Publicacao</button>
     	</form>
+    	
         <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
               onsubmit="return confirm('Tem certeza que deseja excluir?')">
             <input type="hidden" name="_method" value="DELETE"/>
             <button type="submit" class="btn btn-editar">Excluir</button>
         </form>
+        
     </div>
 
     <div class="inline">
