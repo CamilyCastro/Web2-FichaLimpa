@@ -79,8 +79,32 @@ header {
 	text-decoration:none;
 	color: #fff;
 	margin: 0px 10px;
-	font-weight:bold;
+	font-weight: 400;
 }
+
+/* MENU DROPDWON */
+.dropdown a{
+	color: #606060;
+	font-weight: 300;
+	margin: 0;
+}
+
+.dropdown button{
+	background-color: transparent;
+	border: none;
+	margin:0;
+}
+
+.dropdown button:hover{
+	background-color: #ffffff21;
+}
+.dropdown button:active{
+	background-color: #ffffff69 !important;
+}
+.dropdown button:focus{
+	background-color: #ffffff21 !important;
+}
+
 
 /* Logo no cabeçalho */
 .logo-header {
@@ -98,7 +122,7 @@ h1 {
 
 .cabecalho-perfil{
 	display: flex;
-	justify-content: right;
+	justify-content: space-between;
 }
 
 /* Container principal */
@@ -112,6 +136,12 @@ h1 {
     text-align: left;
     margin-top: 20px;
     transition: all 0.3s ease;
+}
+
+.container-listar{
+	min-width: 80vw;
+	box-shadow: 0px 0px 10px 0px #8f8f8f1a;
+	border: 1px solid #e7e7e7a1;
 }
 
 /* Formulário */
@@ -160,26 +190,68 @@ fieldset legend{
 /* Lista Politicos */
 .lista-politico{
 	list-style-type: none;
+	margin-bottom: 0px;
 }
+.lista-politico li{
+	border: 1px solid #e7e7e7;
+	border-radius: 10px;
+	min-width: 100%;
+	padding: 1em 2em;
+	margin:5px;
+}
+
 .lista-politico li a{
 	text-decoration: none;
 	color: #008080;
 	transition: color 0.6s, font-weight 0.6s;
 }
-.lista-politico li a:hover{
+.lista-politico li:hover{
 	text-decoration: none;
 	color: #008080;
 	font-weight: bold;
+	background-color: #f4f4f4;
 }
 .lista-politico hr{
 	color: #deddda;
 	border:1px
 }
 
-/* Perfil */
+/* Perfil Político*/
 
 .proposta-titulo{
 	font-weight: bold;
+}
+.perfil-politico{
+	display: flex;
+    width: 95%;
+	height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+	box-shadow: 0px 0px 10px 0px #8f8f8f1a;
+	border: 1px solid #e7e7e7a1;
+	margin: 2em;
+	border-radius: 15px;
+}
+.div-informações, .div-propostas, .div-avaliacoes{
+	/*box-shadow: 0px 0px 10px 0px #8f8f8f1a;*/
+	border: 1px solid #e7e7e7a1;
+	/*border-radius: 5px;*/
+}
+.div-propostas, .div-avaliacoes{
+	min-height: 50%;
+	background-color: #ffffff;
+}
+.div-informações{
+	width: 40%;
+	border-radius: 15px 0 0 15px;
+}
+.div-informações img{
+	width: 30%;
+}
+.propostas-avaliacoes{
+	width: 60%;
+	height: auto;
 }
 
 /* Botões */
@@ -468,7 +540,8 @@ button.dark-mode {
 .form-filtro{
 	display: flex;
 	justify-content: center;
-	width: 20vw;
+	min-width: 25vw;
+	margin-top: 15px;
 }
 .form-filtro input{
 	max-width: 100%;

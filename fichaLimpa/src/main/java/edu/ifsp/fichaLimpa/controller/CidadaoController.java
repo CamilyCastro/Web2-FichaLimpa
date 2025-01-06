@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -112,7 +114,7 @@ public class CidadaoController {
 	}
 	
 	@PostMapping(MappingController.Cidadao.cadastro)
-	public String salvarCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors, SessionStatus sessionStatus) {
+	public String salvarCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors, SessionStatus sessionStatus, Model model) {
 		if(errors.hasErrors()) {
 			return "cidadao-form";
 		}
@@ -141,7 +143,7 @@ public class CidadaoController {
 		
 		sessionStatus.setComplete();
 		
-		return "home";
+		return "login";
 	}
 	
 	@PostMapping(MappingController.Cidadao.delete + "/{id}")

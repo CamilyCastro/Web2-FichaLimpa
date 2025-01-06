@@ -4,75 +4,82 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 	<div th:replace="header :: header"></div>
-	<div>
-		<div class="cabecalho-perfil">
+	<div class="perfil-politico">
+		<div class="div-informações">
+			<div class="cabecalho-perfil">
+				<img th:src="@{/images/profile.jpg}" alt="Perfil"/>
+				<div style="display: flex;">
+					<form th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
+					    <button type="submit" class="btn btn-editar">Editar perfil</button>
+					</form>
+					
+					<form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+					    <input type="hidden" name="_method" value="DELETE" />
+					    <button type="submit" class="btn btn-editar">Excluir</button>
+					</form>
+					
+					<form th:action="@{/publicacao/cadastro}" method="get">
+					    <button type="submit" class="btn btn-editar">Deixe sua avaliação</button>
+					</form>
+				</div>
+			</div>
+			
+			<div class="inline">
+				<h5>Nome: </h5> 
+				<span th:text="${politico.nome}"></span>
+			</div>
+			<div class="inline">
+				<h5>Cargo: </h5>
+				<span th:text="${politico.cargo}">
+			</div>
+			<div class="inline">
+				<h5>Nome eleitoral: </h5>
+				<span th:text="${politico.nomeEleitoral}">
+			</div>
+			<div class="inline">
+				<h5>Número eleitoral: </h5>
+				<span th:text="${politico.numeroEleitoral}">
+			</div>
+			<div class="inline">
+				<h5>Registro candidatura: </h5>
+				<span th:text="${politico.registroCandidatura}">
+			</div>
+			<div class="inline">
+				<h5>Data de nascimento: </h5>
+				<span th:text="${#dates.format(politico.dataNascimento, 'dd/MM/yyyy')}">
+			</div>
+			<div class="inline">
+				<h5>Contato: </h5>
+				<span th:text="${politico.contato}">
+			</div>
+			<div class="inline">
+				<h5>Partido: </h5>
+				<span th:text="${politico.partido.sigla}">
+			</div>
+			<div class="inline">
+				<h5>Avaliações: </h5>
+				<span th:text="${#numbers.formatDecimal(politico.nota, 1, 1)}"><!--colocando limite de casas decimais-->
+			</div>
+		</div>
 		
-			<form th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
-			    <button type="submit" class="btn btn-editar">Editar perfil</button>
-			</form>
-			
-			<form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
-			    <input type="hidden" name="_method" value="DELETE" />
-			    <button type="submit" class="btn btn-editar">Excluir</button>
-			</form>
-			
-			<form th:action="@{/publicacao/cadastro}" method="get">
-			    <button type="submit" class="btn btn-editar">Deixe sua avaliação</button>
-			</form>
-			
+		<div class="propostas-avaliacoes accordion-container">
+			<div class="div-propostas accordion-container">
+				<div class="inline propostas accordion-container">
+					<h2>Propostas</h2>
+					<div class="accordion-container" th:replace="proposta-politico :: propostas"></div>
+				</div>
+			</div>
+			<div class="div-avaliacoes">
+				<div class="inline">
+					<h2>Avaliações</h2>
+					<ul>
+						<li th:each="publicacao : ${publicacoes}">
+							<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}">Título da publicação</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		
-		<div class="inline">
-			<h5>Nome: </h5> 
-			<span th:text="${politico.nome}"></span>
-		</div>
-		<div class="inline">
-			<h5>Cargo: </h5>
-			<span th:text="${politico.cargo}">
-		</div>
-		<div class="inline">
-			<h5>Nome eleitoral: </h5>
-			<span th:text="${politico.nomeEleitoral}">
-		</div>
-		<div class="inline">
-			<h5>Número eleitoral: </h5>
-			<span th:text="${politico.numeroEleitoral}">
-		</div>
-		<div class="inline">
-			<h5>Registro candidatura: </h5>
-			<span th:text="${politico.registroCandidatura}">
-		</div>
-		<div class="inline">
-			<h5>Data de nascimento: </h5>
-			<span th:text="${#dates.format(politico.dataNascimento, 'dd/MM/yyyy')}">
-		</div>
-		<div class="inline">
-			<h5>Contato: </h5>
-			<span th:text="${politico.contato}">
-		</div>
-		<div class="inline">
-			<h5>Partido: </h5>
-			<span th:text="${politico.partido.sigla}">
-		</div>
-		<div class="inline">
-			<h5>Avaliações: </h5>
-			<span th:text="${#numbers.formatDecimal(politico.nota, 1, 1)}"><!--colocando limite de casas decimais-->
-		</div>
-		<hr>
-		<div class="inline propostas">
-			<h2>Propostas</h2>
-			<div th:replace="proposta-politico :: propostas"></div>
-		</div>
-		<hr>
-		<div class="inline">
-			<h2>Avaliações</h2>
-			<ul>
-				<li th:each="publicacao : ${publicacoes}">
-					<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}">Título da publicação</a>
-				</li>
-			</ul>
-		</div>
-
 	</div>
     
 </body>
