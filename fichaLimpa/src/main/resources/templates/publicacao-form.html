@@ -30,15 +30,6 @@
     <span class="erro" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
     <br><br><br>
 
-    <!-- TODO GAMBIARRA - HTML - remover o select e pegar o cidadao pela sessao-->
-    <label for="cidadao"><strong>Cidadão (GAMBIARRA, PEGAR O CIDADAO LOGADO PELA SESSAO)</strong></label>
-    <select th:field="*{cidadao}" id="cidadao">
-      <option value="">Selecione o Cidadão</option>
-      <option th:each="cidadao : ${cidadaos}" th:value="${cidadao.id}" th:text="${cidadao.nome}" selected="selected"></option>
-    </select>
-    <span class="erro" th:if="${#fields.hasErrors('cidadao')}" th:errors="*{cidadao}"></span>
-    <br><br>
-
     <label for="anexo"><strong>Anexo</strong></label>
     <input type="file" th:field="*{anexo}" id="anexo">
     <br><br>

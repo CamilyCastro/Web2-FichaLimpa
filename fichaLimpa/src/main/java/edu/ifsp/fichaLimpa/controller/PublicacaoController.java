@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -23,12 +25,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Publicacao;
+import edu.ifsp.fichaLimpa.model.User;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.UserRepositorio;
 import jakarta.validation.Valid;
-
-
 
 @Controller
 @RequestMapping(MappingController.Publicacao.MAIN)
@@ -43,6 +45,9 @@ public class PublicacaoController {
     
     @Autowired
     private PoliticoRepositorio politicoRepo;
+    
+    @Autowired
+    private UserRepositorio userRepo;
 
     @ModelAttribute("publicacao")
     public Publicacao publicacao(){
@@ -51,11 +56,6 @@ public class PublicacaoController {
     
     @GetMapping(MappingController.Publicacao.cadastro)
     public String viewPublicacao(Model model){
-        List<Cidadao> cidadaos = new ArrayList<>();
-        
-        cidadaoRepositorio.findAll().forEach(cidadaos::add);
-       
-        model.addAttribute("cidadaos",cidadaos);
 
         return "publicacao-form";
     }
@@ -76,13 +76,7 @@ public class PublicacaoController {
         if (opt.isPresent()) {
 
             Publicacao publicacao = opt.get();
-
-            List<Cidadao> cidadaos = new ArrayList<>();
-            cidadaoRepositorio.findAll().forEach(cidadaos::add);
-
-            model.addAttribute("cidadaos",cidadaos);
             model.addAttribute("publicacao", publicacao);
-
 
             return "editar-publicacao";
         }
@@ -91,12 +85,21 @@ public class PublicacaoController {
     }
 
     @GetMapping(MappingController.Publicacao.perfil + "/{id}")
-    public String perfilPublicacao(@PathVariable("id") Long id, Model model){
+    public String perfilPublicacao(@PathVariable("id") Long id, Model model,@AuthenticationPrincipal UserDetails userDetails){
         Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
 
         if (opt.isPresent()) {
-
+        	
             Publicacao publicacao = opt.get();
+            
+            boolean isAdmin = userDetails.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+            
+            if(userDetails.getUsername().equals(publicacao.getCidadao().getUser().getUsername()) || isAdmin) {
+                 	
+                 	model.addAttribute("permissao", true);
+            }
+            
             model.addAttribute("publicacao", publicacao);
 
             return "perfil-publicacao";
@@ -106,7 +109,7 @@ public class PublicacaoController {
     }
     
     @GetMapping(MappingController.Publicacao.aprovar)
-    public String viwFormaprovarPubli(Model model) {
+    public String viwFormAprovarPubli(Model model) {
     
     	List<Publicacao> emAprovacao = publicacaoRepositorio.findByAprovado(false);
     	
@@ -116,15 +119,10 @@ public class PublicacaoController {
     }
 
     @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
-    public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors,  Model model, SessionStatus sessionStatus){
-    	if (errors.hasErrors()){
-			 List<Cidadao> cidadaos = new ArrayList<>();
-			 
-		        cidadaoRepositorio.findAll().forEach(cidadaos::add);
+    public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors, @AuthenticationPrincipal UserDetails userDetails, Model model, SessionStatus sessionStatus){
+    	if (errors.hasErrors()){			 
 		        
-		        model.addAttribute("publicacao", publicacao);
-		        model.addAttribute("cidadaos", cidadaos);
-		    			
+    		model.addAttribute("publicacao", publicacao);
 			return "publicacao-form";
     	}
     	
@@ -141,9 +139,18 @@ public class PublicacaoController {
         if (opt.isPresent()) {
 			
 			Politico politico = opt.get();	
-			publicacao.setPolitico(politico);
-			publicacaoRepositorio.save(publicacao);	        
+			publicacao.setPolitico(politico);        
 		}
+        
+        Optional<User> optUser = userRepo.findById(userDetails.getUsername());
+        
+        if(optUser.isPresent()) {
+        	User user = optUser.get();
+        	Cidadao cidadao = user.getCidadao();
+        	publicacao.setCidadao(cidadao);
+        	
+        	publicacaoRepositorio.save(publicacao);
+        }
 		
 		return "/home";
     }
@@ -172,6 +179,7 @@ public class PublicacaoController {
         	publi.setDescricao(publicacao.getDescricao());
         	publi.setTitulo(publicacao.getTitulo());
         	
+
         	Optional<Cidadao> optCidadao = cidadaoRepositorio.findById(publi.getCidadao().getId());
             
             if(optCidadao.isPresent()) {
@@ -180,6 +188,7 @@ public class PublicacaoController {
             	cidadao.adicionarPubli(publi);
             	publicacaoRepositorio.save(publi);
             }
+      
             
             System.out.println(publi);
             
