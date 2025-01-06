@@ -9,11 +9,22 @@
 		<li class="item-menu-header"><a th:href="@{/politico/listar}"> Políticos </a></li>
 		<li class="item-menu-header"><a th:href="@{/cidadao/cadastro}">Cadastre-se</a></li>
 		<li class="item-menu-header">
-			<form th:action="@{/logout}" method="post">
-	            <button type="submit" style="margin-top: -15px; background-color: transparent; border: none;">
-					<i class="bi bi-box-arrow-right" style="color: white; font-size: 1.4em;"></i>
-	            </button>
-	        </form>
-	    </li>
+            <div class="dropdown" style="margin-top: -5px;">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownCidadao" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuário
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCidadao">
+                    <li><a class="dropdown-item" th:href="@{/login}">Entrar</a></li>
+					<li><a class="dropdown-item" href="#">Perfil</a></li>
+					<li>
+						<form th:action="@{/logout}" method="post">
+				            <button type="submit" style="color: #606060; background-color: transparent; border: none;" class="dropdown-item">
+								Sair
+				            </button>
+				        </form>
+					</li>
+                </ul>
+            </div>
+        </li>
 	</ul>
 </header>
