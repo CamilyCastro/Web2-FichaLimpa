@@ -69,7 +69,6 @@ insert into users (username, password, enabled, cidadao_id) values ('admin', '$2
 insert into users (username, password, enabled, cidadao_id) values ('03', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 3);
 insert into users (username, password, enabled, cidadao_id) values ('04', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 4);
 
-insert into authorities (username, authority) values ('admin', 'ROLE_USER');
 insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');
 insert into authorities (username, authority) values ('03', 'ROLE_USER');
 insert into authorities (username, authority) values ('04', 'ROLE_USER');
