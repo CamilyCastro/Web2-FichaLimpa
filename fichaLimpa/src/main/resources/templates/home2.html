@@ -12,12 +12,12 @@
 				Acompanhe o desempenho dos candidatos, exija transparência e faça escolhas <b>conscientes</b> para um futuro melhor. <br><br>
 				<b>Seja parte do debate, exija resultados!</b></p>
 				<div class="btns-home">
-					<form th:action="@{/politico/listar}" method="get">
+					<!-- <form th:action="@{/politico/listar}" method="get">
 	                <button type="submit" class="home-button" style="margin-right: 20px;">Encontre Políticos</button>
 	            </form>
 				<form th:action="@{/cidadao/cadastro}" method="get">
 	                <button type="submit" class="home-button">Cadastre-se</button>
-	            </form>
+	            </form> -->
 				</div>
 				
 		</div>
@@ -27,7 +27,13 @@
 		
 		
 	</div>
-    
+	
+	<div id="ranking-container" class="ranking-section">
+    	<h2>Melhores Avaliados</h2>
+    	<ul id="ranking-list"></ul>
+	</div>
+	
+    <script src="/js/ranking.js"></script>
     <!--<main class="home-container">
         <nav class="home-menu">
             <form th:action="@{/politico/cadastro}" method="get">

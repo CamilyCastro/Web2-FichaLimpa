@@ -28,8 +28,7 @@ create table proposta(
     titulo varchar(200) not null,
     descricao text not null,
     categoria varchar(20),
-    id_politico bigint,
-    nota int
+    id_politico bigint
 );
 alter table proposta add foreign key (id_politico) references politico(id);
 

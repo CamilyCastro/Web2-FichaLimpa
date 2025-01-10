@@ -8,19 +8,26 @@
 		<div class="div-informações">
 			<div class="cabecalho-perfil">
 				<img th:src="@{/images/profile.jpg}" alt="Perfil"/>
-				<div style="display: flex;">
-					<form th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
-					    <button type="submit" class="btn btn-editar">Editar perfil</button>
-					</form>
+				
+				<div style="display: flex;" th:if="${logado}">
 					
-					<form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
-					    <input type="hidden" name="_method" value="DELETE" />
-					    <button type="submit" class="btn btn-editar">Excluir</button>
-					</form>
+					<div th:if="${admin}">
+					
+						<form th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
+						    <button type="submit" class="btn btn-editar">Editar perfil</button>
+						</form>
+						
+						<form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+						    <input type="hidden" name="_method" value="DELETE" />
+						    <button type="submit" class="btn btn-editar">Excluir</button>
+						</form>
+						
+					</div>
 					
 					<form th:action="@{/publicacao/cadastro}" method="get">
 					    <button type="submit" class="btn btn-editar">Deixe sua avaliação</button>
 					</form>
+					
 				</div>
 			</div>
 			

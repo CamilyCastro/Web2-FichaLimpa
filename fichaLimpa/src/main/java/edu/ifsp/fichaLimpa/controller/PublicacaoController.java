@@ -1,10 +1,15 @@
 package edu.ifsp.fichaLimpa.controller;
 
+import java.io.IOException;
+import java.net.URI;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -31,6 +36,15 @@ import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.UserRepositorio;
 import jakarta.validation.Valid;
+import jakarta.websocket.CloseReason;
+import jakarta.websocket.Extension;
+import jakarta.websocket.MessageHandler;
+import jakarta.websocket.Session;
+import jakarta.websocket.WebSocketContainer;
+import jakarta.websocket.MessageHandler.Partial;
+import jakarta.websocket.MessageHandler.Whole;
+import jakarta.websocket.RemoteEndpoint.Async;
+import jakarta.websocket.RemoteEndpoint.Basic;
 
 @Controller
 @RequestMapping(MappingController.Publicacao.MAIN)
@@ -151,7 +165,7 @@ public class PublicacaoController {
         	
         	publicacaoRepositorio.save(publicacao);
         }
-		
+        
 		return "/home";
     }
 
@@ -215,10 +229,8 @@ public class PublicacaoController {
                 Publicacao publi = optPubli.get();
                 Politico politico = publi.getPolitico();
 
-                // Deletar a publicação
                 publicacaoRepositorio.deleteById(id);
 
-                // Calcular e atualizar a nota do político
                 double notaPolitico = calcularNotaPolitico(politico);
                 politico.setNota(notaPolitico);
                 politicoRepo.save(politico);

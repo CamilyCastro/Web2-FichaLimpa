@@ -10,6 +10,8 @@ import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -107,7 +109,7 @@ public class PoliticoController {
 	}
 	
 	@GetMapping(MappingController.Politico.perfil + "/{id}")
-	public String perfilPolitico(@PathVariable("id") Long id, Model model){
+	public String perfilPolitico(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails){
 		
 		Optional<Politico> opt = politicoRepo.findById(id);		
 		
@@ -130,6 +132,19 @@ public class PoliticoController {
 				}
 			}
 			
+			boolean logado = false;
+			
+			if(userDetails != null) {
+				logado = true;
+				
+				boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));	            
+				
+		        if(isAdmin) {
+		        	model.addAttribute("admin", isAdmin);
+		        }
+			}
+			
+			model.addAttribute("logado", logado);
 			model.addAttribute("publicacoes", aprovadas);
 			model.addAttribute("politico", politico);
 			model.addAttribute("propostasPorCategoria", propostasPorCategoria);
