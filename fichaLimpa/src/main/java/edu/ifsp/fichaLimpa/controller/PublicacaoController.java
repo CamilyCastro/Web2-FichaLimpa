@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import edu.ifsp.fichaLimpa.model.*;
+import edu.ifsp.fichaLimpa.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,14 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import edu.ifsp.fichaLimpa.model.Cidadao;
-import edu.ifsp.fichaLimpa.model.Politico;
-import edu.ifsp.fichaLimpa.model.Publicacao;
-import edu.ifsp.fichaLimpa.model.User;
-import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
-import edu.ifsp.fichaLimpa.repositorios.UserRepositorio;
 import jakarta.validation.Valid;
 
 @Controller
@@ -42,18 +36,21 @@ public class PublicacaoController {
 
     @Autowired
     private CidadaoRepositorio cidadaoRepositorio;
-    
+
     @Autowired
     private PoliticoRepositorio politicoRepo;
-    
+
     @Autowired
     private UserRepositorio userRepo;
+
+    @Autowired
+    private ComentariosRepositorio comentariosRepositorio;
 
     @ModelAttribute("publicacao")
     public Publicacao publicacao(){
         return new Publicacao();
     }
-    
+
     @GetMapping(MappingController.Publicacao.cadastro)
     public String viewPublicacao(Model model){
 
@@ -89,17 +86,21 @@ public class PublicacaoController {
         Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
 
         if (opt.isPresent()) {
-        	
+
             Publicacao publicacao = opt.get();
-            
+
             boolean isAdmin = userDetails.getAuthorities().stream()
                     .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-            
+
             if(userDetails.getUsername().equals(publicacao.getCidadao().getUser().getUsername()) || isAdmin) {
-                 	
+
                  	model.addAttribute("permissao", true);
             }
-            
+
+            //listar os comentarios
+            List<Comentarios> comentarios = comentariosRepositorio.findByPublicacao(publicacao);
+            model.addAttribute("comentarios", comentarios);
+
             model.addAttribute("publicacao", publicacao);
 
             return "perfil-publicacao";
@@ -107,70 +108,70 @@ public class PublicacaoController {
 
         return "home";
     }
-    
+
     @GetMapping(MappingController.Publicacao.aprovar)
     public String viwFormAprovarPubli(Model model) {
-    
+
     	List<Publicacao> emAprovacao = publicacaoRepositorio.findByAprovado(false);
-    	
+
     	model.addAttribute("publicacoes", emAprovacao);
-    	
+
     	return "aprovar-publi";
     }
 
     @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
     public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors, @AuthenticationPrincipal UserDetails userDetails, Model model, SessionStatus sessionStatus){
-    	if (errors.hasErrors()){			 
-		        
+    	if (errors.hasErrors()){
+
     		model.addAttribute("publicacao", publicacao);
 			return "publicacao-form";
     	}
-    	
+
         publicacao.setId(null);
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
         publicacao.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         publicacao.setAprovado(false);
-        
+
         sessionStatus.setComplete();
-        
+
         Optional<Politico> opt = politicoRepo.findById(id);
 
         if (opt.isPresent()) {
-			
-			Politico politico = opt.get();	
-			publicacao.setPolitico(politico);        
+
+			Politico politico = opt.get();
+			publicacao.setPolitico(politico);
 		}
-        
+
         Optional<User> optUser = userRepo.findById(userDetails.getUsername());
-        
+
         if(optUser.isPresent()) {
         	User user = optUser.get();
         	Cidadao cidadao = user.getCidadao();
         	publicacao.setCidadao(cidadao);
-        	
+
         	publicacaoRepositorio.save(publicacao);
         }
-		
+
 		return "/home";
     }
 
 	@PostMapping(MappingController.Publicacao.edit + "/{id}")
     public String editaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors, Model model ) {
-    
+
 		if (errors.hasErrors()){
 			 List<Cidadao> cidadaos = new ArrayList<>();
-			 
+
 		        cidadaoRepositorio.findAll().forEach(cidadaos::add);
-		        
+
 		        model.addAttribute("publicacao", publicacao);
 		        model.addAttribute("cidadaos", cidadaos);
-		    			
+
 			return "publicacao-form";
    	}
-        
+
         Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
-        
+
         if(optPubli.isPresent()) {
         	Publicacao publi = optPubli.get();
         	publi.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
@@ -178,31 +179,31 @@ public class PublicacaoController {
         	publi.setAvaliacao(publicacao.getAvaliacao());
         	publi.setDescricao(publicacao.getDescricao());
         	publi.setTitulo(publicacao.getTitulo());
-        	
+
 
         	Optional<Cidadao> optCidadao = cidadaoRepositorio.findById(publi.getCidadao().getId());
-            
+
             if(optCidadao.isPresent()) {
-            	
+
             	Cidadao cidadao = optCidadao.get();
             	cidadao.adicionarPubli(publi);
             	publicacaoRepositorio.save(publi);
             }
-      
-            
+
+
             System.out.println(publi);
-            
+
             Optional<Politico> opt = politicoRepo.findById(publi.getPolitico().getId());
 
             if (opt.isPresent()) {
-        			
-           	 	 Politico politico = opt.get();	
+
+           	 	 Politico politico = opt.get();
         		 double notaPolitico = calcularNotaPolitico(politico);
         		 politico.setNota(notaPolitico);
         		 politicoRepo.save(politico);
         	}
-        }      
-        
+        }
+
         return "/home";
     }
 
@@ -210,7 +211,7 @@ public class PublicacaoController {
     public String deletePublicacao(@PathVariable("id") Long id, Model model) {
         try {
         	Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
-            
+
             if (optPubli.isPresent()) {
                 Publicacao publi = optPubli.get();
                 Politico politico = publi.getPolitico();
@@ -223,61 +224,81 @@ public class PublicacaoController {
                 politico.setNota(notaPolitico);
                 politicoRepo.save(politico);
             }
-            
-            
+
+
         } catch (EmptyResultDataAccessException e) {}
 
         return "/home";
     }
-    
+
     @PostMapping(MappingController.Publicacao.aprovar + "/{id}")
     public String aprovarPubli(@PathVariable("id") Long id, @RequestParam("status") boolean status, Publicacao publicacao) {
-    	
+
     	Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
-    	
+
     	if (optPubli.isPresent()) {
             Publicacao publi = optPubli.get();
-            
+
             if(status == true) {
             	publi.setAprovado(true);
                 publicacaoRepositorio.save(publi);
             }else {
             	publicacaoRepositorio.delete(publi);
             }
-            
+
             Optional<Politico> opt = politicoRepo.findById(id);
 
             if (opt.isPresent()) {
-    			
-    			Politico politico = opt.get();	
-    	  
+
+    			Politico politico = opt.get();
+
     			double notaPolitico = calcularNotaPolitico(politico);
     			politico.setNota(notaPolitico);
-    			politicoRepo.save(politico);	        
-    		}         
+    			politicoRepo.save(politico);
+    		}
     	}
-    	
+
     	return "/home";
     }
-    
-    
-    
+
+    @PostMapping(MappingController.Comentarios.cadastro + "/{id}")
+    public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model) {
+
+        Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
+
+        if (opt.isPresent()) {
+            Publicacao publicacao = opt.get();
+
+            Comentarios comentario = new Comentarios();
+
+            comentario.setTexto(texto);
+            comentario.setPublicacao(publicacao);
+            comentariosRepositorio.save(comentario);
+
+            return "perfil-publicacao" + id;
+        }
+
+        return "home";
+    }
+
+
+
     private double calcularNotaPolitico(Politico politico) {
-		
+
 		 List<Integer> notas = publicacaoRepositorio.findNotaByPolitico(politico.getId());
-       
+
 		 if (notas.isEmpty()) {
 		        return 0.0;
 		    }
-		 
+
          int soma = 0;
-         
+
          for(Integer notaP: notas) {
         	 soma += notaP;
          }
-         
+
          double media = (double) soma / notas.size();
-		
+
 		return media;
 	}
 }

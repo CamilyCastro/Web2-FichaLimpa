@@ -41,4 +41,14 @@ public interface MappingController {
 		String listar = "/listar";
 		String aprovar = "/aprovar";
 	}
+
+	interface Comentarios{
+		String MAIN = "/comentario";
+		String cadastro = "/cadastro";
+		String delete = "/delete";
+		String edit  = "/edit";
+		String perfil  = "/perfil";
+		String listar = "/listar";
+		String aprovar = "/aprovar";
+	}
 }
