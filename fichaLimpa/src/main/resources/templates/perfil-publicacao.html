@@ -45,6 +45,27 @@
         <h5>Avaliação: </h5>
         <span th:text="${publicacao.avaliacao}">
     </div>
+
+    <div>
+        <h3>Comentários</h3>
+        <form action="/comentarios/cadastro/${publicacao.id}" method="post">
+            <textarea name="texto" rows="3" placeholder="Digite seu comentário aqui"></textarea>
+            <div>
+                <button type="submit">Confirmar</button>
+                <button type="reset">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <h4>Comentários já enviados:</h4>
+        <ul>
+            <c:forEach var="comentario" items="${comentarios}">
+                <li>${comentario.texto}</li>
+            </c:forEach>
+        </ul>
+    </div>
+
 </div>
 
 </body>

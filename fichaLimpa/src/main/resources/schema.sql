@@ -73,6 +73,14 @@ create table publicacao(
 alter table publicacao add foreign key (id_cidadao) references cidadao(id);
 alter table publicacao add foreign key (id_politico) references politico(id);
 
+drop table if exists comentarios;
+create table comentarios(
+    id identity primary key,
+    texto text,
+    id_publicacao bigint not null
+);
+
+alter table comentarios add foreign key (id_publicacao) references publicacao(id);
 
 drop table if exists users;
 create table users (
