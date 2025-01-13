@@ -40,6 +40,7 @@ public interface MappingController {
 		String perfil  = "/perfil";
 		String listar = "/listar";
 		String aprovar = "/aprovar";
+		String coment = "/coment";
 	}
 
 	interface Comentarios{

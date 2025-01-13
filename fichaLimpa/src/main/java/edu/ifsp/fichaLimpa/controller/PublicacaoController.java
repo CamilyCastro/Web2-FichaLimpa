@@ -261,7 +261,7 @@ public class PublicacaoController {
     	return "/home";
     }
 
-    @PostMapping(MappingController.Comentarios.cadastro + "/{id}")
+    @PostMapping(MappingController.Publicacao.coment + "/{id}")
     public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model) {
 
         Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
