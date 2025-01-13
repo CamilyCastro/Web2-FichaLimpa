@@ -18,6 +18,7 @@ public interface MappingController {
 		String edit  = "/edit";
 		String perfil  = "/perfil";
 		String listar = "/listar";
+		String rankig = "/ranking";
 	}
 	
 	interface Partido{
