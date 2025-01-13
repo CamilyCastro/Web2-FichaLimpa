@@ -78,7 +78,7 @@ public class PoliticoController {
 		if(query != null && !query.isEmpty()) {
 			politicos = politicoRepo.findByNome(query.trim());
 		}else {
-			//busca todos se nao achar o politico 
+			//busca todos se nao achar o politico
 			politicoRepo.findAll().forEach(politicos::add);
 		}
 		
