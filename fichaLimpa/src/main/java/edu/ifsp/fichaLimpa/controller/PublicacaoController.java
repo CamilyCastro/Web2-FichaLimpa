@@ -222,7 +222,7 @@ public class PublicacaoController {
     }
 
     @PostMapping(MappingController.Publicacao.delete + "/{id}")
-    public String deletePublicacao(@PathVariable("id") Long id, Model model) {
+    public String deletePublicacao(@PathVariable("id") Long id) {
         try {
         	Optional<Publicacao> optPubli = publicacaoRepositorio.findById(id);
 

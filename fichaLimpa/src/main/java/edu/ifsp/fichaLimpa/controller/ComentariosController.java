@@ -47,6 +47,28 @@ public class ComentariosController {
         return "perfil-publicacao";
     }
 
+    @GetMapping(MappingController.Comentario.perfil + "/{id}")
+    public String perfilComentario(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        Optional<Comentarios> opt = comentariosRepositorio.findById(id);
+
+        if (opt.isPresent()) {
+
+            Comentarios comentario = opt.get();
+
+            boolean isAdmin = userDetails.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+            if(userDetails.getUsername().equals(comentario.getCidadao().getUser().getUsername()) || isAdmin) {
+                model.addAttribute("permissao", true);
+            }
+
+            model.addAttribute("comentario", comentario);
+
+            return "perfil-comentario.html";
+        }
+
+        return "home";
+    }
+
     @PostMapping(MappingController.Comentario.cadastro + "/{id}")
     public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
@@ -74,6 +96,12 @@ public class ComentariosController {
             }
         }
         return "redirect:/publicacao/perfil/" + id;
+    }
+
+    @PostMapping(MappingController.Comentario.delete + "/{id}")
+    public String deleteComentario(@PathVariable("id") Long id) {
+        comentariosRepositorio.deleteById(id);
+        return "home";
     }
 
 
