@@ -25,8 +25,6 @@ public class Proposta {
 	@NotBlank
 	private String descricao;
 	
-	private int nota;
-	
 	@Enumerated(EnumType.STRING)
 	private CategoriaEnum categoria;
 	

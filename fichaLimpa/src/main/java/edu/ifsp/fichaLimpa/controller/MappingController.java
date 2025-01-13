@@ -18,6 +18,7 @@ public interface MappingController {
 		String edit  = "/edit";
 		String perfil  = "/perfil";
 		String listar = "/listar";
+		String rankig = "/ranking";
 	}
 	
 	interface Partido{
@@ -34,6 +35,17 @@ public interface MappingController {
 
 	interface Publicacao{
 		String MAIN = "/publicacao";
+		String cadastro = "/cadastro";
+		String delete = "/delete";
+		String edit  = "/edit";
+		String perfil  = "/perfil";
+		String listar = "/listar";
+		String aprovar = "/aprovar";
+		String coment = "/coment";
+	}
+
+	interface Comentarios{
+		String MAIN = "/comentario";
 		String cadastro = "/cadastro";
 		String delete = "/delete";
 		String edit  = "/edit";

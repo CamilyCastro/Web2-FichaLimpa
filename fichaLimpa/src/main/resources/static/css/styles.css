@@ -573,3 +573,28 @@ button.dark-mode {
 .form-filtro input{
 	max-width: 100%;
 }
+
+.ranking-section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.ranking-section h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#ranking-list {
+    list-style: none;
+    padding: 0;
+}
+
+#ranking-list li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #555;
+}

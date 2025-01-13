@@ -32,21 +32,19 @@ insert into partido (sigla, nome, numero) values ('UNIÃO', 'UNIÃO BRASIL', '44
 insert into partido (sigla, nome, numero) values ('PRD', 'PARTIDO RENOVAÇÃO DEMOCRÁTICA', '25');
 
 delete from politico;
-insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
-	values ('POLITICO TESTE 1', 'PRESIDENTE', 'POLITICO 1', 1, '123', '111111', '1999-10-10', 'politico1@email.com');
+insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, nota, contato)
+	values ('POLITICO TESTE 1', 'PRESIDENTE', 'POLITICO 1', 1, '123', '111111', '1999-10-10', 3.0, 'politico1@email.com');
 
-insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, contato)
-    values ('Pietro', 'VEREADOR', 'Pietroggg', 3, '455', '145881', '2001-07-10', 'pietro@email.com');
+insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral, registro_candidatura, data_nascimento, nota, contato)
+    values ('Pietro', 'VEREADOR', 'Pietroggg', 3, '455', '145881', '2001-07-10', 5.0, 'pietro@email.com');
 	
 delete from cidadao;
 insert into cidadao (cpf, telefone, nome, data_nascimento)
 values('292.834.321-00', '(98)92783-9145', 'ADMINISTRADOR', '2024-11-04 00:00:00');
 insert into cidadao (cpf, telefone, nome, data_nascimento)
-values('232.123.321-00', '(98)93432-8765', 'CIDADAO TESTE 2', '2000-01-09 00:00:00');
+values('287.111.222-00', '(98)93432-8521', 'CIDADAO TESTE 2', '2004-06-09 00:00:00');
 insert into cidadao (cpf, telefone, nome, data_nascimento)
-values('287.111.222-00', '(98)93432-8521', 'CIDADAO TESTE 3', '2004-06-09 00:00:00');
-insert into cidadao (cpf, telefone, nome, data_nascimento)
-values('333.111.222-00', '(98)99731-8521', 'CIDADAO TESTE 4', '2003-06-05 00:00:00');
+values('333.111.222-00', '(98)99731-8521', 'CIDADAO TESTE 3', '2003-06-05 00:00:00');
 
 delete from endereco;
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
@@ -54,24 +52,28 @@ values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
 values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 3);
 
-
 INSERT INTO publicacao (data_publicacao, titulo, descricao, anexo, id_cidadao, resposta, aprovado, avaliacao, id_politico)
 VALUES ('2024-01-13', 'Publicação teste', 'Descrição de uma avaliação fictícia para fins de teste.', NULL, 1, NULL, TRUE, 8, 1);
 
-/*delete from publicacao;
-insert into publicacao (data_publicacao, titulo, descricao, resposta, id_cidadao, id_proposta, id_politico)
-values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1, 1, 1);*/
+delete proposta;
+insert into proposta (titulo, descricao, categoria, id_politico)
+values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 'SAUDE', 1);
 
 /*delete from publicacao;
-insert into publicacao (data_publicacao, titulo, descricao, id_cidadao,id_politico)
-values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 1, 1);*/
+insert into publicacao (data_publicacao, titulo, descricao, id_cidadao, aprovado, avaliacao, id_politico)
+values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 2, true, 3.0, 1);*/
+
+delete from publicacao;
+insert into publicacao (data_publicacao, titulo, descricao, id_cidadao, aprovado, avaliacao, id_politico)
+values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 3, true, 5.0, 2);
 
 /* admin123 */
+/* 123456 */
 insert into users (username, password, enabled, cidadao_id) values ('admin', '$2a$10$REXaxyIzUNgsYc6BswnC9u35FKBAR64J1LhRe1oG0nVt7sg4OpfhW', true, 1);
+insert into users (username, password, enabled, cidadao_id) values ('02', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 2);
 insert into users (username, password, enabled, cidadao_id) values ('03', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 3);
-insert into users (username, password, enabled, cidadao_id) values ('04', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 4);
 
 insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');
 insert into authorities (username, authority) values ('admin', 'ROLE_USER');
+insert into authorities (username, authority) values ('02', 'ROLE_USER');
 insert into authorities (username, authority) values ('03', 'ROLE_USER');
-insert into authorities (username, authority) values ('04', 'ROLE_USER');
