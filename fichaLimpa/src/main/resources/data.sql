@@ -40,7 +40,7 @@ insert into politico (nome, cargo, nome_eleitoral, id_partido, numero_eleitoral,
 	
 delete from cidadao;
 insert into cidadao (cpf, telefone, nome, data_nascimento)
-values('292.834.321-00', '(98)92783-9145', 'CIDADAO TESTE 1', '2024-11-04 00:00:00');
+values('292.834.321-00', '(98)92783-9145', 'ADMINISTRADOR', '2024-11-04 00:00:00');
 insert into cidadao (cpf, telefone, nome, data_nascimento)
 values('232.123.321-00', '(98)93432-8765', 'CIDADAO TESTE 2', '2000-01-09 00:00:00');
 insert into cidadao (cpf, telefone, nome, data_nascimento)
@@ -50,11 +50,13 @@ values('333.111.222-00', '(98)99731-8521', 'CIDADAO TESTE 4', '2003-06-05 00:00:
 
 delete from endereco;
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
-values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'sjakfhksja', 1);
+values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 1);
+insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
+values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 3);
 
-delete proposta;
-insert into proposta (titulo, descricao, categoria, id_politico, nota)
-values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 'SAUDE', 1, 8);
+
+INSERT INTO publicacao (data_publicacao, titulo, descricao, anexo, id_cidadao, resposta, aprovado, avaliacao, id_politico)
+VALUES ('2024-01-13', 'Publicação teste', 'Descrição de uma avaliação fictícia para fins de teste.', NULL, 1, NULL, TRUE, 8, 1);
 
 /*delete from publicacao;
 insert into publicacao (data_publicacao, titulo, descricao, resposta, id_cidadao, id_proposta, id_politico)
@@ -70,5 +72,6 @@ insert into users (username, password, enabled, cidadao_id) values ('03', '$2a$1
 insert into users (username, password, enabled, cidadao_id) values ('04', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 4);
 
 insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');
+insert into authorities (username, authority) values ('admin', 'ROLE_USER');
 insert into authorities (username, authority) values ('03', 'ROLE_USER');
 insert into authorities (username, authority) values ('04', 'ROLE_USER');

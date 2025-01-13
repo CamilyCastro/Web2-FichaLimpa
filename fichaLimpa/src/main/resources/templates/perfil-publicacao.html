@@ -7,42 +7,40 @@
 <div th:replace="header :: header"></div>
 
 <div>
-    <div class="cabecalho-perfil" th:if="${permissao}"	>
+    <div class="cabecalho-perfil-publicacao" th:if="${permissao}"	>
     
     	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
-    		<button type="submit" class="btn btn-editar">Editar Publicacao</button>
+    		<button type="submit" class="btn btn-outline-warning">Editar <i class="bi bi-pencil"></i></button>
     	</form>
     	
         <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
               onsubmit="return confirm('Tem certeza que deseja excluir?')">
             <input type="hidden" name="_method" value="DELETE"/>
-            <button type="submit" class="btn btn-editar">Excluir</button>
+            <button type="submit" class="btn btn-outline-danger">Excluir <i class="bi bi-trash3"></i></button>
         </form>
         
     </div>
 
-    <div class="inline">
-        <h5>Titulo: </h5>
-        <span th:text="${publicacao.titulo}"></span>
+	<div class="inline">
+        <h5 th:text="${publicacao.titulo}">Titulo </h5>
     </div>
 
     <div class="inline">
-        <h5>Descrição: </h5>
-        <span th:text="${publicacao.descricao}">
+        <h6 th:text="${publicacao.descricao}">Descrição: </h6>
     </div>
-
-    <div class="inline">
-        <h5>Cidadão: </h5>
+	<br>
+    <div style="display: flex;" class="inline" sec:authorize="hasRole('ROLE_ADMIN')">
+        <h6>Cidadão: </h6>
         <span th:text="${publicacao.cidadao.nome}">
     </div>
 
-    <div class="inline">
-        <h5>Data: </h5>
-        <span th:text="${publicacao.dataPublicacao}">
+    <div style="display: flex;" class="inline">
+        <h6>Data: </h6>
+       	<span th:text="${publicacao.dataPublicacao}">
     </div>
     
-    <div class="inline">
-        <h5>Avaliação: </h5>
+    <div style="display: flex;" class="inline">
+        <h6>Avaliação: </h6>
         <span th:text="${publicacao.avaliacao}">
     </div>
 </div>

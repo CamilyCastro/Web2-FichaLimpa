@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,6 +100,20 @@ public class CidadaoController {
 		return "home";
 	}
 	
+	@GetMapping(MappingController.Cidadao.perfil)
+	public String perfilCidadao( Model model,  @AuthenticationPrincipal UserDetails userDetails){
+		
+		if(userDetails.getUsername() != null) {
+			
+			Cidadao cidadao = cidadaoRepositorio.findByUserUsername(userDetails.getUsername());	
+			model.addAttribute("cidadao", cidadao);
+			
+			return "perfil-cidadao";
+		}
+		
+		return "home";
+	}
+	
 	@PostMapping(MappingController.Cidadao.edit)
 	public String editCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors ) {
 		if(errors.hasErrors()) {
@@ -123,7 +139,12 @@ public class CidadaoController {
 	        cidadao.getEndereco().setCidadao(cidadao);
 	    }
 		
-		System.out.println(cidadao);
+		Cidadao existente = cidadaoRepositorio.findByCpf(cidadao.getCpf());
+		
+		if (existente != null) {
+	        model.addAttribute("erro", "CPF já cadastrado. Por favor, tente outro.");
+	        return "cidadao-form";
+	    }
 		
 		cidadaoRepositorio.save(cidadao);
 

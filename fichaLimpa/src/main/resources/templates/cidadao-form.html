@@ -5,7 +5,9 @@
 <body>
 
 	<div th:replace="header :: header"></div>
-	
+	<div th:if="${erro}" class="alert alert-danger" role="alert">
+	    <span th:text="${erro}"></span>
+	</div>
 	<div class="container">
 		<form method="post" th:action="@{/cidadao/cadastro}" th:object="${cidadao}">
 			<div>
@@ -74,7 +76,6 @@
 			    <br><br>
 	
 			</fieldset>
-		    <br><br>
 		    <br><br>
 		    <button type="submit" class="btn-principal">Cadastrar</button>
 		</form>

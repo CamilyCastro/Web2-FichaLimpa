@@ -17,6 +17,7 @@
 		<ul class="lista-politico">
 			<li th:each="politico : ${politicos}">
 				<a th:href="@{/politico/perfil/{id}(id=${politico.id})}" th:text="${politico.nome}"></a>
+				<span th:text="${politico.cargo}">Cargo</span>
 			</li>
 		</ul>
 	</div>
