@@ -8,24 +8,21 @@
 		<div class="div-informações">
 			<div class="cabecalho-perfil">
 				<img th:src="@{/images/profile.jpg}" alt="Perfil"/>
-				
-				<div style="display: flex;" th:if="${logado}">
+				<div style="display: flex; flex-direction: column; align-items: flex-end;">
 					
-					<div th:if="${admin}">
-					
-						<form th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
-						    <button type="submit" class="btn btn-editar">Editar perfil</button>
+					<div style="display: flex;">
+						<form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/politico/edit/{id}(id=${politico.id})}" method="get">
+						    <button type="submit" class="btn btn-outline-warning">Editar <i class="bi bi-pencil"></i></button>
 						</form>
 						
-						<form th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
+						<form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/politico/delete/{id}(id=${politico.id})}" method="post" onsubmit="return confirm('Tem certeza que deseja excluir?')">
 						    <input type="hidden" name="_method" value="DELETE" />
-						    <button type="submit" class="btn btn-editar">Excluir</button>
+						    <button type="submit" class="btn btn-outline-danger">Excluir <i class="bi bi-trash3"></i></button>
 						</form>
-						
 					</div>
 					
 					<form th:action="@{/publicacao/cadastro}" method="get">
-					    <button type="submit" class="btn btn-editar">Deixe sua avaliação</button>
+					    <button type="submit" class="btn btn-outline-primary">Deixe sua avaliação</button>
 					</form>
 					
 				</div>

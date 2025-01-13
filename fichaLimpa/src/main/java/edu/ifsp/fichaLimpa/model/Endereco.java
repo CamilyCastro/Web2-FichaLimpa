@@ -25,8 +25,7 @@ public class Endereco {
 	@Pattern(regexp = "\\d{5}-\\d{3}", message = "Informe um CEP no formato 00000-000")
 	private String cep;
 	
-	@NotBlank
-	@Size(min = 5, message = "Informe o nome da rua")
+	@NotBlank(message = "Informe o nome da rua")
 	private String logradouro;
 	
 	
