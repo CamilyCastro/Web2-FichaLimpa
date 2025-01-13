@@ -53,7 +53,7 @@ public class SecurityConfig {
 			/* -- end: H2 Console -- */
 			
 			.authorizeHttpRequests(authorizeRequests ->	authorizeRequests
-					.requestMatchers("/", "/home", "/css/**", "/images/**", "/js/**", "/login", "/api**", "/cidadao/cadastro", "/politico/listar", "/politico/perfil/*", "/fragments/**").permitAll()
+					.requestMatchers("/", "/home", "/css/**", "/images/**", "/js/**", "/login", "/api**", "/cidadao/cadastro", "/politico/listar", "/politico/perfil/*", "/fragments/**", "/h2-console").permitAll()
 					.requestMatchers("/**").hasRole("USER")
 			)		
 			.formLogin(form -> form

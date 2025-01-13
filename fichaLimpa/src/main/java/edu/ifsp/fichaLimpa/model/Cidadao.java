@@ -48,7 +48,14 @@ public class Cidadao {
 	
 	@OneToOne(mappedBy = "cidadao", cascade = CascadeType.ALL)
 	@Valid
-	private User user; 
+	private User user;
+
+	@OneToMany(mappedBy = "cidadao")
+	private List<Comentarios> comentarios = new ArrayList<>();
+
+	public void adicionarComentarios(Comentarios coment) {
+		comentarios.add(coment);
+	}
 	
 	
 	public void setUser(User user) {

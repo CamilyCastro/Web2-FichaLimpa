@@ -19,4 +19,9 @@ public class Comentarios {
     @JoinColumn(name = "id_publicacao")
     @ToString.Exclude
     private Publicacao publicacao;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cidadao")
+    @ToString.Exclude
+    private Cidadao cidadao;
 }

@@ -273,28 +273,6 @@ public class PublicacaoController {
     	return "/home";
     }
 
-    @PostMapping(MappingController.Publicacao.coment + "/{id}")
-    public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model) {
-
-        Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
-
-        if (opt.isPresent()) {
-            Publicacao publicacao = opt.get();
-
-            Comentarios comentario = new Comentarios();
-
-            comentario.setTexto(texto);
-            comentario.setPublicacao(publicacao);
-            comentariosRepositorio.save(comentario);
-
-            return "perfil-publicacao" + id;
-        }
-
-        return "home";
-    }
-
-
-
     private double calcularNotaPolitico(Politico politico) {
 
 		 List<Integer> notas = publicacaoRepositorio.findNotaByPolitico(politico.getId());

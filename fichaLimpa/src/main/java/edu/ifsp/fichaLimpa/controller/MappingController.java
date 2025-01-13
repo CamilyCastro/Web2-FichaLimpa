@@ -44,7 +44,7 @@ public interface MappingController {
 		String coment = "/coment";
 	}
 
-	interface Comentarios{
+	interface Comentario{
 		String MAIN = "/comentario";
 		String cadastro = "/cadastro";
 		String delete = "/delete";

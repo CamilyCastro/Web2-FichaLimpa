@@ -46,24 +46,25 @@
 
     <div>
         <h3>Comentários</h3>
-        <form action="/publicacao/coment/${publicacao.id}" method="post">
-            <textarea name="texto" rows="3" placeholder="Digite seu comentário aqui"></textarea>
+        <form method="post" th:action="@{/comentario/cadastro/{id}(id=${publicacao.id})}" th:object="${publicacao}">
+            <input name="texto" type="text" placeholder="Digite seu comentário aqui">
             <div>
                 <button type="submit">Confirmar</button>
-                <button type="reset">Cancelar</button>
+                <button type="reset">Cancelar</button><br><br>
             </div>
         </form>
     </div>
 
     <div>
         <h4>Comentários já enviados:</h4>
-        <ul>
-            <c:forEach var="comentario" items="${comentarios}">
-                <li>${comentario.texto}</li>
-            </c:forEach>
-        </ul>
+        <form th:action="@{/comentario/listar}" method="get" class="d-flex form-filtro"><
+            <ul>
+                <li th:each="comentario : ${comentarios}">
+                    <a th:text="${comentario.texto}"></a>
+                </li>
+            </ul>
+        </form>
     </div>
-
 </div>
 
 </body>
