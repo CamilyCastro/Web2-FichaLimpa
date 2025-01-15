@@ -52,11 +52,11 @@ public class SecurityConfig {
 			)
 			/* -- end: H2 Console -- */
 			
-			.authorizeHttpRequests(authorizeRequests ->	authorizeRequests
-					.requestMatchers("/", "/home", "/css/**", "/images/**", "/js/**", "/login", "/api**", 
+			.authorizeHttpRequests(auth ->	auth
+					.requestMatchers("/", "/home", "/css/**", "/images/**", "/js/**", "/login", "/api/**", 
 									 "/cidadao/cadastro", "/politico/listar", "/politico/perfil/*", 
-									 "/api/politico/ranking", "/fragments/**", "/publicacao/perfil/*", 
-									 "/comentario/perfil/*", "/h2-console").permitAll()
+									 /*"/api/politico/ranking",*/ "/publicacao/perfil/*", 
+									 "/comentario/perfil/*", "/h2-console", "/fragments/**").permitAll()
 					.requestMatchers("/**").hasRole("USER")
 			)		
 			.formLogin(form -> form
