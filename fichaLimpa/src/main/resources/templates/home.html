@@ -10,16 +10,7 @@
 		<div class="texto-home">
 			<p>O <b>FICHA LIMPA</b> é a plataforma que conecta <b>você</b> diretamente aos seus representantes.<br>
 				Acompanhe o desempenho dos candidatos, exija transparência e faça escolhas <b>conscientes</b> para um futuro melhor. <br><br>
-				<b>Seja parte do debate, exija resultados!</b></p>
-				<div class="btns-home">
-					<form th:action="@{/politico/listar}" method="get">
-	                <button type="submit" class="home-button" style="margin-right: 20px;">Encontre Políticos</button>
-	            </form>
-				<form th:action="@{/cidadao/cadastro}" method="get">
-	                <button type="submit" class="home-button">Cadastre-se</button>
-	            </form>
-				</div>
-				
+				<b>Seja parte do debate, exija resultados!</b></p>				
 		</div>
 		<div>
 			<img th:src="@{/images/3.png}" width="80%">
@@ -27,6 +18,13 @@
 		
 		
 	</div>
+	
+	<div id="ranking-container" class="ranking-section">
+    	<h2>Melhores Avaliados</h2>
+    	<ul id="ranking-list"></ul>
+	</div>
+	
+    <script src="/js/ranking.js"></script>
 
 </body>
 </html>

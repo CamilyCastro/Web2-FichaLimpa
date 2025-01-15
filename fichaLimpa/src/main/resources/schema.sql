@@ -30,7 +30,8 @@ create table proposta(
     categoria varchar(20),
     id_politico bigint
 );
-alter table proposta add foreign key (id_politico) references politico(id);
+alter table proposta add foreign key (id_politico) references politico(id)
+ON DELETE CASCADE;
 
 drop table if exists cidadao;
 create table cidadao(
@@ -69,8 +70,10 @@ create table publicacao(
     id_politico bigint not null
 );
 
-alter table publicacao add foreign key (id_cidadao) references cidadao(id);
-alter table publicacao add foreign key (id_politico) references politico(id);
+alter table publicacao add foreign key (id_cidadao) references cidadao(id)
+ON DELETE CASCADE;
+alter table publicacao add foreign key (id_politico) references politico(id)
+ON DELETE CASCADE;
 
 drop table if exists comentarios;
 create table comentarios(
@@ -80,8 +83,10 @@ create table comentarios(
     id_cidadao bigint not null
 );
 
-alter table comentarios add foreign key (id_publicacao) references publicacao(id);
-alter table comentarios add foreign key (id_cidadao) references cidadao(id);
+alter table comentarios add foreign key (id_publicacao) references publicacao(id)
+ON DELETE CASCADE;
+alter table comentarios add foreign key (id_cidadao) references cidadao(id)
+ON DELETE CASCADE;
 
 drop table if exists users;
 create table users (
@@ -90,14 +95,14 @@ create table users (
 	enabled boolean not null,
 	cidadao_id bigint not null
 );
-alter table users add foreign key (cidadao_id) references cidadao(id);
+alter table users add foreign key (cidadao_id) references cidadao(id) ON DELETE CASCADE;
 
 drop table if exists authorities;
 create table authorities (
 	username varchar(50) not null,
 	authority varchar(50) not null
 );
-alter table authorities add foreign key (username) references users(username);
+alter table authorities add foreign key (username) references users(username) ON DELETE CASCADE;
 
 
 

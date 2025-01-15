@@ -6,9 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +23,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import edu.ifsp.fichaLimpa.model.Authorities;
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Endereco;
+import edu.ifsp.fichaLimpa.model.User;
 import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.UserRepositorio;
 import jakarta.validation.Valid;
@@ -78,11 +77,9 @@ public class CidadaoController {
 			
 			Cidadao cidadao = opt.get();
 			model.addAttribute("cidadao", cidadao);
-			
-			return "editar-cidadao";
 		}
 		
-		return "home";
+		return "editar-cidadao";
 	}
 	
 	@GetMapping(MappingController.Cidadao.perfil + "/{id}")
@@ -92,12 +89,10 @@ public class CidadaoController {
 		if (opt.isPresent()) {
 			
 			Cidadao cidadao = opt.get();
-			model.addAttribute("cidadao", cidadao);
-			
-			return "perfil-cidadao";
+			model.addAttribute("cidadao", cidadao);			
 		}
 		
-		return "home";
+		return "perfil-cidadao";
 	}
 	
 	@GetMapping(MappingController.Cidadao.perfil)
@@ -107,11 +102,9 @@ public class CidadaoController {
 			
 			Cidadao cidadao = cidadaoRepositorio.findByUserUsername(userDetails.getUsername());	
 			model.addAttribute("cidadao", cidadao);
-			
-			return "perfil-cidadao";
 		}
 		
-		return "home";
+		return "perfil-cidadao";
 	}
 	
 	@PostMapping(MappingController.Cidadao.edit)
@@ -123,10 +116,10 @@ public class CidadaoController {
 		if (cidadao.getEndereco() != null) {
 	        cidadao.getEndereco().setCidadao(cidadao);
 	        cidadaoRepositorio.save(cidadao);
-			return "perfil-cidadao";
+			
 	    }
 		
-		return "home";
+		return "perfil-cidadao";
 	}
 	
 	@PostMapping(MappingController.Cidadao.cadastro)
@@ -146,8 +139,15 @@ public class CidadaoController {
 	        return "cidadao-form";
 	    }
 		
+		/*User emUso = userRepo.findByUsername(cidadao.getUser().getUsername());
+		
+		if(emUso != null) {
+			model.addAttribute("erro", "Email já cadastrado. Por favor, tente outro.");
+	        return "cidadao-form";
+		}*/
+		
 		cidadaoRepositorio.save(cidadao);
-
+		System.out.println(cidadao.getUser());
 		if (cidadao.getUser() != null) {
 			
 	        String encryptedPassword = bCryptPasswordEncoder.encode(cidadao.getUser().getPassword());
@@ -162,8 +162,7 @@ public class CidadaoController {
 			
 			userRepo.save(cidadao.getUser());
 		}
-		
-		
+				
 		sessionStatus.setComplete();
 		
 		return "login";

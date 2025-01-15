@@ -39,9 +39,6 @@ public class Publicacao {
 
     private boolean aprovado;
 
-	/*@NotNull 
-	private Integer resposta;//coloquei Integer pq ele permite valores nulos e nao coloca um 0 no campo de texto*/
-
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "id_cidadao")
@@ -52,6 +49,7 @@ public class Publicacao {
     @JoinColumn(name = "id_politico")
     private Politico politico;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "publicacao")
     private List<Comentarios> comentarios = new ArrayList<>();
 

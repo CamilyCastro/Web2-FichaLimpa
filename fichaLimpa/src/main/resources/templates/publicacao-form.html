@@ -7,7 +7,8 @@
 <div th:replace="header :: header"></div>
 
 <div class="container">
-  <form method="post" th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" th:object="${publicacao}">
+  <form method="post" th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" th:object="${publicacao}" 
+  					  id="publi-form">
   
   	<label for="avaliacao"><strong>Avaliação</strong></label>
   	<div class="stars" id="avaliacao">
@@ -34,15 +35,17 @@
     <input type="file" th:field="*{anexo}" id="anexo">
     <br><br>
 
-    <!-- <label for="resposta"><strong>Resposta</strong></label>
-    <input type="text" th:field="*{resposta}" id="resposta">
-    <span class="erro" th:if="${#fields.hasErrors('resposta')}" th:errors="*{resposta}"></span>
-    <br><br> -->
-
+	<!-- Pop-up -->
+    <div id="popup-overlay"></div>
+    <div id="popup">
+        <p>Avaliação enviada para aprovação com sucesso</p>
+    </div>
+    
     <button type="submit" class="btn-principal">Cadastrar</button>
   </form>
 </div>
-	
+
+	<script src="/js/popupAprovacao.js"></script>
 	<script src="/js/avaliacao.js"></script>
 		
 </body>

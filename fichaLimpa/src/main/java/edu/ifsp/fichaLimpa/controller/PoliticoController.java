@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import edu.ifsp.fichaLimpa.model.Publicacao;
-import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,9 +25,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import edu.ifsp.fichaLimpa.model.Partido;
 import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Proposta;
+import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.repositorios.PartidoRespositorio;
 import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
 import edu.ifsp.fichaLimpa.repositorios.PropostaRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
@@ -100,12 +101,10 @@ public class PoliticoController {
 			    
 			model.addAttribute("partidos", partidos);
 			model.addAttribute("politico", politico);
-				
-			return "editar-politico";
 			   
 		}		
 		
-		return MappingController.Politico.perfil + "/{id}";
+		return "editar-politico";
 	}
 	
 	@GetMapping(MappingController.Politico.perfil + "/{id}")
@@ -132,27 +131,16 @@ public class PoliticoController {
 				}
 			}
 			
-			boolean logado = false;
-			
 			if(userDetails != null) {
-				logado = true;
-				
-				boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));	            
-				
-		        if(isAdmin) {
-		        	model.addAttribute("admin", isAdmin);
-		        }
+				model.addAttribute("logado", true);
 			}
-			
-			model.addAttribute("logado", logado);
+					
 			model.addAttribute("publicacoes", aprovadas);
 			model.addAttribute("politico", politico);
-			model.addAttribute("propostasPorCategoria", propostasPorCategoria);
-					
-			return "perfil-politico";
+			model.addAttribute("propostasPorCategoria", propostasPorCategoria);								
 		}
 		
-		return "home";
+		return "perfil-politico";
 	}
 	
 	
@@ -178,10 +166,8 @@ public class PoliticoController {
 			politicoRepo.save(politico);
 			
 			//sessionStatus.setComplete();
-			return "perfil-politico";
-
-		}else
-			return "/home";
+		}
+			return "redirect:/politico/perfil/" + politico.getId();
 	}
 	
 	
@@ -191,7 +177,7 @@ public class PoliticoController {
 			politicoRepo.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {}	
 		
-		return "listar-politico"; 
+		return "redirect:/politico/listar"; 
 	}
 
 	@PostMapping(MappingController.Politico.cadastro)
@@ -217,9 +203,8 @@ public class PoliticoController {
 			politicoRepo.save(politico);
 			
 			sessionStatus.setComplete();
-			return "/home";
 		}
 
-		return "politico-form";
+		return "redirect:/politico/listar";
 	}
 }

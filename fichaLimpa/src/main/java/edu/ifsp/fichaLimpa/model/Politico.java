@@ -20,7 +20,6 @@ import lombok.ToString;
 
 @Data
 @Entity
-@ToString(exclude = "partido")
 public class Politico {
 
 	@Id
@@ -53,8 +52,10 @@ public class Politico {
 	@ManyToOne
 	@JoinColumn(name = "id_partido")
 	@NotNull(message = "Selecione um partido.")
+	@ToString.Exclude
 	private Partido partido;
 	
+	@ToString.Exclude
 	@OneToMany(mappedBy = "politico")
 	private List<Proposta> listaPropostas = new ArrayList<>();
 	
@@ -62,6 +63,7 @@ public class Politico {
 		listaPropostas.add(proposta);
 	}
 	
+	@ToString.Exclude
 	@OneToMany(mappedBy = "politico")
 	private List<Publicacao> publicacoes = new ArrayList<>();
 
