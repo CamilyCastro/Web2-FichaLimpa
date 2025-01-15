@@ -54,19 +54,21 @@ public class ComentariosController {
         if (opt.isPresent()) {
 
             Comentarios comentario = opt.get();
+            
+            if(userDetails != null) {
 
-            boolean isAdmin = userDetails.getAuthorities().stream()
-                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-            if(userDetails.getUsername().equals(comentario.getCidadao().getUser().getUsername()) || isAdmin) {
-                model.addAttribute("permissao", true);
+	            boolean isAdmin = userDetails.getAuthorities().stream()
+	                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+	            if(userDetails.getUsername().equals(comentario.getCidadao().getUser().getUsername()) || isAdmin) {
+	                model.addAttribute("permissao", true);
+	            }
             }
 
             model.addAttribute("comentario", comentario);
-
-            return "perfil-comentario.html";
+            
         }
 
-        return "home";
+        return "perfil-comentario";
     }
 
     @PostMapping(MappingController.Comentario.cadastro + "/{id}")

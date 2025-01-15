@@ -7,7 +7,7 @@
 <div th:replace="header :: header"></div>
 
 <div>
-    <div class="cabecalho-perfil-publicacao" th:if="${permissao}"	>
+    <div class="cabecalho-perfil-publicacao" th:if="${permissao}">
 
     	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
     		<button type="submit" class="btn btn-outline-warning">Editar <i class="bi bi-pencil"></i></button>
@@ -56,11 +56,11 @@
     </div>
 
     <div>
-        <h4>Comentários já enviados:</h4>
-        <form th:action="@{/comentario/listar}" method="get" class="d-flex form-filtro">
+        <h4>Comentários já enviados: </h4>
+        <form th:action="@{/comentario/listar}" method="get">
             <ul>
-                <li th:each="comentario : ${comentarios}">
-                    <a th:text="${comentario.texto}"></a>
+            	<li th:each="comentario : ${comentarios}">
+            		<a th:href="@{/comentario/perfil/{id}(id=${comentario.id})}" th:text="${comentario.texto}"></a>
                 </li>
             </ul>
         </form>
