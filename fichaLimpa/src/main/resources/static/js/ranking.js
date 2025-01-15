@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         const fetchRanking = async () => {
             try {
-                const response = await fetch("/api/politicos/ranking");
+                const response = await fetch("/api/politico/ranking");
 				console.log(response);
 				
                 if (!response.ok) {

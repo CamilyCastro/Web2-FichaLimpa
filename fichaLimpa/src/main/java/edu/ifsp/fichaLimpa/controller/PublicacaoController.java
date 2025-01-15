@@ -1,18 +1,11 @@
 package edu.ifsp.fichaLimpa.controller;
 
-import java.io.IOException;
-import java.net.URI;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
-import edu.ifsp.fichaLimpa.model.*;
-import edu.ifsp.fichaLimpa.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,17 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.ifsp.fichaLimpa.model.Cidadao;
+import edu.ifsp.fichaLimpa.model.Comentarios;
+import edu.ifsp.fichaLimpa.model.Politico;
+import edu.ifsp.fichaLimpa.model.Publicacao;
+import edu.ifsp.fichaLimpa.model.User;
+import edu.ifsp.fichaLimpa.repositorios.CidadaoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.ComentariosRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.PoliticoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.PublicacaoRepositorio;
+import edu.ifsp.fichaLimpa.repositorios.UserRepositorio;
 import jakarta.validation.Valid;
-import jakarta.websocket.CloseReason;
-import jakarta.websocket.Extension;
-import jakarta.websocket.MessageHandler;
-import jakarta.websocket.Session;
-import jakarta.websocket.WebSocketContainer;
-import jakarta.websocket.MessageHandler.Partial;
-import jakarta.websocket.MessageHandler.Whole;
-import jakarta.websocket.RemoteEndpoint.Async;
-import jakarta.websocket.RemoteEndpoint.Basic;
 
 @Controller
 @RequestMapping(MappingController.Publicacao.MAIN)
@@ -88,11 +83,9 @@ public class PublicacaoController {
 
             Publicacao publicacao = opt.get();
             model.addAttribute("publicacao", publicacao);
-
-            return "editar-publicacao";
         }
 
-        return "home";
+        return "editar-publicacao";
     }
 
     @GetMapping(MappingController.Publicacao.perfil + "/{id}")
@@ -102,25 +95,25 @@ public class PublicacaoController {
         if (opt.isPresent()) {
 
             Publicacao publicacao = opt.get();
+            
+            if(userDetails != null) {
 
-            boolean isAdmin = userDetails.getAuthorities().stream()
-                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-
-            if(userDetails.getUsername().equals(publicacao.getCidadao().getUser().getUsername()) || isAdmin) {
-
-                 	model.addAttribute("permissao", true);
+	            boolean isAdmin = userDetails.getAuthorities().stream()
+	                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+	
+	            if(userDetails.getUsername().equals(publicacao.getCidadao().getUser().getUsername()) || isAdmin) {
+	            	model.addAttribute("permissao", true);
+	            }
             }
-
+            
             //listar os comentarios
             List<Comentarios> comentarios = comentariosRepositorio.findByPublicacao(publicacao);
             model.addAttribute("comentarios", comentarios);
 
             model.addAttribute("publicacao", publicacao);
-
-            return "perfil-publicacao";
         }
 
-        return "home";
+        return "perfil-publicacao";
     }
 
     @GetMapping(MappingController.Publicacao.aprovar)
@@ -140,7 +133,7 @@ public class PublicacaoController {
     		model.addAttribute("publicacao", publicacao);
 			return "publicacao-form";
     	}
-
+    	System.out.println("entrei aqui");
         publicacao.setId(null);
 
         //DEFINIR DATA E HORA AUTOMATICAMENTE
@@ -163,11 +156,11 @@ public class PublicacaoController {
         	User user = optUser.get();
         	Cidadao cidadao = user.getCidadao();
         	publicacao.setCidadao(cidadao);
-
         	publicacaoRepositorio.save(publicacao);
+        	//model.addAttribute("sucess", true);
         }
         
-		return "/home";
+		return "redirect:/politico/perfil/" + id + "?success=true";
     }
 
 	@PostMapping(MappingController.Publicacao.edit + "/{id}")
@@ -218,7 +211,7 @@ public class PublicacaoController {
         	}
         }
 
-        return "/home";
+        return "redirect:/politico/perfil/" + id;
     }
 
     @PostMapping(MappingController.Publicacao.delete + "/{id}")
@@ -240,7 +233,7 @@ public class PublicacaoController {
 
         } catch (EmptyResultDataAccessException e) {}
 
-        return "/home";
+        return "redirect:/politico/listar";
     }
 
     @PostMapping(MappingController.Publicacao.aprovar + "/{id}")
@@ -254,11 +247,12 @@ public class PublicacaoController {
             if(status == true) {
             	publi.setAprovado(true);
                 publicacaoRepositorio.save(publi);
+
             }else {
             	publicacaoRepositorio.delete(publi);
             }
-
-            Optional<Politico> opt = politicoRepo.findById(id);
+ 
+            Optional<Politico> opt = politicoRepo.findById(publi.getPolitico().getId());
 
             if (opt.isPresent()) {
 
@@ -270,25 +264,25 @@ public class PublicacaoController {
     		}
     	}
 
-    	return "/home";
+    	return "redirect:/publicacao/aprovar";
     }
 
     private double calcularNotaPolitico(Politico politico) {
-
+    	
 		 List<Integer> notas = publicacaoRepositorio.findNotaByPolitico(politico.getId());
-
+		 
 		 if (notas.isEmpty()) {
 		        return 0.0;
-		    }
+		 }
 
          int soma = 0;
 
          for(Integer notaP: notas) {
         	 soma += notaP;
          }
-
+         
          double media = (double) soma / notas.size();
 
-		return media;
+         return media;
 	}
 }

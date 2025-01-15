@@ -1,4 +1,3 @@
-
 delete from partido;
 
 insert into partido (sigla, nome, numero) values ('MDB', 'MOVIMENTO DEMOCRÁTICO BRASILEIRO', '15');
@@ -50,30 +49,33 @@ delete from endereco;
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
 values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 1);
 insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
+values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 2);
+insert into endereco (cep, logradouro, numero, cidade, estado, complemento, cidadao)
 values ('69314-164', 'Rua Lírio do Campo', '841', 'Boa Vista', 'RR', 'Nenhum', 3);
-
-INSERT INTO publicacao (data_publicacao, titulo, descricao, anexo, id_cidadao, resposta, aprovado, avaliacao, id_politico)
-VALUES ('2024-01-13', 'Publicação teste', 'Descrição de uma avaliação fictícia para fins de teste.', NULL, 1, NULL, TRUE, 8, 1);
 
 delete proposta;
 insert into proposta (titulo, descricao, categoria, id_politico)
 values ('Proposta A', 'Descrição de uma proposta fictícia para fins de teste.', 'SAUDE', 1);
 
-/*delete from publicacao;
-insert into publicacao (data_publicacao, titulo, descricao, id_cidadao, aprovado, avaliacao, id_politico)
-values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 2, true, 3.0, 1);*/
-
 delete from publicacao;
 insert into publicacao (data_publicacao, titulo, descricao, id_cidadao, aprovado, avaliacao, id_politico)
-values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 3, true, 5.0, 2);
+values ('2024-12-04', 'Publicação Teste', 'Esta é uma publicação de teste.', 2, true, 3.0, 1);
+
+insert into publicacao (data_publicacao, titulo, descricao, id_cidadao, aprovado, avaliacao, id_politico)
+values ('2024-12-05', 'Publicação Teste', 'Esta é uma publicação de teste.', 3, true, 5.0, 2);
 
 /* admin123 */
 /* 123456 */
+delete from users;
 insert into users (username, password, enabled, cidadao_id) values ('admin', '$2a$10$REXaxyIzUNgsYc6BswnC9u35FKBAR64J1LhRe1oG0nVt7sg4OpfhW', true, 1);
 insert into users (username, password, enabled, cidadao_id) values ('02', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 2);
 insert into users (username, password, enabled, cidadao_id) values ('03', '$2a$10$7lFqHhfnnQuq5y2B0VKrMueXYZJ1A4qr.xCCwBlKru3aTmjfezk.i', true, 3);
 
+delete from authorities;
 insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');
 insert into authorities (username, authority) values ('admin', 'ROLE_USER');
 insert into authorities (username, authority) values ('02', 'ROLE_USER');
 insert into authorities (username, authority) values ('03', 'ROLE_USER');
+
+delete from comentarios;
+insert into comentarios (texto, id_publicacao, id_cidadao) values ('Comentário Teste', 1, 2);

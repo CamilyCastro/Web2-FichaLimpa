@@ -44,7 +44,7 @@
         <span th:text="${publicacao.avaliacao}">
     </div>
 
-    <div>
+    <div th:if="${permissao}">
         <h3>Comentários</h3>
         <form method="post" th:action="@{/comentario/cadastro/{id}(id=${publicacao.id})}" th:object="${publicacao}">
             <input name="texto" type="text" placeholder="Digite seu comentário aqui">
@@ -57,7 +57,7 @@
 
     <div>
         <h4>Comentários já enviados:</h4>
-        <form th:action="@{/comentario/listar}" method="get" class="d-flex form-filtro"><
+        <form th:action="@{/comentario/listar}" method="get" class="d-flex form-filtro">
             <ul>
                 <li th:each="comentario : ${comentarios}">
                     <a th:text="${comentario.texto}"></a>

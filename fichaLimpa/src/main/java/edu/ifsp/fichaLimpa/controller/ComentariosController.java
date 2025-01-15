@@ -92,7 +92,6 @@ public class ComentariosController {
                 comentario.setTexto(texto);
                 comentario.setPublicacao(publicacao);
                 comentariosRepositorio.save(comentario);
-                return "redirect:/publicacao/perfil/" + id;
             }
         }
         return "redirect:/publicacao/perfil/" + id;
