@@ -44,7 +44,7 @@
         <span th:text="${publicacao.avaliacao}">
     </div>
 
-    <div th:if="${permissao}">
+    <div th:if="${comentar}">
         <h3>Comentários</h3>
         <form method="post" th:action="@{/comentario/cadastro/{id}(id=${publicacao.id})}" th:object="${publicacao}">
             <input name="texto" type="text" placeholder="Digite seu comentário aqui">

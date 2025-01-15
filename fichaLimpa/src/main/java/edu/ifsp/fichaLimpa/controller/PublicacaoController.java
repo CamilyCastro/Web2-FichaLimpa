@@ -97,6 +97,8 @@ public class PublicacaoController {
             Publicacao publicacao = opt.get();
             
             if(userDetails != null) {
+            	
+            	
 
 	            boolean isAdmin = userDetails.getAuthorities().stream()
 	                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
@@ -109,7 +111,7 @@ public class PublicacaoController {
             //listar os comentarios
             List<Comentarios> comentarios = comentariosRepositorio.findByPublicacao(publicacao);
             model.addAttribute("comentarios", comentarios);
-
+            model.addAttribute("comentar", true);
             model.addAttribute("publicacao", publicacao);
         }
 
