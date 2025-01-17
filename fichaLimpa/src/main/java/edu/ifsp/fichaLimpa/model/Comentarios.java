@@ -16,6 +16,8 @@ public class Comentarios {
     private long id;
 
     private String texto;
+    
+    private String denunciar;
 
     @ManyToOne
     @JoinColumn(name = "id_publicacao")

@@ -9,4 +9,6 @@ import java.util.List;
 public interface ComentariosRepositorio extends CrudRepository<Comentarios, Long> {
 
     List<Comentarios> findByPublicacao(Publicacao publicacao);
+    
+  	List<Comentarios> findByDenunciar(String denunciar);
 }

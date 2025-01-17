@@ -2,6 +2,7 @@ package edu.ifsp.fichaLimpa.controller;
 
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Comentarios;
+import edu.ifsp.fichaLimpa.model.Politico;
 import edu.ifsp.fichaLimpa.model.Publicacao;
 import edu.ifsp.fichaLimpa.model.User;
 import edu.ifsp.fichaLimpa.repositorios.ComentariosRepositorio;
@@ -23,87 +24,128 @@ import java.util.Optional;
 @SessionAttributes("comentario")
 public class ComentariosController {
 
-    @Autowired
-    private ComentariosRepositorio comentariosRepositorio;
+	@Autowired
+	private ComentariosRepositorio comentariosRepositorio;
 
-    @Autowired
-    private PublicacaoRepositorio publicacaoRepositorio;
+	@Autowired
+	private PublicacaoRepositorio publicacaoRepositorio;
 
-    @Autowired
-    private UserRepositorio userRepo;
+	@Autowired
+	private UserRepositorio userRepo;
 
-    @ModelAttribute("comentarios")
-    public Comentarios comentarios() {
-        return new Comentarios();
-    }
+	@ModelAttribute("comentarios")
+	public Comentarios comentarios() {
+		return new Comentarios();
+	}
 
-    @GetMapping(MappingController.Comentario.listar)
-    public String listarComentarios(Model model) {
+	@GetMapping(MappingController.Comentario.listar)
+	public String listarComentarios(Model model) {
 
-        List<Comentarios> comentarios = new ArrayList<>();
-        comentariosRepositorio.findAll().forEach(comentarios::add);
+		List<Comentarios> comentarios = new ArrayList<>();
+		comentariosRepositorio.findAll().forEach(comentarios::add);
 
-        model.addAttribute("comentarios", comentarios);
-        return "perfil-publicacao";
-    }
+		model.addAttribute("comentarios", comentarios);
+		return "perfil-publicacao";
+	}
 
-    @GetMapping(MappingController.Comentario.perfil + "/{id}")
-    public String perfilComentario(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        Optional<Comentarios> opt = comentariosRepositorio.findById(id);
+	@GetMapping(MappingController.Comentario.perfil + "/{id}")
+	public String perfilComentario(@PathVariable("id") Long id, Model model,
+			@AuthenticationPrincipal UserDetails userDetails) {
+		Optional<Comentarios> opt = comentariosRepositorio.findById(id);
 
-        if (opt.isPresent()) {
+		if (opt.isPresent()) {
 
-            Comentarios comentario = opt.get();
-            
-            if(userDetails != null) {
+			Comentarios comentario = opt.get();
 
-	            boolean isAdmin = userDetails.getAuthorities().stream()
-	                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-	            if(userDetails.getUsername().equals(comentario.getCidadao().getUser().getUsername()) || isAdmin) {
-	                model.addAttribute("permissao", true);
-	            }
-            }
+			if (userDetails != null) {
 
-            model.addAttribute("comentario", comentario);
-            
-        }
+				boolean isAdmin = userDetails.getAuthorities().stream()
+						.anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+				if (userDetails.getUsername().equals(comentario.getCidadao().getUser().getUsername()) || isAdmin) {
+					model.addAttribute("permissao", true);
+				}
+			}
 
-        return "perfil-comentario";
-    }
+			model.addAttribute("comentario", comentario);
 
-    @PostMapping(MappingController.Comentario.cadastro + "/{id}")
-    public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+		}
 
-        Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
+		return "perfil-comentario";
+	}
 
-        if (opt.isPresent()) {
+	@GetMapping(MappingController.Comentario.denunciar)
+	public String viewFormAprovarComent(Model model) {
 
-            Publicacao publicacao = opt.get();
+		List<Comentarios> emAprovacao = comentariosRepositorio.findByDenunciar("analise");
 
-            if(!texto.isBlank()) {
+		model.addAttribute("comentarios", emAprovacao);
 
-                Comentarios comentario = new Comentarios();
+		return "aprovar-coment";
+	}
 
-                Optional<User> optUser = userRepo.findById(userDetails.getUsername());
-                if (optUser.isPresent()) {
-                    User user = optUser.get();
-                    Cidadao cidadao = user.getCidadao();
-                    comentario.setCidadao(cidadao);
-                }
+	@PostMapping(MappingController.Comentario.cadastro + "/{id}")
+	public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, @RequestParam("status") String status, Model model,
+			@AuthenticationPrincipal UserDetails userDetails) {
 
-                comentario.setTexto(texto);
-                comentario.setPublicacao(publicacao);
-                comentariosRepositorio.save(comentario);
-            }
-        }
-        return "redirect:/publicacao/perfil/" + id;
-    }
+		Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
 
-    @PostMapping(MappingController.Comentario.delete + "/{id}")
-    public String deleteComentario(@PathVariable("id") Long id) {
-        comentariosRepositorio.deleteById(id);
-        return "home";
-    }
+		if (opt.isPresent()) {
 
+			Publicacao publicacao = opt.get();
+
+			if (!texto.isBlank()) {
+
+				Comentarios comentario = new Comentarios();
+
+				Optional<User> optUser = userRepo.findById(userDetails.getUsername());
+				if (optUser.isPresent()) {
+					User user = optUser.get();
+					Cidadao cidadao = user.getCidadao();
+					comentario.setCidadao(cidadao);
+				}
+
+				comentario.setTexto(texto);
+				comentario.setPublicacao(publicacao);
+				
+				if(!status.isBlank()) {
+					comentario.setDenunciar(status);
+				}else {
+					comentario.setDenunciar("aprovado");
+				}
+				
+				comentariosRepositorio.save(comentario);
+			}
+		}
+		return "redirect:/publicacao/perfil/" + id;
+	}
+
+	@PostMapping(MappingController.Comentario.delete + "/{id}")
+	public String deleteComentario(@PathVariable("id") Long id) {
+		comentariosRepositorio.deleteById(id);
+		return "home";
+	}
+
+	@PostMapping(MappingController.Comentario.aprovar + "/{id}")
+	public String denunciarComentario(@PathVariable("id") Long id, @RequestParam("status") String status,
+			Comentarios coment) {
+
+		Optional<Comentarios> optComent = comentariosRepositorio.findById(id);
+
+		if (optComent.isPresent()) {
+			Comentarios comentarios = optComent.get();
+
+			if (status.equals("desaprovado")) {
+				
+				comentariosRepositorio.delete(comentarios);
+				
+			} else if (status.equals("aprovado")) {
+				
+				comentarios.setDenunciar(status);
+				comentariosRepositorio.save(comentarios);
+			}
+		}
+
+		return "home";
+	}
 
 }

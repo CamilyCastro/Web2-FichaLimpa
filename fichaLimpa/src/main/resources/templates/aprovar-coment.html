@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+	<div th:replace="header :: header"></div>
+	<div class="container">
+		<ul>
+			<li th:each="comentario : ${comentarios}"><a
+				th:href="@{/comentario/perfil/{id}(id=${comentario.id})}"
+				th:text="${comentario.texto}"></a>
+				<form method="post"
+					th:action="@{/comentario/aprovar/{id}(id=${comentario.id}, status='aprovado')}">
+					<button type="submit" class="btn btn-editar">Aprovar</button>
+				</form>
+
+				<form method="post"
+					th:action="@{/comentario/aprovar/{id}(id=${comentario.id}, status='desaprovado')}">
+					<button type="submit" class="btn btn-editar">Não Aprovar</button>
+				</form></li>
+		</ul>
+	</div>
+</body>
+</html>
