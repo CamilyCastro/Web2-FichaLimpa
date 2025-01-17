@@ -84,7 +84,7 @@ public class ComentariosController {
 	}
 
 	@PostMapping(MappingController.Comentario.cadastro + "/{id}")
-	public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, @RequestParam("status") String status, Model model,
+	public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model,
 			@AuthenticationPrincipal UserDetails userDetails) {
 
 		Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
@@ -106,13 +106,7 @@ public class ComentariosController {
 
 				comentario.setTexto(texto);
 				comentario.setPublicacao(publicacao);
-				
-				if(!status.isBlank()) {
-					comentario.setDenunciar(status);
-				}else {
-					comentario.setDenunciar("aprovado");
-				}
-				
+				comentario.setDenunciar("aprovado");
 				comentariosRepositorio.save(comentario);
 			}
 		}
@@ -136,9 +130,9 @@ public class ComentariosController {
 
 			if (status.equals("desaprovado")) {
 				
-				comentariosRepositorio.delete(comentarios);
+				deleteComentario(id);
 				
-			} else if (status.equals("aprovado")) {
+			} else if (status.equals("aprovado") || status.equals("analise")) {
 				
 				comentarios.setDenunciar(status);
 				comentariosRepositorio.save(comentarios);

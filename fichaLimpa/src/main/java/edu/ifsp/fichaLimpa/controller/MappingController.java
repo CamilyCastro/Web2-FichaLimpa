@@ -53,5 +53,6 @@ public interface MappingController {
 		String listar = "/listar";
 		String aprovar = "/aprovar";
 		String denunciar  = "/denunciar";
+		String editDenuncia = "/editDenuncia";
 	}
 }
