@@ -79,6 +79,7 @@ drop table if exists comentarios;
 create table comentarios(
     id identity primary key,
     texto text,
+    denunciar text not null,
     id_publicacao bigint not null,
     id_cidadao bigint not null
 );

@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head"></head>
 <body>
-<div th:replace="header :: header"></div>
-<div>
-    <div class="cabecalho-perfil" th:if="${permissao}"	>
+	<div th:replace="header :: header"></div>
+	<div>
+		<div class="cabecalho-perfil" th:if="${permissao}">
 
-        <form th:action="@{/comentario/delete/{id}(id=${comentario.id})}" method="post"
-              onsubmit="return confirm('Tem certeza que deseja excluir?')">
-            <input type="hidden" name="_method" value="DELETE"/>
-            <button type="submit" class="btn btn-editar">Excluir</button>
-        </form>
+			<form th:action="@{/comentario/delete/{id}(id=${comentario.id})}"
+				method="post"
+				onsubmit="return confirm('Tem certeza que deseja excluir?')">
+				<input type="hidden" name="_method" value="DELETE" />
+				<button type="submit" class="btn btn-editar">Excluir</button>
+			</form>
 
-    </div>
-    <div class="inline">
-        <h5>Comentário: </h5>
-        <span th:text="${comentario.texto}"></span>
-    </div>
-</div>
+			<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}"
+				method="post">
+				<input type="hidden" name="status" value="analise" />
+				<button type="submit" class="btn btn-danger">Denunciar</button>
+			</form>
+
+
+		</div>
+		<div class="inline">
+			<h5>Comentário:</h5>
+			<span th:text="${comentario.texto}"></span>
+		</div>
+	</div>
 </body>
 </html>

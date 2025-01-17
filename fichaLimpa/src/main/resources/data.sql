@@ -78,4 +78,4 @@ insert into authorities (username, authority) values ('02', 'ROLE_USER');
 insert into authorities (username, authority) values ('03', 'ROLE_USER');
 
 delete from comentarios;
-insert into comentarios (texto, id_publicacao, id_cidadao) values ('Comentário Teste', 1, 2);
+insert into comentarios (texto, denunciar ,id_publicacao, id_cidadao) values ('Comentário Teste', 'aprovado' ,1, 2);

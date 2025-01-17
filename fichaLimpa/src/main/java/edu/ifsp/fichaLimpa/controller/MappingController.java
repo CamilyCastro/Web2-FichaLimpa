@@ -52,5 +52,6 @@ public interface MappingController {
 		String perfil  = "/perfil";
 		String listar = "/listar";
 		String aprovar = "/aprovar";
+		String denunciar  = "/denunciar";
 	}
 }
