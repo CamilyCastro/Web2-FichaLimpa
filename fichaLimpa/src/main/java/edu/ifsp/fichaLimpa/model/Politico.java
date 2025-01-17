@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -53,10 +56,12 @@ public class Politico {
 	@JoinColumn(name = "id_partido")
 	@NotNull(message = "Selecione um partido.")
 	@ToString.Exclude
+	@JsonBackReference
 	private Partido partido;
 	
 	@ToString.Exclude
 	@OneToMany(mappedBy = "politico")
+	@JsonManagedReference
 	private List<Proposta> listaPropostas = new ArrayList<>();
 	
 	public void adicionarProposta(Proposta proposta) {
@@ -65,6 +70,7 @@ public class Politico {
 	
 	@ToString.Exclude
 	@OneToMany(mappedBy = "politico")
+	@JsonManagedReference
 	private List<Publicacao> publicacoes = new ArrayList<>();
 
 	public void adicionarPublicacoes(Publicacao publicacao){

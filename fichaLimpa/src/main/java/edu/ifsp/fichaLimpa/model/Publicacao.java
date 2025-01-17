@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -42,15 +45,18 @@ public class Publicacao {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "id_cidadao")
+    @JsonBackReference
     private Cidadao cidadao;
 
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "id_politico")
+    @JsonBackReference
     private Politico politico;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "publicacao")
+    @JsonManagedReference
     private List<Comentarios> comentarios = new ArrayList<>();
 
     public void adicionarComentarios(Comentarios coment){

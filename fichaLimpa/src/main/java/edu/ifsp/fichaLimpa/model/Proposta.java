@@ -10,6 +10,8 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Data
 @Entity
 @ToString
@@ -36,6 +38,7 @@ public class Proposta {
 
 	@ManyToOne
 	@JoinColumn(name = "id_politico")
+	@JsonBackReference
 	private Politico politico;
 
 	/*

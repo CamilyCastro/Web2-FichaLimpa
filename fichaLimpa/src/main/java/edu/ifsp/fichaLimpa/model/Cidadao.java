@@ -7,6 +7,8 @@ import java.util.List;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -37,6 +39,7 @@ public class Cidadao {
 	
 	@OneToOne(mappedBy = "cidadao", cascade = CascadeType.ALL)
 	@Valid
+	@JsonManagedReference
 	private Endereco endereco;
 
 	@OneToMany(mappedBy = "cidadao", cascade = CascadeType.ALL)

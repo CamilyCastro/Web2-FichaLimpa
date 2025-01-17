@@ -2,6 +2,9 @@ package edu.ifsp.fichaLimpa.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -26,6 +29,7 @@ public class Partido {
 	private String numero;
 
 	@OneToMany(mappedBy = "partido")
+	@JsonManagedReference
 	private List<Politico> politicos = new ArrayList<>();
 
 	public void adicionarPolitico(Politico politico){
