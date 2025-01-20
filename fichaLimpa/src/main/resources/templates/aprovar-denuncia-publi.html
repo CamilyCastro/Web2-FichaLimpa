@@ -8,7 +8,7 @@
 		<ul>
 			<li th:each="publicacao : ${publicacoes}"><a
 				th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}"
-				th:text="${piblicacao.titulo}"></a>
+				th:text="${publicacao.titulo}"></a>
 				<form method="post"
 					th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='aprovado')}">
 					<button type="submit" class="btn btn-editar">Aprovar</button>

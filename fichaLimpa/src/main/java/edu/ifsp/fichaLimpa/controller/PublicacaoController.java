@@ -134,11 +134,11 @@ public class PublicacaoController {
     @GetMapping(MappingController.Publicacao.denunciar)
 	public String viewFormAprovarComent(Model model) {
 
-		List<Comentarios> emAprovacao = comentariosRepositorio.findByDenunciar("analise");
+		List<Publicacao> emAprovacao = publicacaoRepositorio.findByDenunciar("analise");
 
-		model.addAttribute("comentarios", emAprovacao);
+		model.addAttribute("publicacoes", emAprovacao);
 
-		return "aprovar-coment";
+		return "aprovar-denuncia-publi";
 	}
 
 
@@ -286,14 +286,14 @@ public class PublicacaoController {
     @PostMapping(MappingController.Publicacao.aprovarDenuncia + "/{id}")
 	public String denunciarPubli(@PathVariable("id") Long id, @RequestParam("status") String status) {
 
-		Long idPubli = null;
+		Long idPolitico = null;
 		
 		Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
 
 		if (opt.isPresent()) {
 			Publicacao publicacao = opt.get();
 			
-			idPubli = publicacao.getPolitico().getId();
+			idPolitico = publicacao.getPolitico().getId();
 
 			if (status.equals("desaprovado")) {
 				
@@ -311,7 +311,7 @@ public class PublicacaoController {
 			}
 		}
 		
-		return "redirect:/politico/perfil/" + idPubli;
+		return "redirect:/politico/perfil/" + idPolitico;
     }
 
     private double calcularNotaPolitico(Politico politico) {
