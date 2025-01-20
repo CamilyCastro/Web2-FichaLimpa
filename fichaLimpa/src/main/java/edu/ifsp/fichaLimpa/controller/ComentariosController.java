@@ -49,9 +49,10 @@ public class ComentariosController {
 	}
 
 	@GetMapping(MappingController.Comentario.perfil + "/{id}")
-	public String perfilComentario(@PathVariable("id") Long id, Model model,
-			@AuthenticationPrincipal UserDetails userDetails) {
+	public String perfilComentario(@PathVariable("id") Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 		Optional<Comentarios> opt = comentariosRepositorio.findById(id);
+		
+		boolean logado = true;
 
 		if (opt.isPresent()) {
 
@@ -64,8 +65,11 @@ public class ComentariosController {
 				if (userDetails.getUsername().equals(comentario.getCidadao().getUser().getUsername()) || isAdmin) {
 					model.addAttribute("permissao", true);
 				}
+			}else {
+				logado = false;
 			}
-
+			
+			model.addAttribute("logado", logado);
 			model.addAttribute("comentario", comentario);
 
 		}
@@ -76,11 +80,11 @@ public class ComentariosController {
 	@GetMapping(MappingController.Comentario.denunciar)
 	public String viewFormAprovarComent(Model model) {
 
-		List<Comentarios> emAprovacao = comentariosRepositorio.findByDenunciar("analise");
+		List<Publicacao> emAprovacao = publicacaoRepositorio.findByDenunciar("analise");
 
-		model.addAttribute("comentarios", emAprovacao);
+		model.addAttribute("publicacao", emAprovacao);
 
-		return "aprovar-coment";
+		return "aprovar-denuncia-publi";
 	}
 
 	@PostMapping(MappingController.Comentario.cadastro + "/{id}")
@@ -120,26 +124,34 @@ public class ComentariosController {
 	}
 
 	@PostMapping(MappingController.Comentario.aprovar + "/{id}")
-	public String denunciarComentario(@PathVariable("id") Long id, @RequestParam("status") String status,
-			Comentarios coment) {
+	public String denunciarComentario(@PathVariable("id") Long id, @RequestParam("status") String status) {
 
+		Long idPubli = null;
+		
 		Optional<Comentarios> optComent = comentariosRepositorio.findById(id);
 
 		if (optComent.isPresent()) {
 			Comentarios comentarios = optComent.get();
+			
+			idPubli = comentarios.getPublicacao().getId();
 
 			if (status.equals("desaprovado")) {
 				
 				deleteComentario(id);
 				
-			} else if (status.equals("aprovado") || status.equals("analise")) {
+			} else if (status.equals("aprovado")) {
 				
 				comentarios.setDenunciar(status);
 				comentariosRepositorio.save(comentarios);
+				
+			} else if(status.equals("analise")) {
+				comentarios.setDenunciar(status);
+				comentariosRepositorio.save(comentarios);
+				return "redirect:/comentario/perfil/" + id + "?success=true";
 			}
 		}
 
-		return "home";
+		return "redirect:/publicacao/perfil/" + idPubli;
 	}
 
 }

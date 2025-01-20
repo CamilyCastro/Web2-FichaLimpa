@@ -60,13 +60,14 @@ drop table if exists publicacao;
 create table publicacao(
 	id identity primary key,
     data_publicacao timestamp not null,
-    titulo varchar(20) not null,
+    titulo varchar(40) not null,
     descricao text,
     anexo varchar(10),
     id_cidadao bigint not null,
     resposta varchar,
     aprovado boolean not null,
     avaliacao int not null,
+    denunciar text not null,
     id_politico bigint not null
 );
 

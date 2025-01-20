@@ -41,6 +41,8 @@ public class Publicacao {
     private int avaliacao;
 
     private boolean aprovado;
+    
+    private String denunciar;
 
     @ToString.Exclude
     @ManyToOne

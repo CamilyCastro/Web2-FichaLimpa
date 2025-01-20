@@ -92,20 +92,22 @@ public class PublicacaoController {
     public String perfilPublicacao(@PathVariable("id") Long id, Model model,@AuthenticationPrincipal UserDetails userDetails){
         Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
 
+        boolean logado = true;
+        
         if (opt.isPresent()) {
 
             Publicacao publicacao = opt.get();
             
             if(userDetails != null) {
             	
-            	
-
 	            boolean isAdmin = userDetails.getAuthorities().stream()
 	                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
 	
 	            if(userDetails.getUsername().equals(publicacao.getCidadao().getUser().getUsername()) || isAdmin) {
 	            	model.addAttribute("permissao", true);
 	            }
+            }else {
+            	logado = false;
             }
             
             //listar os comentarios
@@ -113,6 +115,7 @@ public class PublicacaoController {
             model.addAttribute("comentarios", comentarios);
             model.addAttribute("comentar", true);
             model.addAttribute("publicacao", publicacao);
+            model.addAttribute("logado", logado);
         }
 
         return "perfil-publicacao";
@@ -127,6 +130,17 @@ public class PublicacaoController {
 
     	return "aprovar-publi";
     }
+    
+    @GetMapping(MappingController.Publicacao.denunciar)
+	public String viewFormAprovarComent(Model model) {
+
+		List<Comentarios> emAprovacao = comentariosRepositorio.findByDenunciar("analise");
+
+		model.addAttribute("comentarios", emAprovacao);
+
+		return "aprovar-coment";
+	}
+
 
     @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
     public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors, @AuthenticationPrincipal UserDetails userDetails, Model model, SessionStatus sessionStatus){
@@ -267,6 +281,37 @@ public class PublicacaoController {
     	}
 
     	return "redirect:/publicacao/aprovar";
+    }
+    
+    @PostMapping(MappingController.Publicacao.aprovarDenuncia + "/{id}")
+	public String denunciarPubli(@PathVariable("id") Long id, @RequestParam("status") String status) {
+
+		Long idPubli = null;
+		
+		Optional<Publicacao> opt = publicacaoRepositorio.findById(id);
+
+		if (opt.isPresent()) {
+			Publicacao publicacao = opt.get();
+			
+			idPubli = publicacao.getPolitico().getId();
+
+			if (status.equals("desaprovado")) {
+				
+				deletePublicacao(id);
+				
+			} else if (status.equals("aprovado")) {
+				
+				publicacao.setDenunciar(status);
+				publicacaoRepositorio.save(publicacao);
+				
+			} else if(status.equals("analise")) {
+				publicacao.setDenunciar(status);
+				publicacaoRepositorio.save(publicacao);
+				return "redirect:/publicacao/perfil/" + id + "?success=true";
+			}
+		}
+		
+		return "redirect:/politico/perfil/" + idPubli;
     }
 
     private double calcularNotaPolitico(Politico politico) {

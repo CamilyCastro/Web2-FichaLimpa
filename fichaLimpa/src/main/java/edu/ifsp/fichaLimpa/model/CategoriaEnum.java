@@ -8,7 +8,10 @@ public enum CategoriaEnum {
 	TECNOLOGIA("Tecnologia"),
 	ECONOMIA("Economia"),
 	SOCIAL("Social"),
-	SEGURANCA("Segurança");
+	SEGURANCA("Segurança"),
+	EDUCACAO("Educação"),
+	MEIOAMBIENTE("Meio Ambiente"),
+	TRANSPORTE("Transporte");
 
 	@Getter
 	private final String descricao;
