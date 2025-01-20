@@ -77,15 +77,15 @@ public class ComentariosController {
 		return "perfil-comentario";
 	}
 
-	@GetMapping(MappingController.Comentario.denunciar)
-	public String viewFormAprovarComent(Model model) {
+	 @GetMapping(MappingController.Comentario.denunciar)
+		public String viewFormAprovarComent(Model model) {
 
-		List<Publicacao> emAprovacao = publicacaoRepositorio.findByDenunciar("analise");
+			List<Comentarios> emAprovacao = comentariosRepositorio.findByDenunciar("analise");
 
-		model.addAttribute("publicacao", emAprovacao);
+			model.addAttribute("comentarios", emAprovacao);
 
-		return "aprovar-denuncia-publi";
-	}
+			return "aprovar-coment";
+		}
 
 	@PostMapping(MappingController.Comentario.cadastro + "/{id}")
 	public String salvarComentario(@PathVariable("id") Long id, @RequestParam("texto") String texto, Model model,

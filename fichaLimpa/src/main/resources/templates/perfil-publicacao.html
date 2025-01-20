@@ -18,6 +18,11 @@
 	            <input type="hidden" name="_method" value="DELETE"/>
 	            <button type="submit" class="btn btn-outline-danger">Excluir <i class="bi bi-trash3"></i></button>
 	        </form>
+	        
+	        <form th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id})}" method="post">
+				<input type="hidden" name="status" value="analise" />
+				<button type="submit" class="btn btn-danger">Denunciar</button>
+			</form>
 	
 	    </div>
 	
