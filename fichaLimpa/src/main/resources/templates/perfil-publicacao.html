@@ -5,17 +5,16 @@
 <body>
 
 <div th:replace="header :: header"></div>
-
 <div class="body-publicacao">
 	<div class="publicacao-principal">
-		<div class="cabecalho-perfil-publicacao" th:if="${permissao}">
+		<div class="cabecalho-perfil-publicacao" th:if="${logado}">
 	
-	    	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
+	    	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get" th:if="${permissao}">
 	    		<button type="submit" class="btn btn-outline-warning">Editar <i class="bi bi-pencil"></i></button>
 	    	</form>
 	
 	        <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
-	              onsubmit="return confirm('Tem certeza que deseja excluir?')">
+	              onsubmit="return confirm('Tem certeza que deseja excluir?')" th:if="${permissao}">
 	            <input type="hidden" name="_method" value="DELETE"/>
 	            <button type="submit" class="btn btn-outline-danger">Excluir <i class="bi bi-trash3"></i></button>
 	        </form>
@@ -71,6 +70,14 @@
 
     
 </div>
+
+<!-- Pop-up -->
+    <div id="popup-overlay"></div>
+    <div id="popup">
+        <p>Estamos avaliando sua denuncia.</p>
+    </div>
+    
+    <script src="/js/popupAprovacao.js"></script>
 
 </body>
 </html>

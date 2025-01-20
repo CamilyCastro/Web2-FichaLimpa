@@ -5,27 +5,35 @@
 <body>
 	<div th:replace="header :: header"></div>
 	<div>
-		<div class="cabecalho-perfil" th:if="${permissao}">
+		<div class="cabecalho-perfil" th:if="${logado}">
 
 			<form th:action="@{/comentario/delete/{id}(id=${comentario.id})}"
 				method="post"
-				onsubmit="return confirm('Tem certeza que deseja excluir?')">
+				onsubmit="return confirm('Tem certeza que deseja excluir?')" th:if="${permissao}">
 				<input type="hidden" name="_method" value="DELETE" />
 				<button type="submit" class="btn btn-editar">Excluir</button>
 			</form>
-
-			<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}"
-				method="post">
+		
+			<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}" method="post">
 				<input type="hidden" name="status" value="analise" />
 				<button type="submit" class="btn btn-danger">Denunciar</button>
 			</form>
-
-
 		</div>
+	
+		
 		<div class="inline">
 			<h5>Comentário:</h5>
 			<span th:text="${comentario.texto}"></span>
 		</div>
 	</div>
+	
+	<!-- Pop-up -->
+    <div id="popup-overlay"></div>
+    <div id="popup">
+        <p>Estamos avaliando sua denuncia.</p>
+    </div>
+    
+    <script src="/js/popupAprovacao.js"></script>
+    
 </body>
 </html>
