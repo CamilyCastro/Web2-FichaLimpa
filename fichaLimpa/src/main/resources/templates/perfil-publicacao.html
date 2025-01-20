@@ -6,65 +6,70 @@
 
 <div th:replace="header :: header"></div>
 
-<div>
-    <div class="cabecalho-perfil-publicacao" th:if="${permissao}">
+<div class="body-publicacao">
+	<div class="publicacao-principal">
+		<div class="cabecalho-perfil-publicacao" th:if="${permissao}">
+	
+	    	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
+	    		<button type="submit" class="btn btn-outline-warning">Editar <i class="bi bi-pencil"></i></button>
+	    	</form>
+	
+	        <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
+	              onsubmit="return confirm('Tem certeza que deseja excluir?')">
+	            <input type="hidden" name="_method" value="DELETE"/>
+	            <button type="submit" class="btn btn-outline-danger">Excluir <i class="bi bi-trash3"></i></button>
+	        </form>
+	
+	    </div>
+	
+		<div class="inline">
+	        <h5 th:text="${publicacao.titulo}">Titulo </h5>
+	    </div>
+	
+	    <div class="inline">
+	        <h6 th:text="${publicacao.descricao}">Descrição: </h6>
+	    </div>
+	    
+	    <div style="display: flex;" class="inline" sec:authorize="hasRole('ROLE_ADMIN')">
+	        <span class="span-bold">Cidadão: </span>
+	        <span th:text="${publicacao.cidadao.nome}">
+	    </div>
+	
+	    <div style="display: flex;" class="inline">
+	        <span class="span-bold">Data: </span>
+	       	<span th:text="${publicacao.dataPublicacao}">
+	    </div>
+	
+	    <div style="display: flex;" class="inline">
+	        <span class="span-bold">Avaliação: </span>
+	        <span th:text="${publicacao.avaliacao}">
+	    </div>
 
-    	<form form th:action="@{/publicacao/edit/{id}(id=${publicacao.id})}" method="get">
-    		<button type="submit" class="btn btn-outline-warning">Editar <i class="bi bi-pencil"></i></button>
-    	</form>
-
-        <form th:action="@{/publicacao/delete/{id}(id=${publicacao.id})}" method="post"
-              onsubmit="return confirm('Tem certeza que deseja excluir?')">
-            <input type="hidden" name="_method" value="DELETE"/>
-            <button type="submit" class="btn btn-outline-danger">Excluir <i class="bi bi-trash3"></i></button>
-        </form>
-
-    </div>
-
-	<div class="inline">
-        <h5 th:text="${publicacao.titulo}">Titulo </h5>
-    </div>
-
-    <div class="inline">
-        <h6 th:text="${publicacao.descricao}">Descrição: </h6>
-    </div>
-	<br>
-    <div style="display: flex;" class="inline" sec:authorize="hasRole('ROLE_ADMIN')">
-        <h6>Cidadão: </h6>
-        <span th:text="${publicacao.cidadao.nome}">
-    </div>
-
-    <div style="display: flex;" class="inline">
-        <h6>Data: </h6>
-       	<span th:text="${publicacao.dataPublicacao}">
-    </div>
-
-    <div style="display: flex;" class="inline">
-        <h6>Avaliação: </h6>
-        <span th:text="${publicacao.avaliacao}">
-    </div>
-
-    <div th:if="${comentar}">
-        <h3>Comentários</h3>
+		<div class="comentarios inline">
+	        <hr>	
+	        <h5>Comentários</h5>
+	        <form th:action="@{/comentario/listar}" method="get">
+	            <ul>
+	            	<li th:each="comentario : ${comentarios}">
+	            		<a th:href="@{/comentario/perfil/{id}(id=${comentario.id})}" th:text="${comentario.texto}"></a>
+	                </li>
+	            </ul>
+	        </form>
+	    </div>
+	</div>
+    
+    <div class="adicionar-comentario" th:if="${comentar}">
+        <h4>Adicionar comentário</h4>
         <form method="post" th:action="@{/comentario/cadastro/{id}(id=${publicacao.id})}" th:object="${publicacao}">
             <input name="texto" type="text" placeholder="Digite seu comentário aqui">
             <div>
-                <button type="submit">Confirmar</button>
-                <button type="reset">Cancelar</button><br><br>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <button type="reset" class="btn btn-outline-secondary">Cancelar</button><br><br>
             </div>
         </form>
     </div>
 
-    <div>
-        <h4>Comentários já enviados: </h4>
-        <form th:action="@{/comentario/listar}" method="get">
-            <ul>
-            	<li th:each="comentario : ${comentarios}">
-            		<a th:href="@{/comentario/perfil/{id}(id=${comentario.id})}" th:text="${comentario.texto}"></a>
-                </li>
-            </ul>
-        </form>
-    </div>
+    
 </div>
 
 </body>
