@@ -15,7 +15,7 @@
 	           <ul class="dropdown-menu" aria-labelledby="dropdownPolitico">
 	               <li sec:authorize="hasRole('ROLE_ADMIN')" ><a class="dropdown-item" th:href="@{/politico/cadastro}">Cadastrar</a></li>
 	               <li><a class="dropdown-item" th:href="@{/politico/listar}">Listar</a></li>
-				   <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/partido}">Cadastrar Partido</a></lisec:authorize="hasRole('ROLE_ADMIN')">
+				   <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/partido}">Cadastrar Partido</a></li>
 				   <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/proposta/cadastro}">Cadastrar Propostas</a></li>
 	           </ul>
 	       </div>

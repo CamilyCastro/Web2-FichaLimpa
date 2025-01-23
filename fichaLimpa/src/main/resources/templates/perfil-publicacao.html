@@ -21,7 +21,7 @@
 	        
 	        <form th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id})}" method="post">
 				<input type="hidden" name="status" value="analise" />
-				<button type="submit" class="btn btn-danger">Denunciar</button>
+				<button title="Denunciar publicação" type="submit" class="btn btn-denunciar"><i class="bi bi-exclamation-octagon"></i></button>
 			</form>
 	
 	    </div>
@@ -55,14 +55,14 @@
 	        <form th:action="@{/comentario/listar}" method="get">
 	            <ul>
 	            	<li th:each="comentario : ${comentarios}">
-	            		<a th:href="@{/comentario/perfil/{id}(id=${comentario.id})}" th:text="${comentario.texto}"></a>
+	            		<a style="word-wrap: anywhere;" th:href="@{/comentario/perfil/{id}(id=${comentario.id})}" th:text="${#strings.abbreviate(comentario.texto, 20)}"></a>
 	                </li>
 	            </ul>
 	        </form>
 	    </div>
 	</div>
     
-    <div class="adicionar-comentario" th:if="${comentar}">
+    <div sec:authorize="hasRole('ROLE_USER')" class="adicionar-comentario" th:if="${comentar}">
         <h4>Adicionar comentário</h4>
         <form method="post" th:action="@{/comentario/cadastro/{id}(id=${publicacao.id})}" th:object="${publicacao}">
             <input name="texto" type="text" placeholder="Digite seu comentário aqui">

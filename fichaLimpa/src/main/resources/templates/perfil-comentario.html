@@ -4,7 +4,7 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 	<div th:replace="header :: header"></div>
-	<div>
+	<div class="perfil-comentario">
 		<div class="cabecalho-perfil" th:if="${logado}">
 
 			<form th:action="@{/comentario/delete/{id}(id=${comentario.id})}"

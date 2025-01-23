@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             popup.style.display = 'none';
             popupOverlay.style.display = 'none';
-        }, 3000);
+        }, 1500);
     }
 });

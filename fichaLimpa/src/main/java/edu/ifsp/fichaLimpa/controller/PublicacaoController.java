@@ -155,6 +155,7 @@ public class PublicacaoController {
         //DEFINIR DATA E HORA AUTOMATICAMENTE
         publicacao.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         publicacao.setAprovado(false);
+        publicacao.setDenunciar("aprovado");
 
         sessionStatus.setComplete();
 

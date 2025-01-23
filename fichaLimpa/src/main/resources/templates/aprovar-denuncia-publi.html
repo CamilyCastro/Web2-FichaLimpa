@@ -5,19 +5,22 @@
 <body>
 	<div th:replace="header :: header"></div>
 	<div class="container">
-		<ul>
-			<li th:each="publicacao : ${publicacoes}"><a
-				th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}"
-				th:text="${publicacao.titulo}"></a>
-				<form method="post"
-					th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='aprovado')}">
-					<button type="submit" class="btn btn-editar">Aprovar</button>
-				</form>
-
-				<form method="post"
-					th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='desaprovado')}">
-					<button type="submit" class="btn btn-editar">Não Aprovar</button>
-				</form></li>
+		<ul class="aprovacoes">
+			<li th:each="publicacao : ${publicacoes}">
+				<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}"></a>
+				<div>
+					<form method="post"
+						th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='aprovado')}">
+						<button type="submit" class="btn btn-editar">Aprovar</button>
+					</form>
+	
+					<form method="post"
+						th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='desaprovado')}">
+						<button type="submit" class="btn btn-editar">Não Aprovar</button>
+					</form>
+				</div>
+				
+			</li>
 		</ul>
 	</div>
 </body>
