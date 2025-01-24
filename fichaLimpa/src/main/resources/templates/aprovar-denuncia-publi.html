@@ -4,22 +4,23 @@
 <head th:replace="fragments/head :: head"></head>
 <body>
 	<div th:replace="header :: header"></div>
-	<div class="container">
+	<div class="container-aprovacao">
 		<ul class="aprovacoes">
-			<li th:each="publicacao : ${publicacoes}">
-				<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}"></a>
-				<div>
+			<li th:each="publicacao : ${publicacoes}"  class="aprovacao">
+				<div class="cabecalho-aprovacao">
 					<form method="post"
 						th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='aprovado')}">
-						<button type="submit" class="btn btn-editar">Aprovar</button>
+						<button type="submit" class="btn btn-outline-success" style="margin: 0 5px 0 0;"><i class="bi bi-check-lg"></i> Aprovar</button>
 					</form>
 	
 					<form method="post"
 						th:action="@{/publicacao/aprovarDenuncia/{id}(id=${publicacao.id}, status='desaprovado')}">
-						<button type="submit" class="btn btn-editar">Não Aprovar</button>
+						<button type="submit" class="btn btn-outline-danger" style="margin-top: 0;">Excluir <i class="bi bi-trash3"></i></button>
 					</form>
 				</div>
 				
+				<a th:href="@{/publicacao/perfil/{id}(id=${publicacao.id})}" th:text="${publicacao.titulo}"></a>
+			
 			</li>
 		</ul>
 	</div>
