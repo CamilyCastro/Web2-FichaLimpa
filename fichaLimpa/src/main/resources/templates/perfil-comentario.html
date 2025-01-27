@@ -3,25 +3,28 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head"></head>
 <body>
+	
 	<div th:replace="header :: header"></div>
 	<div class="perfil-comentario">
-		<div class="cabecalho-perfil" th:if="${logado}">
-
-			<form th:action="@{/comentario/delete/{id}(id=${comentario.id})}"
-				method="post"
-				onsubmit="return confirm('Tem certeza que deseja excluir?')" th:if="${permissao}">
-				<input type="hidden" name="_method" value="DELETE" />
-				<button type="submit" class="btn btn-editar">Excluir</button>
-			</form>
-		
-			<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}" method="post">
-				<input type="hidden" name="status" value="analise" />
-				<button type="submit" class="btn btn-danger">Denunciar</button>
-			</form>
-		</div>
+		<div class="cabecalho-perfil-publicacao" >
+			<button class="btn-voltar" onclick="history.back()" style="height: 2em;"><i class="bi bi-arrow-left"></i></button>
+			<div class="cabecalho-perfil" th:if="${logado}">
 	
+				<form th:action="@{/comentario/delete/{id}(id=${comentario.id})}"
+					method="post"
+					onsubmit="return confirm('Tem certeza que deseja excluir?')" th:if="${permissao}">
+					<input type="hidden" name="_method" value="DELETE" />
+					<button type="submit" class="btn btn-outline-danger" style="margin-top: 0;">Excluir <i class="bi bi-trash3"></i></button>
+				</form>
+			
+				<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}" method="post">
+					<input type="hidden" name="status" value="analise" />
+					<button title="Denunciar publicação" type="submit" class="btn btn-denunciar" style="margin-top: 0;"><i class="bi bi-exclamation-octagon"></i></button>
+				</form>
+			</div>
+		</div>
 		
-		<div class="inline">
+		<div class="inline" style="display: flex; width: 100%; margin: 0px 1em; flex-direction: column;">
 			<h5>Comentário:</h5>
 			<span th:text="${comentario.texto}"></span>
 		</div>

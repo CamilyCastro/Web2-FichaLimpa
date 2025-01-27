@@ -8,9 +8,9 @@
 	
 	<div class="conteudo home">
 		<div class="texto-home">
-			<p>O <b>FICHA LIMPA</b> é a plataforma que conecta <b>você</b> diretamente aos seus representantes.<br>
-				Acompanhe o desempenho dos candidatos, exija transparência e faça escolhas <b>conscientes</b> para um futuro melhor. <br><br>
-				<b>Seja parte do debate, exija resultados!</b></p>				
+			<p>O <b style="font-weight: 600;">FICHA LIMPA</b> é a plataforma que conecta <b style="font-weight: 600;">você</b> diretamente aos seus representantes.<br>
+				Acompanhe o desempenho dos candidatos, exija transparência e faça escolhas <b style="font-weight: 600;">conscientes</b> para um futuro melhor. <br><br>
+				<b style="font-weight: 600;">Seja parte do debate, exija resultados!</b></p>				
 		</div>
 		<div>
 			<img th:src="@{/images/3.png}" width="80%">
@@ -20,11 +20,70 @@
 	</div>
 	
 	<div id="ranking-container" class="ranking-section">
-    	<h2>Melhores Avaliados</h2>
-    	<ul id="ranking-list"></ul>
+		
+		<h2> Políticos Melhor Avaliados </h2></td>
+				
+		<table class="table table-hover">
+		    <thead>
+		        <tr>
+		            <th scope="col">#</th>
+		            <th scope="col">Nome</th>
+		            <th scope="col">Nota</th>
+		        </tr>
+		    </thead>
+		    <tbody id="ranking-table-body">
+				
+		    </tbody>
+		</table>
 	</div>
 	
+	<footer class="text-center text-white" style="background-color: #008080;">
+	   <div class=" p-4 pb-0">
+	     <section class="d-flex justify-content-around">
+			<p>IFSP Araraquara</p>
+	       <p class="d-flex justify-content-center align-items-center">
+	         <span class="me-3">Suporte:</span><a href="#" style="color: white;">suporte@fichalimpa.com.br</a>
+	       </p>
+		   <button type="button" class="btn" style="margin: 0 0 1em 0;" data-toggle="modal" data-target="#sobreNos">
+				Sobre nós
+		   </button>
+	     </section>
+	   </div>
+	   <div class="text-center p-3" style="background-color:rgb(0, 87, 87); font-size: 0.8em;">
+	     © 2025 Ficha Limpa. Todos os direitos reservados.
+	   </div>
+	 </footer>
+	
+	 <div class="modal fade" id="sobreNos" tabindex="-1" role="dialog" aria-labelledby="sobreNos" aria-hidden="true">
+	   <div class="modal-dialog" role="document">
+	     <div class="modal-content">
+	       <div class="modal-header">
+	         <h5 class="modal-title" id="exampleModalLabel">Sobre nós</h5>
+	         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	           <span aria-hidden="true">&times;</span>
+	         </button>
+	       </div>
+	       <div class="modal-body">
+	         <p>
+				O Ficha Limpa é um <b>projeto acadêmico</b> desenvolvido no sexto semestre do curso de Análise e Desenvolvimento de Sistemas por 
+				Amanda Campezan, Camily Castro, Lívia Blumer e Pietro Kaynan. 
+			</p>
+			<p>
+				A plataforma busca centralizar informações <b>confiáveis</b> sobre candidatos e políticos eleitos, 
+				suas propostas e ações, ajudando os eleitores a tomar decisões <b>conscientes</b>. 
+			</p>
+			<p>
+				<b>Nosso objetivo é combater a desinformação e promover um debate público mais informado e participativo.</b>
+			</p>
+	       </div>
+	   </div>
+	 </div>
+	 
     <script src="/js/ranking.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

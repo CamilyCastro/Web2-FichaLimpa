@@ -11,33 +11,33 @@
 	<div class="container">
 		<form method="post" th:action="@{/cidadao/cadastro}" th:object="${cidadao}">
 			<div>
-				<label for="sigla"><strong>Nome</strong></label>
-			    <input type="text" th:field="*{nome}">
+				<label for="sigla"><strong>Nome*</strong></label>
+			    <input type="text" th:field="*{nome}" maxlength="50">
 			    <span class="erro" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
 			    <br><br>
 				
-				<label for="nome"><strong>CPF</strong></label>
-			    <input type="text" th:field="*{cpf}">
+				<label for="nome"><strong>CPF*</strong></label>
+			    <input type="text" th:field="*{cpf}" placeholder="000.000.000-00" maxlength="14" id="cpf">
 			    <span class="erro" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
 			    <br><br>
 			    
-			    <label for="telefone"><strong>Telefone</strong></label>
-			    <input type="text" th:field="*{telefone}">
+			    <label for="telefone"><strong>Telefone*</strong></label>
+			    <input type="text" th:field="*{telefone}" placeholder="(00)00000-0000" maxlength="15" id="telefone">
 			    <span class="erro" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></span>
 			    <br><br>
 				
-				<label for="dataNascimento"><strong>Data de Nascimento</strong></label>
+				<label for="dataNascimento"><strong>Data de Nascimento*</strong></label>
 			    <input type="date" th:field="*{dataNascimento}">
 			    <span class="erro" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
 			    <br><br>
 				
-				<label for="username"><strong>E-mail</strong></label>
-			    <input type="text" th:field="*{user.username}">
+				<label for="username"><strong>E-mail*</strong></label>
+			    <input type="text" th:field="*{user.username}" placeholder="nome@email.com" maxlength="50">
 			    <span class="erro" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"></span>
 			    <br><br>
 				
-				<label for="password"><strong>Senha</strong></label>
-			    <input type="password" th:field="*{user.password}">
+				<label for="password"><strong>Senha*</strong></label>
+			    <input type="password" th:field="*{user.password}"></input>
 			    <span class="erro" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"></span>
 			    <br><br>
 			  </div>
@@ -45,33 +45,63 @@
 			<fieldset>
 				<legend><strong>Endereço</strong></legend>
 	
-				<label for="cep">CEP</label>
-			    <input type="text" th:field="*{endereco.cep}">
+				<label for="cep">CEP*</label>
+			    <input type="text" th:field="*{endereco.cep}" placeholder="00000-000" maxlength="9" id="cep">
 			    <span class="erro" th:if="${#fields.hasErrors('endereco.cep')}" th:errors="*{endereco.cep}"></span>
 			    <br><br>
 				
-				<label for="estado">Estado</label>
-			    <input type="text" th:field="*{endereco.estado}">
+				<label for="estado">Estado*</label>
 			    <span class="erro" th:if="${#fields.hasErrors('endereco.estado')}" th:errors="*{endereco.estado}"></span>
+				<select id="estado" name="estado" th:field="*{endereco.estado}">
+				    <option value="" disabled selected>Selecione um estado</option>
+				    <option value="AC">Acre</option>
+				    <option value="AL">Alagoas</option>
+				    <option value="AP">Amapá</option>
+				    <option value="AM">Amazonas</option>
+				    <option value="BA">Bahia</option>
+				    <option value="CE">Ceará</option>
+				    <option value="DF">Distrito Federal</option>
+				    <option value="ES">Espírito Santo</option>
+				    <option value="GO">Goiás</option>
+				    <option value="MA">Maranhão</option>
+				    <option value="MT">Mato Grosso</option>
+				    <option value="MS">Mato Grosso do Sul</option>
+				    <option value="MG">Minas Gerais</option>
+				    <option value="PA">Pará</option>
+				    <option value="PB">Paraíba</option>
+				    <option value="PR">Paraná</option>
+				    <option value="PE">Pernambuco</option>
+				    <option value="PI">Piauí</option>
+				    <option value="RJ">Rio de Janeiro</option>
+				    <option value="RN">Rio Grande do Norte</option>
+				    <option value="RS">Rio Grande do Sul</option>
+				    <option value="RO">Rondônia</option>
+				    <option value="RR">Roraima</option>
+				    <option value="SC">Santa Catarina</option>
+				    <option value="SP">São Paulo</option>
+				    <option value="SE">Sergipe</option>
+				    <option value="TO">Tocantins</option>
+				</select>
+
 			    <br><br>
 				
-				<label for="cidade">Cidade</label>
-			    <input type="text" th:field="*{endereco.cidade}">
+				<label for="cidade">Cidade*</label>
+			    <input type="text" th:field="*{endereco.cidade}"></input>
 			    <span class="erro" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></span>
 			    <br><br>
 				
-				<label for="logradouro">Logradouro</label>
-			    <input type="text" th:field="*{endereco.logradouro}">
+				<label for="logradouro">Logradouro*</label>
+			    <input type="text" th:field="*{endereco.logradouro}"></input>
 			    <span class="erro" th:if="${#fields.hasErrors('endereco.logradouro')}" th:errors="*{endereco.logradouro}"></span>
 			    <br><br>
 				
-				<label for="numero">Numero</label>
-			    <input type="number" th:field="*{endereco.numero}">
+				<label for="numero">Número*</label>
+			    <input type="number" th:field="*{endereco.numero}"></input>
 			    <span class="erro" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></span>
 			    <br><br>
 				
 				<label for="complemento">Complemento</label>
-			    <input type="text" th:field="*{endereco.complemento}">
+			    <input type="text" th:field="*{endereco.complemento}"></input>
 			    <span class="erro" th:if="${#fields.hasErrors('endereco.complemento')}" th:errors="*{endereco.complemento}"></span>
 			    <br><br>
 	
@@ -80,5 +110,17 @@
 		    <button type="submit" class="btn-principal">Cadastrar</button>
 		</form>
 	</div>
+	
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+	<script>
+	    $(document).ready(() => {
+	        $("#cpf").mask("000.000.000-00");
+	        $("#telefone").mask("(00)00000-0000");
+	        $("#cep").mask("00000-000");
+	    });
+	</script>
 </body>
 </html>
