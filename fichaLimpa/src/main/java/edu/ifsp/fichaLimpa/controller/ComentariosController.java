@@ -119,8 +119,17 @@ public class ComentariosController {
 
 	@PostMapping(MappingController.Comentario.delete + "/{id}")
 	public String deleteComentario(@PathVariable("id") Long id) {
+		 Long idPubli = null;
+		 
+		 Optional<Comentarios> opt = comentariosRepositorio.findById(id);
+		 
+		 if (opt.isPresent()) {
+			 Comentarios comentario = opt.get();
+			 idPubli = comentario.getPublicacao().getId();
+		 }
+		
 		comentariosRepositorio.deleteById(id);
-		return "home";
+		return "redirect:/publicacao/perfil/" + idPubli;
 	}
 
 	@PostMapping(MappingController.Comentario.aprovar + "/{id}")
