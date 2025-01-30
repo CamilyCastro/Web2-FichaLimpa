@@ -107,6 +107,19 @@ public class CidadaoController {
 		return "perfil-cidadao";
 	}
 	
+	@GetMapping(MappingController.Cidadao.editSenha + "/{id}")
+	public String editSenha(@PathVariable("id") Long id, Model model) {
+		Optional<Cidadao> opt = cidadaoRepositorio.findById(id);		
+		
+		if (opt.isPresent()) {
+			
+			Cidadao cidadao = opt.get();
+			model.addAttribute("user", cidadao.getUser());
+		}
+		
+		return "alterar-senha";
+	}
+	
 	@PostMapping(MappingController.Cidadao.edit)
 	public String editCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors ) {
 		if(errors.hasErrors()) {
