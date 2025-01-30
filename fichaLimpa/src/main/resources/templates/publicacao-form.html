@@ -31,15 +31,15 @@
     <span class="erro" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
     <br><br><br>
 
-    <label for="anexo"><strong>Anexo</strong></label>
+    <!-- <label for="anexo"><strong>Anexo</strong></label>
     <input type="file" th:field="*{anexo}" id="anexo">
-    <br><br>
+    <br><br> -->
     
     <button type="submit" class="btn-principal">Cadastrar</button>
   </form>
 </div>
 
 	<script src="/js/avaliacao.js"></script>
-		
+	<script src="/js/popupAprovacao.js"></script>
 </body>
 </html>

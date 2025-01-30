@@ -27,7 +27,7 @@
 			</div>
 	    </div>
 		<div style="display: flex; justify-content: flex-end; margin-bottom: 2em;" class="inline">
-	       	<span th:text="${publicacao.dataPublicacao}">
+	       	<span th:text="${#temporals.format(publicacao.dataPublicacao, 'dd-MM-yyyy HH:mm')}">
 	    </div>
 		<div class="inline">
 	        <h5 th:text="${publicacao.titulo}">Titulo </h5>
