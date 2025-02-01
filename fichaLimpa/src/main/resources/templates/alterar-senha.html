@@ -6,29 +6,34 @@
 <div th:replace="header :: header"></div>	
 	<div class="container">
 		<form method="post" th:action="@{/cidadao/editSenha}" th:object="${user}">
+		
+				<label for="username">Usuário</label>
+				<input type="text" th:field="*{username}" id="username" readonly>
+				<br><br>				
 			
 				<label for="senha">Senha Atual</label>
 		    	<input type="password" th:field="*{password}">
-		    	<span class="erro" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+		    	<span class="erro" th:if="${erroSenhaAtual}" th:text="${erroSenhaAtual}"></span>
 		    	<br><br>
-			
-				<label for="senha">Nova Senha</label>
-		    	<input type="password" name="novaSenha">
-		    	<br><br>
-		    	
-		    	<label for="senha">Confirmar Nova Senha</label>
-		    	<input type="password" name="confirmacao">
-		    	<br><br>
-		
-			<br>
+
+	            <label for="novaSenha">Nova Senha</label>
+	            <input type="password" name="novaSenha" id="novaSenha">
+	            <span class="erro" th:if="${erroSenhaNova}" th:text="${erroSenhaNova}"></span>
+	            <br><br>
+	            
+	            <label for="confirmacao">Confirmar Nova Senha</label>
+	            <input type="password" name="confirmacao" id="confirmacao">
+	            <span class="erro" th:if="${erroConfirmacao}" th:text="${erroConfirmacao}"></span>
+	            <br><br>
 		    
-		    <button type="submit" class="btn-principal">Salvar</button><br>
+			    <button type="submit" class="btn-principal">Salvar</button><br>
+			    
+			    <form th:action="@{/cidadao/perfil/{id}(id=${cidadao.id})}" method="get">
+					<button type="submit" class="btn-principal">Cancelar</button>
+				</form>
 		    
-		    <form th:action="@{/cidadao/perfil/{id}(id=${cidadao.id})}" method="get">
-				<button type="submit" class="btn-principal">Cancelar</button>
-			</form>
-	    
 		</form>
 	</div>
+	
 </body>
 </html>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -107,15 +108,14 @@ public class CidadaoController {
 		return "perfil-cidadao";
 	}
 	
-	@GetMapping(MappingController.Cidadao.editSenha + "/{id}")
-	public String editSenha(@PathVariable("id") Long id, Model model) {
-		Optional<Cidadao> opt = cidadaoRepositorio.findById(id);		
+	@GetMapping(MappingController.Cidadao.editSenha)
+	public String editSenha(Model model,  @AuthenticationPrincipal UserDetails userDetails) {
 		
-		if (opt.isPresent()) {
+		if(userDetails.getUsername() != null) {
 			
-			Cidadao cidadao = opt.get();
-			model.addAttribute("user", cidadao.getUser());
-		}
+			User user = userRepo.findByUsername(userDetails.getUsername());	
+			model.addAttribute("user", user);
+		}		
 		
 		return "alterar-senha";
 	}
@@ -134,6 +134,47 @@ public class CidadaoController {
 		
 		return "perfil-cidadao";
 	}
+	
+	@PostMapping(MappingController.Cidadao.editSenha)
+	public String editSenha(@Valid @ModelAttribute User user, 
+	                        @RequestParam("novaSenha") String novaSenha,
+	                        @RequestParam("confirmacao") String confirmacao,
+	                        Model model, Errors errors) {
+	    
+	   if (errors.hasErrors()) {
+	        return "alterar-senha";
+	    }
+
+	    User usuarioBanco = userRepo.findById(user.getUsername()).orElse(null);
+	    if (usuarioBanco == null) {
+	        model.addAttribute("erroSenhaAtual", "Usuário não encontrado");
+	        return "alterar-senha";
+	    }
+
+	    if (!bCryptPasswordEncoder.matches(user.getPassword(), usuarioBanco.getPassword())) {
+	        model.addAttribute("erroSenhaAtual", "Senha incorreta");
+	        return "alterar-senha";
+	    }
+
+
+	    if (novaSenha.length() < 6) {
+	        model.addAttribute("erroSenhaNova", "A nova senha deve conter no mínimo 6 caracteres");
+	        return "alterar-senha";
+	    }
+
+	    if (!novaSenha.equals(confirmacao)) {
+	        model.addAttribute("erroConfirmacao", "A nova senha e a confirmação não coincidem");
+	        return "alterar-senha";
+	    }
+	    
+	    String encryptedNovaSenha = bCryptPasswordEncoder.encode(novaSenha);
+
+	    usuarioBanco.setPassword(encryptedNovaSenha);
+	    userRepo.save(usuarioBanco);
+
+	    return "/home";
+	}
+
 	
 	@PostMapping(MappingController.Cidadao.cadastro)
 	public String salvarCidadao(@Valid @ModelAttribute Cidadao cidadao, Errors errors, SessionStatus sessionStatus, Model model) {
