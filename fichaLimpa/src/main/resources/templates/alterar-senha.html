@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<div th:replace="header :: header"></div>	
+	<div class="container">
+		<form method="post" th:action="@{/cidadao/editSenha}" th:object="${user}">
+		
+				<label for="username">Usuário</label>
+				<input type="text" th:field="*{username}" id="username" readonly>
+				<br><br>				
+			
+				<label for="senha">Senha Atual</label>
+		    	<input type="password" th:field="*{password}">
+		    	<span class="erro" th:if="${erroSenhaAtual}" th:text="${erroSenhaAtual}"></span>
+		    	<br><br>
+
+	            <label for="novaSenha">Nova Senha</label>
+	            <input type="password" name="novaSenha" id="novaSenha">
+	            <span class="erro" th:if="${erroSenhaNova}" th:text="${erroSenhaNova}"></span>
+	            <br><br>
+	            
+	            <label for="confirmacao">Confirmar Nova Senha</label>
+	            <input type="password" name="confirmacao" id="confirmacao">
+	            <span class="erro" th:if="${erroConfirmacao}" th:text="${erroConfirmacao}"></span>
+	            <br><br>
+		    
+			    <button type="submit" class="btn-principal">Salvar</button><br>
+			    
+			    <form th:action="@{/cidadao/perfil/{id}(id=${cidadao.id})}" method="get">
+					<button type="submit" class="btn-principal">Cancelar</button>
+				</form>
+		    
+		</form>
+	</div>
+	
+</body>
+</html>
