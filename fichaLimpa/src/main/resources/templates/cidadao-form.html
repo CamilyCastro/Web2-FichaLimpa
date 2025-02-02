@@ -36,8 +36,13 @@
 			    <span class="erro" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"></span>
 			    <br><br>
 				
-				<label for="password"><strong>Senha*</strong></label>
-			    <input type="password" th:field="*{user.password}"></input>
+				<label for="password"><strong>Senha*</strong></label>				
+				<div class="input-group" style="border: 1px solid #ccc; border-radius: 4px; padding: 0; margin-bottom: 1em;">						
+				    <input type="password" id="password" name="password"  class="form-control" th:field="*{user.password}" style=" border: none; margin: 0;"></input>
+					<button class="btn btn-outline" type="button" id="mostrarSenha" style="margin: 0;">
+			          <i class="bi bi-eye-slash"></i>
+			        </button>
+				</div>
 			    <span class="erro" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"></span>
 			    <br><br>
 			  </div>
