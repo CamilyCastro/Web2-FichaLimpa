@@ -7,9 +7,9 @@
 <div th:replace="header :: header"></div>
 
 <div class="container">
-  <form method="post" th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" th:object="${publicacao}" 
-  					  id="publi-form">
-  
+  <form method="post" th:action="@{/publicacao/cadastro/{id}(id=${politico.id})}" th:object="${publicacao}"
+  					  id="publi-form" enctype="multipart/form-data">
+
   	<label for="avaliacao"><strong>Avaliação</strong></label>
   	<div class="stars" id="avaliacao">
       <span class="star" data-value="1">&#9733;</span>
@@ -20,7 +20,7 @@
     </div>
     <input type="hidden" id="avaliacaoInput" name="avaliacao" value="0">
     <br><br>
-  	
+
     <label for="titulo"><strong>Título</strong></label>
     <input type="text" th:field="*{titulo}" id="titulo">
     <span class="erro" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
@@ -32,9 +32,9 @@
     <br><br><br>
 
     <label for="anexo"><strong>Anexo</strong></label>
-    <input type="file" th:field="*{anexo}" id="anexo">
+    <input type="file" th:field="*{anexo}" id="anexo" name="anexo" accept="image/png, image/jpeg">
     <br><br>
-    
+
     <button type="submit" class="btn-principal">Cadastrar</button>
   </form>
 </div>

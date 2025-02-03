@@ -1,5 +1,9 @@
 package edu.ifsp.fichaLimpa.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -12,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.ifsp.fichaLimpa.model.Cidadao;
 import edu.ifsp.fichaLimpa.model.Comentarios;
@@ -143,44 +148,77 @@ public class PublicacaoController {
 
 
     @PostMapping(MappingController.Publicacao.cadastro + "/{id}")
-    public String cadastrarPublicacao(@PathVariable("id") Long id, @Valid Publicacao publicacao, Errors errors, @AuthenticationPrincipal UserDetails userDetails, Model model, SessionStatus sessionStatus){
-    	if (errors.hasErrors()){
+    public String cadastrarPublicacao(@PathVariable("id") Long id, @RequestParam("anexo") MultipartFile file,
+                                      @Valid Publicacao publicacao, Errors errors,
+                                      @AuthenticationPrincipal UserDetails userDetails,
+                                      Model model, SessionStatus sessionStatus) {
 
-    		model.addAttribute("publicacao", publicacao);
-			return "publicacao-form";
-    	}
-    	System.out.println("entrei aqui");
+        if (errors.hasErrors()) {
+            errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+            model.addAttribute("publicacao", publicacao);
+            return "publicacao-form";
+        }
+
+        System.out.println("entrei aqui");
         publicacao.setId(null);
 
-        //DEFINIR DATA E HORA AUTOMATICAMENTE
+        // Definir data e hora automaticamente
         publicacao.setDataPublicacao(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         publicacao.setAprovado(false);
         publicacao.setDenunciar("aprovado");
 
         sessionStatus.setComplete();
 
-        Optional<Politico> opt = politicoRepo.findById(id);
-
-        if (opt.isPresent()) {
-
-			Politico politico = opt.get();
-			publicacao.setPolitico(politico);
-		}
+        Optional<Politico> optPolitico = politicoRepo.findById(id);
+        if (optPolitico.isPresent()) {
+            Politico politico = optPolitico.get();
+            publicacao.setPolitico(politico);
+        }
 
         Optional<User> optUser = userRepo.findById(userDetails.getUsername());
-
-        if(optUser.isPresent()) {
-        	User user = optUser.get();
-        	Cidadao cidadao = user.getCidadao();
-        	publicacao.setCidadao(cidadao);
-        	publicacaoRepositorio.save(publicacao);
-        	//model.addAttribute("sucess", true);
+        if (optUser.isPresent()) {
+            User user = optUser.get();
+            Cidadao cidadao = user.getCidadao();
+            if (cidadao != null) {
+                publicacao.setCidadao(cidadao);
+            } else {
+                System.out.println("Cidadao não encontrado para o usuário.");
+                model.addAttribute("error", "Cidadao não encontrado.");
+                return "publicacao-form";
+            }
         }
-        
-		return "redirect:/politico/perfil/" + id + "?success=true";
+
+        publicacao = publicacaoRepositorio.save(publicacao);
+
+        if (file != null && !file.isEmpty()) {
+            try {
+                String nomeArquivo = StringUtils.cleanPath(file.getOriginalFilename());
+
+                Path uploadPath = Paths.get("src/main/resources/static/uploads/");
+
+                Path targetLocation = uploadPath.resolve(nomeArquivo);
+                file.transferTo(targetLocation);
+
+                publicacao.setAnexoPath(nomeArquivo);
+
+                System.out.println("Arquivo salvo com sucesso em: " + targetLocation.toString());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("uploadError", "Falha ao salvar o arquivo.");
+                return "publicacao-form";
+            }
+        }
+
+        // Atualizar a publicação com o caminho do anexo
+        publicacaoRepositorio.save(publicacao);
+
+        // Redirecionar para o perfil do político com o parâmetro de sucesso
+        return "redirect:/politico/perfil/" + id + "?success=true";
     }
 
-	@PostMapping(MappingController.Publicacao.edit + "/{id}")
+
+    @PostMapping(MappingController.Publicacao.edit + "/{id}")
     public String editaPublicacao(@PathVariable("id") Long id, @Valid @ModelAttribute Publicacao publicacao, Errors errors, Model model ) {
 
 		if (errors.hasErrors()){

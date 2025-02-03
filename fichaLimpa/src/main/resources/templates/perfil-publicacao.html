@@ -52,6 +52,14 @@
 	        <span th:text="${publicacao.avaliacao}">
 	    </div>
 
+
+		<div style="display: flex;" class="inline">
+			<span class="span-bold">Anexo: </span>
+			<img th:src="@{${publicacao.anexoPath}}"/>
+			<br><br><br>
+			<p th:text="${publicacao.anexoPath}"></p>
+		</div>
+
 		<div class="comentarios inline">
 	        <hr>	
 	        <h5>Comentários</h5>

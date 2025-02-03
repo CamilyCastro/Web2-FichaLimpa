@@ -11,8 +11,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
+@Getter
 @Data
 @Entity
 public class Publicacao {
@@ -34,8 +37,10 @@ public class Publicacao {
     @NotBlank(message = "Prenchimento obrigatório.")
     private String descricao;
 
-    //Procrurar um tipo arquivos
-    private String anexo;
+    private String anexoPath;  // Novo campo para armazenar o caminho do arquivo
+
+    @Transient
+    private MultipartFile anexo;
 
     @NotNull(message = "Prenchimento obrigatório.")
     private int avaliacao;
@@ -64,5 +69,10 @@ public class Publicacao {
     public void adicionarComentarios(Comentarios coment){
         comentarios.add(coment);
     }
+
+    public String getAnexoPath() {
+        return this.anexoPath != null ? "/uploads/" + this.anexoPath : "";
+    }
+
 
 }

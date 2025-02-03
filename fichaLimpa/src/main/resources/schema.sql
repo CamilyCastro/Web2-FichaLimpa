@@ -58,11 +58,12 @@ alter table endereco add foreign key (cidadao) references cidadao(id);
 
 drop table if exists publicacao;
 create table publicacao(
-	id identity primary key,
+    id identity primary key,
     data_publicacao timestamp not null,
     titulo varchar(40) not null,
     descricao text,
     anexo varchar(10),
+    anexo_path varchar(255),
     id_cidadao bigint not null,
     resposta varchar,
     aprovado boolean not null,
