@@ -177,7 +177,7 @@ public class PublicacaoController {
         	//model.addAttribute("sucess", true);
         }
         
-		return "redirect:/politico/perfil/" + id + "?success=true";
+		return "redirect:/politico/perfil/" + id ;
     }
 
 	@PostMapping(MappingController.Publicacao.edit + "/{id}")
@@ -308,7 +308,7 @@ public class PublicacaoController {
 			} else if(status.equals("analise")) {
 				publicacao.setDenunciar(status);
 				publicacaoRepositorio.save(publicacao);
-				return "redirect:/publicacao/perfil/" + id + "?success=true";
+				return "redirect:/publicacao/perfil/" + id;
 			}
 		}
 		

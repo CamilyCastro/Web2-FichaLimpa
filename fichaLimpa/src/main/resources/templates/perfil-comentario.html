@@ -17,7 +17,7 @@
 					<button type="submit" class="btn btn-outline-danger" style="margin-top: 0;">Excluir <i class="bi bi-trash3"></i></button>
 				</form>
 			
-				<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}" method="post">
+				<form th:action="@{/comentario/aprovar/{id}(id=${comentario.id})}" method="post" id="denuncia-form">
 					<input type="hidden" name="status" value="analise" />
 					<button title="Denunciar publicação" type="submit" class="btn btn-denunciar" style="margin-top: 0;"><i class="bi bi-exclamation-octagon"></i></button>
 				</form>
@@ -30,13 +30,7 @@
 		</div>
 	</div>
 	
-	<!-- Pop-up -->
-    <div id="popup-overlay"></div>
-    <div id="popup">
-        <p>Estamos avaliando sua denuncia.</p>
-    </div>
-    
-    <script src="/js/popupAprovacao.js"></script>
+	<script src="/js/popupDenuncias.js"></script>
     
 </body>
 </html>

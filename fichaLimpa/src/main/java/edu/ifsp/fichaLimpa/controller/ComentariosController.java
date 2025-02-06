@@ -156,7 +156,7 @@ public class ComentariosController {
 			} else if(status.equals("analise")) {
 				comentarios.setDenunciar(status);
 				comentariosRepositorio.save(comentarios);
-				return "redirect:/comentario/perfil/" + id + "?success=true";
+				return "redirect:/comentario/perfil/" + id;
 			}
 		}
 
